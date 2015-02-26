@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "LoadCategory";
+}
+
+<h2>LoadCategory</h2>
+
+@using (Html.BeginForm())
+{
+    <br />
+    <div>
+
+        @Html.Label(Session.SessionID.ToString());
+        <br />
+        @Html.Label(DateTime.Today.Date.ToString());
+        <br />
+    </div>
+    <div>
+        @Html.Label("select Category")
+    </div>
+    <div>
+        @if (ViewData.ContainsKey("Category"))
+        {
+            @Html.DropDownList("Category", ViewData["Category"] as List<SelectListItem>, new { style = "width:250px", @class = "dropdown1" })
+        }
+    </div>
+    <br />
+    <div>
+        @Html.Label("select Product")
+    </div>
+    <div>
+        @Html.DropDownList("Product", new SelectList(string.Empty, "Value", "Text"), "Please select a product", new { style = "width:250px", @class = "dropdown1" })
+    </div>
+
+    <br />
+    <div>
+        @Html.Label("select Product size")
+    </div>
+    <div>
+        @Html.DropDownList("ProductSize", new SelectList(string.Empty, "Value", "Text"), "Please select Product Size", new { style = "width:250px", @class = "dropdown1" })
+    </div>
+    <br /> <br /> <br />
+    <div>
+        <button name="AddProduct" type="submit"> Add Another Product </button>
+    </div>
+
+    <script src="/Scripts/jquery-1.10.2.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+ //Get Product on Category index change
+    $(document).ready(function () {
+         $("#Category").change(function () {
+             $("#Product").empty();
+             $("#Product").append('<option value="' + '0' + '">' + 'Select Product' + '</option>');
+             $("#ProductSize").append('<option value="' + '0' + '">' + 'Select Product size' + '</option>');
+            $.ajax({type: 'POST', url: '@Url.Action("GetProduct")', dataType: 'json', data: { id: $("#Category").val() },
+                success: function (Products) {
+                    $.each(Products, function (i, Product) {
+                    $("#Product").append('<option value="' + Product.Value + '">' + Product.Text + '</option>');
+                    });
+                },
+                error: function (ex) {alert('Failed to retrieve product.' + ex);}
+            });
+           return false;
+        })
+    });
+
+    </script>
+
+    <script type="text/javascript">
+    //Get Productsize of respective product
+   // $(document).ready(function () {
+        $("#Product").change(function () {
+            $("#ProductSize").empty();
+            $("#ProductSize").append('<option value="' + '0' + '">' + 'Select Product size' + '</option>');
+              $.ajax({
+                  type: 'POST', url: '@Url.Action("GetProductSize")', dataType: 'json',
+                  data: { id: $("#Product").val() },
+                   success: function (Sizez) { $.each(Sizez, function (i, Size) {
+                                 $("#ProductSize").append('<option value="' + Size.Value + '">' + Size.Text + '</option>');
+                });
+                },
+                error: function (ex) { alert('Failed to retrieve Product Size.' + ex);}
+            });
+            return false;
+        })
+   // });
+    </script>
+
+}

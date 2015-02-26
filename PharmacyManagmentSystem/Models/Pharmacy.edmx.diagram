@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f3b9628a6ea2481791b5800b9b1054a9" Name="Diagram1">
+        <EntityTypeShape EntityType="pharmacyModel.authority" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="pharmacyModel.borrowlend" Width="1.5" PointX="15" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="pharmacyModel.borrowlendstock" Width="1.5" PointX="17.25" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="pharmacyModel.category" Width="1.5" PointX="1.5" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="pharmacyModel.department" Width="1.5" PointX="3.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="pharmacyModel.designation" Width="1.5" PointX="3.75" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="pharmacyModel.employee" Width="1.5" PointX="6" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="pharmacyModel.employerstock" Width="1.5" PointX="8.25" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="pharmacyModel.order" Width="1.5" PointX="8.25" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="pharmacyModel.orderdetail" Width="1.5" PointX="12.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="pharmacyModel.product" Width="1.5" PointX="3.75" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="pharmacyModel.productdetail" Width="1.5" PointX="6" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="pharmacyModel.productsorderd" Width="1.5" PointX="10.5" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="pharmacyModel.productsupplied" Width="1.5" PointX="8.25" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="pharmacyModel.sale" Width="1.5" PointX="8.25" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="pharmacyModel.solditem" Width="1.5" PointX="10.5" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="pharmacyModel.stock" Width="1.5" PointX="15" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="pharmacyModel.stocksale" Width="1.5" PointX="17.25" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="pharmacyModel.supplier" Width="1.5" PointX="6" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="pharmacyModel.user" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <AssociationConnector Association="pharmacyModel.fk_Authorities_users1" ManuallyRouted="false" />
+        <AssociationConnector Association="pharmacyModel.fk_BorrowLendStock_BorrowLend1" ManuallyRouted="false" />
+        <AssociationConnector Association="pharmacyModel.fk_BorrowLendStock_Stock1" ManuallyRouted="false" />
+        <AssociationConnector Association="pharmacyModel.fk_Product_Category1" ManuallyRouted="false" />
+        <AssociationConnector Association="pharmacyModel.fk_Employee_Department1" ManuallyRouted="false" />
+        <AssociationConnector Association="pharmacyModel.fk_Designation_Designation1" ManuallyRouted="false" />
+        <AssociationConnector Association="pharmacyModel.fk_Employee_Designation1" ManuallyRouted="false" />
+        <AssociationConnector Association="pharmacyModel.fk_Employee_Employee1" ManuallyRouted="false" />
+        <AssociationConnector Association="pharmacyModel.fk_Employee_Users1" ManuallyRouted="false" />
+        <AssociationConnector Association="pharmacyModel.fk_EmployerStock_Employee1" ManuallyRouted="false" />
+        <AssociationConnector Association="pharmacyModel.fk_Order_Employee1" ManuallyRouted="false" />
+        <AssociationConnector Association="pharmacyModel.fk_Sales_Employee1" ManuallyRouted="false" />
+        <AssociationConnector Association="pharmacyModel.fk_EmployerStock_Stock1" ManuallyRouted="false" />
+        <AssociationConnector Association="pharmacyModel.fk_ProductsOrderd_Order1" ManuallyRouted="false" />
+        <AssociationConnector Association="pharmacyModel.fk_OrderDetail_ProductsOrderd1" ManuallyRouted="false" />
+        <AssociationConnector Association="pharmacyModel.fk_Stock_OrderDetails1" ManuallyRouted="false" />
+        <AssociationConnector Association="pharmacyModel.fk_productDetails_Product1" ManuallyRouted="false" />
+        <AssociationConnector Association="pharmacyModel.fk_product_suplied_ProductDetails1" ManuallyRouted="false" />
+        <AssociationConnector Association="pharmacyModel.fk_ProductsOrderd_ProductSupplied1" ManuallyRouted="false" />
+        <AssociationConnector Association="pharmacyModel.fk_ProductSuplied_Supplier1" ManuallyRouted="false" />
+        <AssociationConnector Association="pharmacyModel.fk_SoldItems_Sales1" ManuallyRouted="false" />
+        <AssociationConnector Association="pharmacyModel.fk_StockSales_Sales1" ManuallyRouted="false" />
+        <AssociationConnector Association="pharmacyModel.fk_StockSales_Stock1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
