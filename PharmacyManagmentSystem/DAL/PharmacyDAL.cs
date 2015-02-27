@@ -37,14 +37,11 @@ namespace PharmacyManagmentSystem.DAL
             return list;
         }
 
-        public object GetUnit(string id)
+        public SelectList GetUnit(string id)
         {
             var ID = int.Parse(id);
-            var data = db.categories.Where(c => c.categoryId == ID);
-            return data.FirstOrDefault();
-            //var ID = int.Parse(id);
-            //SelectList list = new SelectList(db.categories.Where(c => c.categoryId == ID), "categoryId", "catagoryUnit");
-            //return list;
+            SelectList list = new SelectList(db.categories.Where(c => c.categoryId == ID), "categoryId", "categoryUnit");
+            return list;
         }
     }
     

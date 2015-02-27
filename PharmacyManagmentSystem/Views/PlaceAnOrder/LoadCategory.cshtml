@@ -31,8 +31,8 @@
     <div>
         @Html.Label("select Product size")
         @Html.DropDownList("ProductSize", new SelectList(string.Empty, "Value", "Text"), "Please select Product Size", new { style = "width:250px", @class = "dropdown1" })
-        @Html.Label("Unit", "Unit")
-    </div>
+        <label id="Unit">Unit</label>
+     </div>
     <br />
     <div>
         @Html.Label("select Supplier")
@@ -47,6 +47,8 @@
     <div>
         <button name="AddProductBtn" type="submit"> Add Another Product </button> 
         <button name="OrderBtn" type="submit"> Order </button>
+        <br/>
+        <label id="ErrorLbl"></label>
     </div>
     <br /> 
     <div>
@@ -67,23 +69,28 @@
     $(document).ready(function () {
          $("#Category").change(function () {
              $("#Product").empty();
-             $("#Product").append('<option value="' + '0' + '">' + 'Select Product' + '</option>');
-             $("#ProductSize").append('<option value="' + '0' + '">' + 'Select Product size' + '</option>');                   
+             $("#ProductSize").empty();
+             $("#Supplier").empty();
+            
              $.ajax({
                  type: 'POST', url: '@Url.Action("GetProduct")', dataType: 'json', data: { id: $("#Category").val() },
                 success: function (Products) {
                     $.each(Products, function (i, Product) {
                     $("#Product").append('<option value="' + Product.Value + '">' + Product.Text + '</option>');
                     });
+                    document.getElementById("ErrorLbl").innerHTML = "";
                 },
-                error: function (ex) {alert('Failed to retrieve product.' + ex);}
+                error: function (ex) { document.getElementById("ErrorLbl").innerHTML = "please Select a Category"; }
              });
              $.ajax({  //Get unit of Category on index change
-                 type: 'POST', url: '@Url.Action("GetUnit")', dataType: 'application/json', data: { id: $("#Category").val() },
-                 success: function (Units) {                    
-                         document.getElementById("Quantity").innerHTML = unit.categoryUnit.toString();                     
+                 type: 'POST', url: '@Url.Action("GetUnit")', dataType: 'json', data: { id: $("#Category").val() },
+                 success: function (Units) {
+                     $.each(Units, function (i, unit) {
+                         document.getElementById("Unit").innerHTML = unit.Text;
+                         document.getElementById("ErrorLbl").innerHTML = "";
+                      });                                            
                  },
-                 error: function (ex) { alert('Failed to retrieve Unit.' + ex); }
+                 error: function (ex) { document.getElementById("ErrorLbl").innerHTML = "please Select a Category"; }
              });
            return false;
         })
@@ -96,7 +103,6 @@
        // $(document).ready(function () {
         $("#Product").change(function () {
             $("#ProductSize").empty();
-            $("#ProductSize").append('<option value="' + '0' + '">' + 'Select Product size' + '</option>');
               $.ajax({
                   type: 'POST', url: '@Url.Action("GetProductSize")', dataType: 'json',
                   data: { id: $("#Product").val() },
