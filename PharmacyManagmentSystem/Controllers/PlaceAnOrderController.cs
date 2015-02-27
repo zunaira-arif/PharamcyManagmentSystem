@@ -4,30 +4,40 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using PharmacyManagmentSystem.DAL;
 namespace PharmacyManagmentSystem.Controllers
 {
     public class PlaceAnOrderController : Controller
     {
-        private pharmacyEntities db = new pharmacyEntities();
-        
+        PharmacyDAL pdal = new PharmacyDAL();
+               
         public ActionResult LoadCategory()
         {
-            ViewData["Category"] = new SelectList(db.categories, "catadoryId", "categoryName");
+            ViewData["Category"] = pdal.GetCategory();
             return View();
         }
         
         public JsonResult GetProduct(string id)
-        {
-            var ID = int.Parse(id);
-            return Json(new SelectList(db.products.Where(p => p.catadoryId == ID), "productId", "productName"));
+        {          
+            return Json( pdal.GetProduct(id));
         }
 
         public JsonResult GetProductSize(string id)
         {
-            var ID = int.Parse(id);
-            return Json(new SelectList(db.productdetails.Where(p => p.productId == ID), "productDetailId", "productSize"));
+
+            return Json(pdal.GetProductSize(id));
          }
 
+        public JsonResult GetSupplier(string id)
+        {
+            return Json(pdal.GetSupplier(id));
+        }
+
+        public JsonResult GetUnit(string id)
+        {
+            return Json(pdal.GetUnit(id),JsonRequestBehavior.AllowGet);
+          
+        }
+       
 	}
 }

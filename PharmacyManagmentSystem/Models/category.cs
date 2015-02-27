@@ -19,7 +19,7 @@ namespace PharmacyManagmentSystem.Models
             this.products = new HashSet<product>();
         }
     
-        public int catadoryId { get; set; }
+        public int categoryId { get; set; }
         public string categoryName { get; set; }
         public string categoryUnit { get; set; }
     

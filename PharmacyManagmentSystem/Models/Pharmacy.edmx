@@ -33,9 +33,9 @@
         </EntityType>
         <EntityType Name="category">
           <Key>
-            <PropertyRef Name="catadoryId" />
+            <PropertyRef Name="categoryId" />
           </Key>
-          <Property Name="catadoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="categoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="categoryName" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="categoryUnit" Type="varchar" MaxLength="45" Nullable="false" />
         </EntityType>
@@ -114,7 +114,7 @@
           <Property Name="productId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="productName" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="ProductManf" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="catadoryId" Type="int" Nullable="false" />
+          <Property Name="categoryId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="productdetails">
           <Key>
@@ -345,10 +345,10 @@
           <End Role="product" Type="Self.product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="category">
-              <PropertyRef Name="catadoryId" />
+              <PropertyRef Name="categoryId" />
             </Principal>
             <Dependent Role="product">
-              <PropertyRef Name="catadoryId" />
+              <PropertyRef Name="categoryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -623,9 +623,9 @@
         </EntityType>
         <EntityType Name="category">
           <Key>
-            <PropertyRef Name="catadoryId" />
+            <PropertyRef Name="categoryId" />
           </Key>
-          <Property Name="catadoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="categoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="categoryName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="categoryUnit" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="products" Relationship="Self.fk_Product_Category1" FromRole="category" ToRole="product" />
@@ -723,7 +723,7 @@
           <Property Name="productId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="productName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ProductManf" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="catadoryId" Type="Int32" Nullable="false" />
+          <Property Name="categoryId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="category" Relationship="Self.fk_Product_Category1" FromRole="product" ToRole="category" />
           <NavigationProperty Name="productdetails" Relationship="Self.fk_productDetails_Product1" FromRole="product" ToRole="productdetails" />
         </EntityType>
@@ -869,10 +869,10 @@
           <End Role="product" Type="Self.product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="category">
-              <PropertyRef Name="catadoryId" />
+              <PropertyRef Name="categoryId" />
             </Principal>
             <Dependent Role="product">
-              <PropertyRef Name="catadoryId" />
+              <PropertyRef Name="categoryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1256,7 +1256,7 @@
           <EntitySetMapping Name="categories">
             <EntityTypeMapping TypeName="pharmacyModel.category">
               <MappingFragment StoreEntitySet="category">
-                <ScalarProperty Name="catadoryId" ColumnName="catadoryId" />
+                <ScalarProperty Name="categoryId" ColumnName="categoryId" />
                 <ScalarProperty Name="categoryName" ColumnName="categoryName" />
                 <ScalarProperty Name="categoryUnit" ColumnName="categoryUnit" />
               </MappingFragment>
@@ -1342,7 +1342,7 @@
                 <ScalarProperty Name="productId" ColumnName="productId" />
                 <ScalarProperty Name="productName" ColumnName="productName" />
                 <ScalarProperty Name="ProductManf" ColumnName="ProductManf" />
-                <ScalarProperty Name="catadoryId" ColumnName="catadoryId" />
+                <ScalarProperty Name="categoryId" ColumnName="categoryId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

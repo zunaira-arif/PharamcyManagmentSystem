@@ -22,7 +22,7 @@ namespace PharmacyManagmentSystem.Models
         public int productId { get; set; }
         public string productName { get; set; }
         public string ProductManf { get; set; }
-        public int catadoryId { get; set; }
+        public int categoryId { get; set; }
     
         public virtual category category { get; set; }
         public virtual ICollection<productdetail> productdetails { get; set; }
