@@ -122,6 +122,8 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PlaceAnOrderController.cs" />
+    <Compile Include="Controllers\ProductSuppliedController.cs" />
+    <Compile Include="Controllers\SupplierController.cs" />
     <Compile Include="DAL\PharmacyDAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -257,6 +259,16 @@
     <Content Include="Views\Category\Details.cshtml" />
     <Content Include="Views\Category\Edit.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\Supplier\Create.cshtml" />
+    <Content Include="Views\Supplier\Delete.cshtml" />
+    <Content Include="Views\Supplier\Details.cshtml" />
+    <Content Include="Views\Supplier\Edit.cshtml" />
+    <Content Include="Views\Supplier\Index.cshtml" />
+    <Content Include="Views\ProductSupplied\Create.cshtml" />
+    <Content Include="Views\ProductSupplied\Delete.cshtml" />
+    <Content Include="Views\ProductSupplied\Details.cshtml" />
+    <Content Include="Views\ProductSupplied\Edit.cshtml" />
+    <Content Include="Views\ProductSupplied\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

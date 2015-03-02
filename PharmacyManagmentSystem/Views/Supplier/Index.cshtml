@@ -1,0 +1,45 @@
+﻿@model IEnumerable<PharmacyManagmentSystem.Models.supplier>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.supplierName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.supplierContactNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.supplierEmail)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.supplierName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.supplierContactNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.supplierEmail)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.supplierId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.supplierId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.supplierId })
+        </td>
+    </tr>
+}
+
+</table>

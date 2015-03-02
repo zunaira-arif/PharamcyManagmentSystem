@@ -1,0 +1,42 @@
+﻿@model PharmacyManagmentSystem.Models.supplier
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>supplier</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.supplierName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.supplierName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.supplierContactNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.supplierContactNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.supplierEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.supplierEmail)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.supplierId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

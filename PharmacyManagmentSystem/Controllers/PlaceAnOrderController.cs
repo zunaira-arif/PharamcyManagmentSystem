@@ -36,8 +36,7 @@ namespace PharmacyManagmentSystem.Controllers
         public JsonResult GetUnit(string id)
         {
             return Json(pdal.GetUnit(id));
-          
-        }
+         }
        
 	}
 }

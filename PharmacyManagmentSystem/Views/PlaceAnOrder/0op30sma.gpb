@@ -1,10 +1,9 @@
 ﻿@{
     ViewBag.Title = "LoadCategory";
-   
 }
 
 <h2>Place an order</h2>
-@{string inc2 = ""; }
+@{ var tableRowIncrement = 1; }
 @using (Html.BeginForm())
 {
     <br />
@@ -61,7 +60,7 @@
     <div style="width:850px">
         @Html.Label("Ordered Items Detail")
         <br />
-    
+       
    <table id="ProductsTable" style="width:100%;" border="1">
         <thead>
             <tr>
@@ -82,7 +81,6 @@
     <script src="/Scripts/jquery-1.10.2.js" type="text/javascript"></script>
     <script src="/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
     <script type="text/javascript">
-        @{int tableRowIncrement = 0;}
 /////////////////////////////Get Product on Category index change\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
         $("#Category").change(function () {
             $("#Product").empty();
@@ -151,8 +149,8 @@
 
 ///////////////////////////// add row in table on button click Add product\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
         $('#AddProductBtn').click(function (e) {
-            @{tableRowIncrement = tableRowIncrement + 1; string inc = tableRowIncrement.ToString();}
             e.preventDefault();
+            @{string inc = tableRowIncrement.ToString();}
             if ($("#QuantityTextbox").val() < 1 || $("#QuantityTextbox").val().length < 1 )
             {
                 document.getElementById("ErrorLblQuantity").innerHTML = "please  enter a valid size"
@@ -162,10 +160,11 @@
                 document.getElementById("ErrorLblSupplier").innerHTML = "please select supplier"
             }
             else {
+                alert(inc)
                 document.getElementById("ErrorLblQuantity").innerHTML = " "
                 document.getElementById("ErrorLblSupplier").innerHTML = " "
                 var newRow = "<tr >" +
-                        "<td>" +'@inc' + "</td>" +
+                        "<td>" + inc + "</td>" +
                         "<td>" + $('#Category :selected').text() + "</td>" +
                         "<td>" + $('#Product :selected').text() + "</td>" +
                         "<td>" + $('#ProductSize :selected').text() + "</td>" +
@@ -174,7 +173,7 @@
                         "<td>" + "Delete " + "</td>" +
                         "</tr>";
                 $(newRow).appendTo($("#ProductsTable"))
-             
+                 @{ tableRowIncrement++;}
               }                         
         });
    ///////////////////////////// add row in table on button click Add product\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

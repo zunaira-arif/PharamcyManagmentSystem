@@ -17,7 +17,6 @@ namespace PharmacyManagmentSystem.DAL
         {
             return new SelectList(db.categories, "categoryId", "categoryName");
         }
-
         public SelectList GetProduct(string id)
         {
             var ID = int.Parse(id);
@@ -33,16 +32,26 @@ namespace PharmacyManagmentSystem.DAL
         public SelectList GetSupplier(string id)
         {
             var ID = int.Parse(id);
-            SelectList list=new SelectList(db.productsupplieds.Where(c => c.productDetailId == ID), "supplierId", "supplierName");
+            IQueryable<productsupplied> outer = db.productsupplieds;
+            IQueryable<supplier> inner = db.suppliers;
+            var results = outer.Where(product => product.productDetailId == ID)
+                               .Join(
+                                    inner,
+                                    product => product.supplierId,
+                                    supplier => supplier.supplierId,
+                                    (product, supplier) => new
+                                    {
+                                        supplierID = supplier.supplierId,
+                                        Suppliername = supplier.supplierName
+                                    });
+            SelectList list = new SelectList(results, "supplierID", "Suppliername");
             return list;
         }
-
         public SelectList GetUnit(string id)
         {
             var ID = int.Parse(id);
             SelectList list = new SelectList(db.categories.Where(c => c.categoryId == ID), "categoryId", "categoryUnit");
             return list;
         }
-    }
-    
+     }    
 }
