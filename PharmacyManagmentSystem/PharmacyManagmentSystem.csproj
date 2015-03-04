@@ -121,6 +121,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PlaceAnOrderController.cs" />
     <Compile Include="Controllers\ProductSuppliedController.cs" />
     <Compile Include="Controllers\SupplierController.cs" />
@@ -129,79 +130,79 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\authority.cs">
-      <DependentUpon>Pharmacy.tt</DependentUpon>
+      <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\borrowlend.cs">
-      <DependentUpon>Pharmacy.tt</DependentUpon>
+      <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\borrowlendstock.cs">
-      <DependentUpon>Pharmacy.tt</DependentUpon>
+      <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\category.cs">
-      <DependentUpon>Pharmacy.tt</DependentUpon>
+      <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\department.cs">
-      <DependentUpon>Pharmacy.tt</DependentUpon>
+      <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\designation.cs">
-      <DependentUpon>Pharmacy.tt</DependentUpon>
+      <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\employee.cs">
-      <DependentUpon>Pharmacy.tt</DependentUpon>
+      <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\employerstock.cs">
-      <DependentUpon>Pharmacy.tt</DependentUpon>
+      <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\order.cs">
-      <DependentUpon>Pharmacy.tt</DependentUpon>
+      <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\orderdetail.cs">
-      <DependentUpon>Pharmacy.tt</DependentUpon>
+      <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Pharmacy.Context.cs">
+    <Compile Include="Models\pharmacy.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Pharmacy.Context.tt</DependentUpon>
+      <DependentUpon>pharmacy.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Pharmacy.cs">
+    <Compile Include="Models\pharmacy.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Pharmacy.tt</DependentUpon>
+      <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Pharmacy.Designer.cs">
+    <Compile Include="Models\pharmacy.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Pharmacy.edmx</DependentUpon>
+      <DependentUpon>pharmacy.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\product.cs">
-      <DependentUpon>Pharmacy.tt</DependentUpon>
+      <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\productdetail.cs">
-      <DependentUpon>Pharmacy.tt</DependentUpon>
+      <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\productsorderd.cs">
-      <DependentUpon>Pharmacy.tt</DependentUpon>
+      <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\productsupplied.cs">
-      <DependentUpon>Pharmacy.tt</DependentUpon>
+      <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sale.cs">
-      <DependentUpon>Pharmacy.tt</DependentUpon>
+      <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\solditem.cs">
-      <DependentUpon>Pharmacy.tt</DependentUpon>
+      <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\stock.cs">
-      <DependentUpon>Pharmacy.tt</DependentUpon>
+      <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\stocksale.cs">
-      <DependentUpon>Pharmacy.tt</DependentUpon>
+      <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\supplier.cs">
-      <DependentUpon>Pharmacy.tt</DependentUpon>
+      <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\user.cs">
-      <DependentUpon>Pharmacy.tt</DependentUpon>
+      <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -214,22 +215,22 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\Pharmacy.edmx">
+    <EntityDeploy Include="Models\pharmacy.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Pharmacy.Designer.cs</LastGenOutput>
+      <LastGenOutput>pharmacy.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\Pharmacy.Context.tt">
+    <Content Include="Models\pharmacy.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Pharmacy.edmx</DependentUpon>
-      <LastGenOutput>Pharmacy.Context.cs</LastGenOutput>
+      <DependentUpon>pharmacy.edmx</DependentUpon>
+      <LastGenOutput>pharmacy.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\Pharmacy.edmx.diagram">
-      <DependentUpon>Pharmacy.edmx</DependentUpon>
+    <Content Include="Models\pharmacy.edmx.diagram">
+      <DependentUpon>pharmacy.edmx</DependentUpon>
     </Content>
-    <Content Include="Models\Pharmacy.tt">
+    <Content Include="Models\pharmacy.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Pharmacy.edmx</DependentUpon>
-      <LastGenOutput>Pharmacy.cs</LastGenOutput>
+      <DependentUpon>pharmacy.edmx</DependentUpon>
+      <LastGenOutput>pharmacy.cs</LastGenOutput>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -269,6 +270,7 @@
     <Content Include="Views\ProductSupplied\Details.cshtml" />
     <Content Include="Views\ProductSupplied\Edit.cshtml" />
     <Content Include="Views\ProductSupplied\Index.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
