@@ -4,7 +4,7 @@
 }
 
 <h2>Place an order</h2>
-@{string inc2 = ""; }
+@{ int tableRowIncrement=0;}
 @using (Html.BeginForm())
 {
     <br />
@@ -61,8 +61,7 @@
     <div style="width:850px">
         @Html.Label("Ordered Items Detail")
         <br />
-    
-   <table id="ProductsTable" style="width:100%;" border="1">
+       <table id="ProductsTable" style="width:100%;" border="1">
         <thead>
             <tr>
                  <td>Sr.No&nbsp;</td>
@@ -77,12 +76,12 @@
         <tbody>              
         </tbody>
    </table>
-</div>
- }
+  </div>
+}
     <script src="/Scripts/jquery-1.10.2.js" type="text/javascript"></script>
     <script src="/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
     <script type="text/javascript">
-        @{int tableRowIncrement = 0;}
+       
 /////////////////////////////Get Product on Category index change\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
         $("#Category").change(function () {
             $("#Product").empty();
@@ -102,7 +101,7 @@
             });
  ////////////////////////////////////Get unit of Category on index change\\\\\\\\\\\\\\\\\\\\\\\\\\
             $.ajax({  
-                type: 'POST', url: '@Url.Action("GetUnit")', dataType: 'json', data: { id: $("#Category").val() },
+                type: 'POST', url: '@Url.Action("GetUnit")', dataType: 'json', data: {id: $("#Category").val() },
                 success: function (Units) {
                     $.each(Units, function (i, unit) {
                         document.getElementById("Unit").innerHTML = unit.Text;
@@ -153,6 +152,60 @@
         $('#AddProductBtn').click(function (e) {
             @{tableRowIncrement = tableRowIncrement + 1; string inc = tableRowIncrement.ToString();}
             e.preventDefault();
+
+            if ($("#QuantityTextbox").val() < 1 || $("#QuantityTextbox").val().length < 1 )
+            {
+                document.getElementById("ErrorLblQuantity").innerHTML = "please  enter a valid size"
+            }
+            else if ($('#Supplier :selected').val() < 1 || $('#Supplier :selected').val()==null)
+            {
+                document.getElementById("ErrorLblSupplier").innerHTML = "please select supplier"
+            }
+            else {
+                alert($('#ProductSize :selected').val());
+                document.getElementById("ErrorLblQuantity").innerHTML = " "
+                document.getElementById("ErrorLblSupplier").innerHTML = " "
+                $.ajax({
+                    type: 'POST', url: '@Url.Action("AddOrderDetail")', dataType: 'json',
+                    data: { ProductSuppliedID: $('#ProductSize :selected').val(), SupplierID:$('#Supplier :selected').val(), quantity: $("#QuantityTextbox").val()  },
+                    success: function (supplierz) {
+                        alert("saved");
+                    },
+                    error: function (ex) { alert("not saved"); }
+                });
+
+
+                var newRow = "<tr >" +
+                        "<td>" +'@inc' + "</td>" +
+                        "<td>" + $('#Category :selected').text() + "</td>" +
+                        "<td>" + $('#Product :selected').text() + "</td>" +
+                        "<td>" + $('#ProductSize :selected').text() + "</td>" +
+                        "<td>" + $('#Supplier :selected').text() + "</td>" +
+                       "<td>" + $("#QuantityTextbox").val() + "</td>" +
+                        "<td>" + "Delete " + "</td>" +
+                        "</tr>";
+                $(newRow).appendTo($("#ProductsTable"))
+
+             
+              }                         
+        });
+   ///////////////////////////// add row in table on button click Add product\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+        $('#OrderBtn').click(function (e) {
+            e.preventDefault();
+           
+        });
+
+        ///////////////////////////// gridContent\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+    </script>
+       
+  
+
+
+ @*$('#AddProductBtn').click(function (e) {
+@{tableRowIncrement = tableRowIncrement + 1; string inc = tableRowIncrement.ToString();}
+            e.preventDefault();
             if ($("#QuantityTextbox").val() < 1 || $("#QuantityTextbox").val().length < 1 )
             {
                 document.getElementById("ErrorLblQuantity").innerHTML = "please  enter a valid size"
@@ -164,35 +217,28 @@
             else {
                 document.getElementById("ErrorLblQuantity").innerHTML = " "
                 document.getElementById("ErrorLblSupplier").innerHTML = " "
-                var newRow = "<tr >" +
-                        "<td>" +'@inc' + "</td>" +
-                        "<td>" + $('#Category :selected').text() + "</td>" +
-                        "<td>" + $('#Product :selected').text() + "</td>" +
-                        "<td>" + $('#ProductSize :selected').text() + "</td>" +
-                        "<td>" + $('#Supplier :selected').text() + "</td>" +
-                       "<td>" + $("#QuantityTextbox").val() + "</td>" +
-                        "<td>" + "Delete " + "</td>" +
-                        "</tr>";
+                var newRow = "<tr>
+    " +
+    "
+    <td>" +'@inc' + "</td>" +
+    "
+    <td>" + $('#Category :selected').text() + "</td>" +
+    "
+    <td>" + $('#Product :selected').text() + "</td>" +
+    "
+    <td>" + $('#ProductSize :selected').text() + "</td>" +
+    "
+    <td>" + $('#Supplier :selected').text() + "</td>" +
+    "
+    <td>" + $("#QuantityTextbox").val() + "</td>" +
+    "
+    <td>" + "Delete " + "</td>" +
+    "
+</tr>";
                 $(newRow).appendTo($("#ProductsTable"))
-             
-              }                         
-        });
-   ///////////////////////////// add row in table on button click Add product\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-        $('#--------------').click(function (e) {
-            e.preventDefault();
-            var newRow = "<tr ><td>" + $('#Category :selected').text() + "</td><td>" + $('#Product :selected').text() + "</td><td>" +
-             $('#ProductSize :selected').text() + "<td>" + $('#Supplier :selected').text() + "</td><td>" + $("#QuantityTextbox").val() + "</td><td>" +
-             " " + "</td></tr>";
-            $(newRow).appendTo($("#ProductsTable"))
-        });
 
-    
-    </script>
-       
-  
-
-
-
+              }
+        });*@
 
 
 

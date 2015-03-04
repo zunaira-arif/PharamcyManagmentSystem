@@ -10,6 +10,7 @@ namespace PharmacyManagmentSystem.Controllers
     public class PlaceAnOrderController : Controller
     {
         PharmacyDAL pdal = new PharmacyDAL();
+      
                
         public ActionResult LoadCategory()
         {
@@ -37,6 +38,30 @@ namespace PharmacyManagmentSystem.Controllers
         {
             return Json(pdal.GetUnit(id));
          }
-       
+
+        public JsonResult AddOrder(string ProductSuppliedID, string SupplierID, string quantity)
+        {
+            this.Session["EmpID"] = 1;
+            string empId = this.Session["EmpID"].ToString();
+            this.Session["orderId"] = 1;
+            string orderID = this.Session["orderId"].ToString();
+            if (ModelState.IsValid)
+            {
+               
+            }
+            return Json(pdal.AddOrder(ProductSuppliedID, SupplierID, quantity, int.Parse(empId)));
+        }
+         public JsonResult AddOrderDetail(string ProductSuppliedID, string SupplierID, string quantity)
+        {
+            this.Session["EmpID"] = 1;
+            this.Session["orderId"] = 2;
+            string empId = this.Session["EmpID"].ToString();          
+            string orderID = this.Session["orderId"].ToString();
+            if (ModelState.IsValid)
+            {
+                return Json(pdal.AddOrderDetails(ProductSuppliedID, SupplierID, quantity, int.Parse(empId), int.Parse(orderID)));
+            }
+            return Json(pdal.AddOrder(ProductSuppliedID, SupplierID, quantity, int.Parse(empId)));
+        }
 	}
 }
