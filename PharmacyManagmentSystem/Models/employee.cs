@@ -33,9 +33,9 @@ namespace PharmacyManagmentSystem.Models
         public string address { get; set; }
         public Nullable<System.DateTime> joiningDate { get; set; }
         public int designationId { get; set; }
-        public string userName { get; set; }
         public int departmentId { get; set; }
         public Nullable<int> managerId { get; set; }
+        public string Users_userName { get; set; }
     
         public virtual department department { get; set; }
         public virtual designation designation { get; set; }
