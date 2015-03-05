@@ -4,13 +4,12 @@
 }
 
 <h2>Place an order</h2>
-@{ int tableRowIncrement=0;}
 @using (Html.BeginForm())
 {
     <br />
     <div style="width:350px" >      
         @Html.Label("emplloyee =   ")
-        @Html.Label(Session.SessionID.ToString()) &nbsp; &nbsp;&nbsp; &nbsp;
+        @Html.Label(Session.SessionID.ToString()) &nbsp; &nbsp;&nbsp; &nbsp; @*@Html.Label(Session["EmpID"].ToString())*@
         @Html.Label("Date =   ")
         @Html.Label(DateTime.Today.Date.ToString())
         <br />
@@ -52,8 +51,8 @@
     </div>
     <br /> 
     <div>
-        <button id="AddProductBtn" name="AddProductBtn" > Add Another Product </button> 
-        <button id="OrderBtn" name="OrderBtn" type="submit"> Order </button>
+        <button id="AddProductBtn" name="AddProductBtn" >Save Product </button> 
+        <button id="OrderBtn" name="OrderBtn" type="submit"> Save Order </button>
         <br/>       
     </div>
     <br />
@@ -80,9 +79,9 @@
 }
     <script src="/Scripts/jquery-1.10.2.js" type="text/javascript"></script>
     <script src="/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+@*/////////////////////////////  getting data in cascading dropdowns\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*@
     <script type="text/javascript">
-       
-/////////////////////////////Get Product on Category index change\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+ /////////////////////////////Get Product on Category index change\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
         $("#Category").change(function () {
             $("#Product").empty();
             $("#ProductSize").empty();
@@ -147,12 +146,12 @@
             });
             return false;
         })
+          </script>
 
+  <script type="text/javascript">
 ///////////////////////////// add row in table on button click Add product\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
         $('#AddProductBtn').click(function (e) {
-            @{tableRowIncrement = tableRowIncrement + 1; string inc = tableRowIncrement.ToString();}
             e.preventDefault();
-
             if ($("#QuantityTextbox").val() < 1 || $("#QuantityTextbox").val().length < 1 )
             {
                 document.getElementById("ErrorLblQuantity").innerHTML = "please  enter a valid size"
@@ -176,7 +175,7 @@
 
 
                 var newRow = "<tr >" +
-                        "<td>" +'@inc' + "</td>" +
+                        "<td>" +'' + "</td>" +
                         "<td>" + $('#Category :selected').text() + "</td>" +
                         "<td>" + $('#Product :selected').text() + "</td>" +
                         "<td>" + $('#ProductSize :selected').text() + "</td>" +
@@ -196,11 +195,24 @@
         });
 
         ///////////////////////////// gridContent\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-
     </script>
        
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
  @*$('#AddProductBtn').click(function (e) {

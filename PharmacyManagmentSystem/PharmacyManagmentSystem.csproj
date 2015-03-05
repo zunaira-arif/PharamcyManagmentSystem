@@ -120,6 +120,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\CreatAnOrderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PlaceAnOrderController.cs" />
@@ -271,6 +272,11 @@
     <Content Include="Views\ProductSupplied\Edit.cshtml" />
     <Content Include="Views\ProductSupplied\Index.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\CreatAnOrder\Create.cshtml" />
+    <Content Include="Views\CreatAnOrder\Delete.cshtml" />
+    <Content Include="Views\CreatAnOrder\Details.cshtml" />
+    <Content Include="Views\CreatAnOrder\Edit.cshtml" />
+    <Content Include="Views\CreatAnOrder\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
