@@ -79,6 +79,7 @@ namespace PharmacyManagmentSystem.DAL
             SelectList list = new SelectList(db.orders.ToString());
             return list;
         }
+        
         public SelectList AddOrderDetails(string prodetaiID, string suplierID, string Quantity, int empId, int orderID)
         {
             int ProdDetailID = int.Parse(prodetaiID);
@@ -86,26 +87,57 @@ namespace PharmacyManagmentSystem.DAL
             int QuantityOrder = int.Parse(Quantity);
             var getProSuppliedID = db.productsupplieds.Where(p => p.productDetailId == ProdDetailID && p.supplierId == SupplierID).FirstOrDefault();
             int ProSuppliedID = getProSuppliedID.productSuppliedId;
-          
-            ////create product order ////////////////
-            var productorderd = new productsorderd();
-            productorderd.orderId =orderID;
-            productorderd.ProductSupplied_productSuppliedId = ProSuppliedID;
-            ///////////////save product order
-            db.productsorderds.Add(productorderd);
-            db.SaveChanges();
-            ////create order detail ////////////////
-            var getProOrderID =db.productsorderds.Where(p => p.orderId== orderID && p.ProductSupplied_productSuppliedId==ProSuppliedID).FirstOrDefault();
-            int ProOrderID = getProOrderID.productsOrderdId;
-            var orderdetailItems = new orderdetail();
-            orderdetailItems.quantityOrderd = QuantityOrder;
-            orderdetailItems.productsOrderdId = ProOrderID;
-           // orderdetail;
-            ///////////////save order detail
-            db.orderdetails.Add(orderdetailItems);
-            db.SaveChanges();
+            int al = AlreadyExsist(ProSuppliedID, orderID);
+            if(al != 0)
+            {
+                var getOldRow = db.orderdetails.Where(o => o.productsOrderdId == al).FirstOrDefault(); ;
+                int? oldQuantity = getOldRow.quantityOrderd;
+                int? newQuantity = oldQuantity + QuantityOrder;
+                
+                var orderdetailItems = db.orderdetails.Find(getOldRow.orderDetailId);
+                orderdetailItems.quantityOrderd = newQuantity;
+                ///////////////save order detail
+                db.SaveChanges();
+            }
+            else
+            {
+                ////create product order ////////////////
+                var productorderd = new productsorderd();
+                productorderd.orderId = orderID;
+                productorderd.ProductSupplied_productSuppliedId = ProSuppliedID;
+                ///////////////save product order
+                db.productsorderds.Add(productorderd);
+                db.SaveChanges();
+                ////create order detail ////////////////
+                var getProOrderID = db.productsorderds.Where(p => p.orderId == orderID && p.ProductSupplied_productSuppliedId == ProSuppliedID).FirstOrDefault();
+                int ProOrderID = getProOrderID.productsOrderdId;
+                var orderdetailItems = new orderdetail();
+                orderdetailItems.quantityOrderd = QuantityOrder;
+                orderdetailItems.productsOrderdId = ProOrderID;
+                // orderdetail;
+                ///////////////save order detail
+                db.orderdetails.Add(orderdetailItems);
+                db.SaveChanges();
+            }
+           
             SelectList list = new SelectList(db.orders.ToString());
             return list;
         }
+
+        public int AlreadyExsist(int prosupID, int ordID)
+        {
+            var chkAlready = db.productsorderds.Where(p => p.ProductSupplied_productSuppliedId == prosupID && p.orderId == ordID).FirstOrDefault();
+
+            if (chkAlready==null)
+            {
+                return 0;
+            }
+            else
+            {
+                return chkAlready.productsOrderdId;
+            }
+                
+        }
+    
     }    
 }
