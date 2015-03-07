@@ -1,0 +1,1592 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="pharmacyModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="authorities">
+          <Key>
+            <PropertyRef Name="authorityId" />
+          </Key>
+          <Property Name="authorityId" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="authority" Type="varchar" MaxLength="50" />
+          <Property Name="username" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="borrowlend">
+          <Key>
+            <PropertyRef Name="borrowLendId" />
+          </Key>
+          <Property Name="borrowLendId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Status" Type="bool" Nullable="false" />
+          <Property Name="orderIdAgaintBorrowed" Type="int" />
+        </EntityType>
+        <EntityType Name="borrowlendstock">
+          <Key>
+            <PropertyRef Name="borrowLendStockId" />
+          </Key>
+          <Property Name="borrowLendStockId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="stockId" Type="int" Nullable="false" />
+          <Property Name="borrowLendId" Type="int" Nullable="false" />
+          <Property Name="quantityBorrowed" Type="int" />
+          <Property Name="amount" Type="double" />
+        </EntityType>
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="categoryId" />
+          </Key>
+          <Property Name="categoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="categoryName" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="categoryUnit" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="department">
+          <Key>
+            <PropertyRef Name="departmentId" />
+          </Key>
+          <Property Name="departmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="45" />
+          <Property Name="deleted" Type="bool" Nullable="false" />
+        </EntityType>
+        <EntityType Name="designation">
+          <Key>
+            <PropertyRef Name="designationId" />
+          </Key>
+          <Property Name="designationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="designation" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="level" Type="int" />
+          <Property Name="parentDesignationId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="empId" />
+          </Key>
+          <Property Name="empId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstName" Type="varchar" MaxLength="45" />
+          <Property Name="birthDate" Type="date" />
+          <Property Name="LastName" Type="varchar" MaxLength="45" />
+          <Property Name="gender" Type="varchar" MaxLength="45" />
+          <Property Name="mobile" Type="varchar" MaxLength="45" />
+          <Property Name="remarks" Type="varchar" MaxLength="255" />
+          <Property Name="deleted" Type="bool" />
+          <Property Name="address" Type="text" />
+          <Property Name="joiningDate" Type="date" />
+          <Property Name="designationId" Type="int" Nullable="false" />
+          <Property Name="departmentId" Type="int" Nullable="false" />
+          <Property Name="managerId" Type="int" />
+          <Property Name="userName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="employerstock">
+          <Key>
+            <PropertyRef Name="employerStockId" />
+          </Key>
+          <Property Name="employerStockId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="stockId" Type="int" Nullable="false" />
+          <Property Name="empId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="order">
+          <Key>
+            <PropertyRef Name="orderId" />
+          </Key>
+          <Property Name="orderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="orderDate" Type="date" Nullable="false" />
+          <Property Name="empId" Type="int" Nullable="false" />
+          <Property Name="orderStatusId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="orderdetail">
+          <Key>
+            <PropertyRef Name="orderDetailId" />
+          </Key>
+          <Property Name="orderDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="quantityRecived" Type="int" />
+          <Property Name="quantityOrderd" Type="int" />
+          <Property Name="orderRecivingDate" Type="datetime" Precision="0" />
+          <Property Name="description" Type="varchar" MaxLength="45" />
+          <Property Name="rate" Type="double" />
+          <Property Name="discountAmount" Type="double" />
+          <Property Name="netValue" Type="double" />
+          <Property Name="productsOrderdId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="orderhistory">
+          <Key>
+            <PropertyRef Name="orderHistoryId" />
+          </Key>
+          <Property Name="orderHistoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="statusChanged" Type="varchar" MaxLength="45" />
+          <Property Name="discription" Type="varchar" MaxLength="100" />
+          <Property Name="date" Type="datetime" Precision="0" />
+          <Property Name="employeeId" Type="varchar" MaxLength="45" />
+          <Property Name="orderId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="orderstatus">
+          <Key>
+            <PropertyRef Name="orderStatusId" />
+          </Key>
+          <Property Name="orderStatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="statusName" Type="varchar" MaxLength="45" />
+          <Property Name="statusDiscription" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="productId" />
+          </Key>
+          <Property Name="productId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productName" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="categoryId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="productdetails">
+          <Key>
+            <PropertyRef Name="productDetailId" />
+          </Key>
+          <Property Name="productDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productId" Type="int" Nullable="false" />
+          <Property Name="productSize" Type="double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="productsorderd">
+          <Key>
+            <PropertyRef Name="productsOrderdId" />
+          </Key>
+          <Property Name="productsOrderdId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="orderId" Type="int" Nullable="false" />
+          <Property Name="productSuppliedId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="productsupplied">
+          <Key>
+            <PropertyRef Name="productSuppliedId" />
+          </Key>
+          <Property Name="productSuppliedId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productDetailId" Type="int" Nullable="false" />
+          <Property Name="supplierId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sales">
+          <Key>
+            <PropertyRef Name="salesId" />
+          </Key>
+          <Property Name="salesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="empId" Type="int" Nullable="false" />
+          <Property Name="netAmount" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="solditems">
+          <Key>
+            <PropertyRef Name="soldItemId" />
+          </Key>
+          <Property Name="soldItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="amount" Type="double" />
+          <Property Name="discount" Type="double" />
+          <Property Name="salesId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="stock">
+          <Key>
+            <PropertyRef Name="stockId" />
+          </Key>
+          <Property Name="stockId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="orderDetailId" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="pricePrItem" Type="double" Nullable="false" />
+          <Property Name="remainingItems" Type="int" Nullable="false" />
+          <Property Name="batchNO" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="expiryDate" Type="datetime" Precision="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="stocksales">
+          <Key>
+            <PropertyRef Name="stockSalesID" />
+          </Key>
+          <Property Name="stockSalesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="stockId" Type="int" Nullable="false" />
+          <Property Name="salesId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="supplier">
+          <Key>
+            <PropertyRef Name="supplierId" />
+          </Key>
+          <Property Name="supplierId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="supplierName" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="supplierContactNumber" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="supplierEmail" Type="varchar" MaxLength="45" />
+          <Property Name="manufecture" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="userName" />
+          </Key>
+          <Property Name="userName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="enabled" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_Authorities_users1">
+          <End Role="users" Type="Self.users" Multiplicity="0..1" />
+          <End Role="authorities" Type="Self.authorities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="userName" />
+            </Principal>
+            <Dependent Role="authorities">
+              <PropertyRef Name="username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_BorrowLendStock_BorrowLend1">
+          <End Role="borrowlend" Type="Self.borrowlend" Multiplicity="1" />
+          <End Role="borrowlendstock" Type="Self.borrowlendstock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="borrowlend">
+              <PropertyRef Name="borrowLendId" />
+            </Principal>
+            <Dependent Role="borrowlendstock">
+              <PropertyRef Name="borrowLendId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_BorrowLendStock_Stock1">
+          <End Role="stock" Type="Self.stock" Multiplicity="1" />
+          <End Role="borrowlendstock" Type="Self.borrowlendstock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="stock">
+              <PropertyRef Name="stockId" />
+            </Principal>
+            <Dependent Role="borrowlendstock">
+              <PropertyRef Name="stockId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Designation_Designation1">
+          <End Role="designation" Type="Self.designation" Multiplicity="1" />
+          <End Role="designation1" Type="Self.designation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="designation">
+              <PropertyRef Name="designationId" />
+            </Principal>
+            <Dependent Role="designation1">
+              <PropertyRef Name="parentDesignationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Employee_Department1">
+          <End Role="department" Type="Self.department" Multiplicity="1" />
+          <End Role="employee" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="department">
+              <PropertyRef Name="departmentId" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="departmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Employee_Designation1">
+          <End Role="designation" Type="Self.designation" Multiplicity="1" />
+          <End Role="employee" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="designation">
+              <PropertyRef Name="designationId" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="designationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Employee_Employee1">
+          <End Role="employee" Type="Self.employee" Multiplicity="0..1" />
+          <End Role="employee1" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="empId" />
+            </Principal>
+            <Dependent Role="employee1">
+              <PropertyRef Name="managerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Employee_Users1">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="employee" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="userName" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="userName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_EmployerStock_Employee1">
+          <End Role="employee" Type="Self.employee" Multiplicity="1" />
+          <End Role="employerstock" Type="Self.employerstock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="empId" />
+            </Principal>
+            <Dependent Role="employerstock">
+              <PropertyRef Name="empId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_EmployerStock_Stock1">
+          <End Role="stock" Type="Self.stock" Multiplicity="1" />
+          <End Role="employerstock" Type="Self.employerstock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="stock">
+              <PropertyRef Name="stockId" />
+            </Principal>
+            <Dependent Role="employerstock">
+              <PropertyRef Name="stockId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Order_Employee1">
+          <End Role="employee" Type="Self.employee" Multiplicity="1" />
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="empId" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="empId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Order_OrderStatus1">
+          <End Role="orderstatus" Type="Self.orderstatus" Multiplicity="1" />
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="orderstatus">
+              <PropertyRef Name="orderStatusId" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="orderStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_OrderDetail_ProductsOrderd1">
+          <End Role="productsorderd" Type="Self.productsorderd" Multiplicity="1" />
+          <End Role="orderdetail" Type="Self.orderdetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productsorderd">
+              <PropertyRef Name="productsOrderdId" />
+            </Principal>
+            <Dependent Role="orderdetail">
+              <PropertyRef Name="productsOrderdId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_OrderHistory_Order1">
+          <End Role="order" Type="Self.order" Multiplicity="1" />
+          <End Role="orderhistory" Type="Self.orderhistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="order">
+              <PropertyRef Name="orderId" />
+            </Principal>
+            <Dependent Role="orderhistory">
+              <PropertyRef Name="orderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Product_Category1">
+          <End Role="category" Type="Self.category" Multiplicity="1" />
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="categoryId" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="categoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_product_suplied_ProductDetails1">
+          <End Role="productdetails" Type="Self.productdetails" Multiplicity="1" />
+          <End Role="productsupplied" Type="Self.productsupplied" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productdetails">
+              <PropertyRef Name="productDetailId" />
+            </Principal>
+            <Dependent Role="productsupplied">
+              <PropertyRef Name="productDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_productDetails_Product1">
+          <End Role="product" Type="Self.product" Multiplicity="1" />
+          <End Role="productdetails" Type="Self.productdetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="productId" />
+            </Principal>
+            <Dependent Role="productdetails">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ProductsOrderd_Order1">
+          <End Role="order" Type="Self.order" Multiplicity="1" />
+          <End Role="productsorderd" Type="Self.productsorderd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="order">
+              <PropertyRef Name="orderId" />
+            </Principal>
+            <Dependent Role="productsorderd">
+              <PropertyRef Name="orderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ProductsOrderd_ProductSupplied1">
+          <End Role="productsupplied" Type="Self.productsupplied" Multiplicity="1" />
+          <End Role="productsorderd" Type="Self.productsorderd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productsupplied">
+              <PropertyRef Name="productSuppliedId" />
+            </Principal>
+            <Dependent Role="productsorderd">
+              <PropertyRef Name="productSuppliedId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ProductSuplied_Supplier1">
+          <End Role="supplier" Type="Self.supplier" Multiplicity="1" />
+          <End Role="productsupplied" Type="Self.productsupplied" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="supplier">
+              <PropertyRef Name="supplierId" />
+            </Principal>
+            <Dependent Role="productsupplied">
+              <PropertyRef Name="supplierId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Sales_Employee1">
+          <End Role="employee" Type="Self.employee" Multiplicity="1" />
+          <End Role="sales" Type="Self.sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="empId" />
+            </Principal>
+            <Dependent Role="sales">
+              <PropertyRef Name="empId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SoldItems_Sales1">
+          <End Role="sales" Type="Self.sales" Multiplicity="1" />
+          <End Role="solditems" Type="Self.solditems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sales">
+              <PropertyRef Name="salesId" />
+            </Principal>
+            <Dependent Role="solditems">
+              <PropertyRef Name="salesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Stock_OrderDetails1">
+          <End Role="orderdetail" Type="Self.orderdetail" Multiplicity="1" />
+          <End Role="stock" Type="Self.stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="orderdetail">
+              <PropertyRef Name="orderDetailId" />
+            </Principal>
+            <Dependent Role="stock">
+              <PropertyRef Name="orderDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_StockSales_Sales1">
+          <End Role="sales" Type="Self.sales" Multiplicity="1" />
+          <End Role="stocksales" Type="Self.stocksales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sales">
+              <PropertyRef Name="salesId" />
+            </Principal>
+            <Dependent Role="stocksales">
+              <PropertyRef Name="salesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_StockSales_Stock1">
+          <End Role="stock" Type="Self.stock" Multiplicity="1" />
+          <End Role="stocksales" Type="Self.stocksales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="stock">
+              <PropertyRef Name="stockId" />
+            </Principal>
+            <Dependent Role="stocksales">
+              <PropertyRef Name="stockId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="pharmacyModelStoreContainer">
+          <EntitySet Name="authorities" EntityType="Self.authorities" Schema="pharmacy" store:Type="Tables" />
+          <EntitySet Name="borrowlend" EntityType="Self.borrowlend" Schema="pharmacy" store:Type="Tables" />
+          <EntitySet Name="borrowlendstock" EntityType="Self.borrowlendstock" Schema="pharmacy" store:Type="Tables" />
+          <EntitySet Name="category" EntityType="Self.category" Schema="pharmacy" store:Type="Tables" />
+          <EntitySet Name="department" EntityType="Self.department" Schema="pharmacy" store:Type="Tables" />
+          <EntitySet Name="designation" EntityType="Self.designation" Schema="pharmacy" store:Type="Tables" />
+          <EntitySet Name="employee" EntityType="Self.employee" Schema="pharmacy" store:Type="Tables" />
+          <EntitySet Name="employerstock" EntityType="Self.employerstock" Schema="pharmacy" store:Type="Tables" />
+          <EntitySet Name="order" EntityType="Self.order" Schema="pharmacy" store:Type="Tables" />
+          <EntitySet Name="orderdetail" EntityType="Self.orderdetail" Schema="pharmacy" store:Type="Tables" />
+          <EntitySet Name="orderhistory" EntityType="Self.orderhistory" Schema="pharmacy" store:Type="Tables" />
+          <EntitySet Name="orderstatus" EntityType="Self.orderstatus" Schema="pharmacy" store:Type="Tables" />
+          <EntitySet Name="product" EntityType="Self.product" Schema="pharmacy" store:Type="Tables" />
+          <EntitySet Name="productdetails" EntityType="Self.productdetails" Schema="pharmacy" store:Type="Tables" />
+          <EntitySet Name="productsorderd" EntityType="Self.productsorderd" Schema="pharmacy" store:Type="Tables" />
+          <EntitySet Name="productsupplied" EntityType="Self.productsupplied" Schema="pharmacy" store:Type="Tables" />
+          <EntitySet Name="sales" EntityType="Self.sales" Schema="pharmacy" store:Type="Tables" />
+          <EntitySet Name="solditems" EntityType="Self.solditems" Schema="pharmacy" store:Type="Tables" />
+          <EntitySet Name="stock" EntityType="Self.stock" Schema="pharmacy" store:Type="Tables" />
+          <EntitySet Name="stocksales" EntityType="Self.stocksales" Schema="pharmacy" store:Type="Tables" />
+          <EntitySet Name="supplier" EntityType="Self.supplier" Schema="pharmacy" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="pharmacy" store:Type="Tables" />
+          <AssociationSet Name="fk_Authorities_users1" Association="Self.fk_Authorities_users1">
+            <End Role="users" EntitySet="users" />
+            <End Role="authorities" EntitySet="authorities" />
+          </AssociationSet>
+          <AssociationSet Name="fk_BorrowLendStock_BorrowLend1" Association="Self.fk_BorrowLendStock_BorrowLend1">
+            <End Role="borrowlend" EntitySet="borrowlend" />
+            <End Role="borrowlendstock" EntitySet="borrowlendstock" />
+          </AssociationSet>
+          <AssociationSet Name="fk_BorrowLendStock_Stock1" Association="Self.fk_BorrowLendStock_Stock1">
+            <End Role="stock" EntitySet="stock" />
+            <End Role="borrowlendstock" EntitySet="borrowlendstock" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Designation_Designation1" Association="Self.fk_Designation_Designation1">
+            <End Role="designation" EntitySet="designation" />
+            <End Role="designation1" EntitySet="designation" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Employee_Department1" Association="Self.fk_Employee_Department1">
+            <End Role="department" EntitySet="department" />
+            <End Role="employee" EntitySet="employee" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Employee_Designation1" Association="Self.fk_Employee_Designation1">
+            <End Role="designation" EntitySet="designation" />
+            <End Role="employee" EntitySet="employee" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Employee_Employee1" Association="Self.fk_Employee_Employee1">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="employee1" EntitySet="employee" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Employee_Users1" Association="Self.fk_Employee_Users1">
+            <End Role="users" EntitySet="users" />
+            <End Role="employee" EntitySet="employee" />
+          </AssociationSet>
+          <AssociationSet Name="fk_EmployerStock_Employee1" Association="Self.fk_EmployerStock_Employee1">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="employerstock" EntitySet="employerstock" />
+          </AssociationSet>
+          <AssociationSet Name="fk_EmployerStock_Stock1" Association="Self.fk_EmployerStock_Stock1">
+            <End Role="stock" EntitySet="stock" />
+            <End Role="employerstock" EntitySet="employerstock" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Order_Employee1" Association="Self.fk_Order_Employee1">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Order_OrderStatus1" Association="Self.fk_Order_OrderStatus1">
+            <End Role="orderstatus" EntitySet="orderstatus" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="fk_OrderDetail_ProductsOrderd1" Association="Self.fk_OrderDetail_ProductsOrderd1">
+            <End Role="productsorderd" EntitySet="productsorderd" />
+            <End Role="orderdetail" EntitySet="orderdetail" />
+          </AssociationSet>
+          <AssociationSet Name="fk_OrderHistory_Order1" Association="Self.fk_OrderHistory_Order1">
+            <End Role="order" EntitySet="order" />
+            <End Role="orderhistory" EntitySet="orderhistory" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Product_Category1" Association="Self.fk_Product_Category1">
+            <End Role="category" EntitySet="category" />
+            <End Role="product" EntitySet="product" />
+          </AssociationSet>
+          <AssociationSet Name="fk_product_suplied_ProductDetails1" Association="Self.fk_product_suplied_ProductDetails1">
+            <End Role="productdetails" EntitySet="productdetails" />
+            <End Role="productsupplied" EntitySet="productsupplied" />
+          </AssociationSet>
+          <AssociationSet Name="fk_productDetails_Product1" Association="Self.fk_productDetails_Product1">
+            <End Role="product" EntitySet="product" />
+            <End Role="productdetails" EntitySet="productdetails" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ProductsOrderd_Order1" Association="Self.fk_ProductsOrderd_Order1">
+            <End Role="order" EntitySet="order" />
+            <End Role="productsorderd" EntitySet="productsorderd" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ProductsOrderd_ProductSupplied1" Association="Self.fk_ProductsOrderd_ProductSupplied1">
+            <End Role="productsupplied" EntitySet="productsupplied" />
+            <End Role="productsorderd" EntitySet="productsorderd" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ProductSuplied_Supplier1" Association="Self.fk_ProductSuplied_Supplier1">
+            <End Role="supplier" EntitySet="supplier" />
+            <End Role="productsupplied" EntitySet="productsupplied" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Sales_Employee1" Association="Self.fk_Sales_Employee1">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="sales" EntitySet="sales" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SoldItems_Sales1" Association="Self.fk_SoldItems_Sales1">
+            <End Role="sales" EntitySet="sales" />
+            <End Role="solditems" EntitySet="solditems" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Stock_OrderDetails1" Association="Self.fk_Stock_OrderDetails1">
+            <End Role="orderdetail" EntitySet="orderdetail" />
+            <End Role="stock" EntitySet="stock" />
+          </AssociationSet>
+          <AssociationSet Name="fk_StockSales_Sales1" Association="Self.fk_StockSales_Sales1">
+            <End Role="sales" EntitySet="sales" />
+            <End Role="stocksales" EntitySet="stocksales" />
+          </AssociationSet>
+          <AssociationSet Name="fk_StockSales_Stock1" Association="Self.fk_StockSales_Stock1">
+            <End Role="stock" EntitySet="stock" />
+            <End Role="stocksales" EntitySet="stocksales" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="pharmacyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="authority">
+          <Key>
+            <PropertyRef Name="authorityId" />
+          </Key>
+          <Property Name="authorityId" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="authority1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="user" Relationship="Self.fk_Authorities_users1" FromRole="authorities" ToRole="users" />
+        </EntityType>
+        <EntityType Name="borrowlend">
+          <Key>
+            <PropertyRef Name="borrowLendId" />
+          </Key>
+          <Property Name="borrowLendId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="orderIdAgaintBorrowed" Type="Int32" />
+          <NavigationProperty Name="borrowlendstocks" Relationship="Self.fk_BorrowLendStock_BorrowLend1" FromRole="borrowlend" ToRole="borrowlendstock" />
+        </EntityType>
+        <EntityType Name="borrowlendstock">
+          <Key>
+            <PropertyRef Name="borrowLendStockId" />
+          </Key>
+          <Property Name="borrowLendStockId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="stockId" Type="Int32" Nullable="false" />
+          <Property Name="borrowLendId" Type="Int32" Nullable="false" />
+          <Property Name="quantityBorrowed" Type="Int32" />
+          <Property Name="amount" Type="Double" />
+          <NavigationProperty Name="borrowlend" Relationship="Self.fk_BorrowLendStock_BorrowLend1" FromRole="borrowlendstock" ToRole="borrowlend" />
+          <NavigationProperty Name="stock" Relationship="Self.fk_BorrowLendStock_Stock1" FromRole="borrowlendstock" ToRole="stock" />
+        </EntityType>
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="categoryId" />
+          </Key>
+          <Property Name="categoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="categoryName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="categoryUnit" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="products" Relationship="Self.fk_Product_Category1" FromRole="category" ToRole="product" />
+        </EntityType>
+        <EntityType Name="department">
+          <Key>
+            <PropertyRef Name="departmentId" />
+          </Key>
+          <Property Name="departmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="employees" Relationship="Self.fk_Employee_Department1" FromRole="department" ToRole="employee" />
+        </EntityType>
+        <EntityType Name="designation">
+          <Key>
+            <PropertyRef Name="designationId" />
+          </Key>
+          <Property Name="designationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="designation1" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="level" Type="Int32" />
+          <Property Name="parentDesignationId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="designation11" Relationship="Self.fk_Designation_Designation1" FromRole="designation" ToRole="designation1" />
+          <NavigationProperty Name="designation2" Relationship="Self.fk_Designation_Designation1" FromRole="designation1" ToRole="designation" />
+          <NavigationProperty Name="employees" Relationship="Self.fk_Employee_Designation1" FromRole="designation" ToRole="employee" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="empId" />
+          </Key>
+          <Property Name="empId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="birthDate" Type="DateTime" />
+          <Property Name="LastName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="gender" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="mobile" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="remarks" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="deleted" Type="Boolean" />
+          <Property Name="address" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="joiningDate" Type="DateTime" />
+          <Property Name="designationId" Type="Int32" Nullable="false" />
+          <Property Name="departmentId" Type="Int32" Nullable="false" />
+          <Property Name="managerId" Type="Int32" />
+          <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="department" Relationship="Self.fk_Employee_Department1" FromRole="employee" ToRole="department" />
+          <NavigationProperty Name="designation" Relationship="Self.fk_Employee_Designation1" FromRole="employee" ToRole="designation" />
+          <NavigationProperty Name="employee1" Relationship="Self.fk_Employee_Employee1" FromRole="employee" ToRole="employee1" />
+          <NavigationProperty Name="employee2" Relationship="Self.fk_Employee_Employee1" FromRole="employee1" ToRole="employee" />
+          <NavigationProperty Name="user" Relationship="Self.fk_Employee_Users1" FromRole="employee" ToRole="users" />
+          <NavigationProperty Name="employerstocks" Relationship="Self.fk_EmployerStock_Employee1" FromRole="employee" ToRole="employerstock" />
+          <NavigationProperty Name="orders" Relationship="Self.fk_Order_Employee1" FromRole="employee" ToRole="order" />
+          <NavigationProperty Name="sales" Relationship="Self.fk_Sales_Employee1" FromRole="employee" ToRole="sales" />
+        </EntityType>
+        <EntityType Name="employerstock">
+          <Key>
+            <PropertyRef Name="employerStockId" />
+          </Key>
+          <Property Name="employerStockId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="stockId" Type="Int32" Nullable="false" />
+          <Property Name="empId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="employee" Relationship="Self.fk_EmployerStock_Employee1" FromRole="employerstock" ToRole="employee" />
+          <NavigationProperty Name="stock" Relationship="Self.fk_EmployerStock_Stock1" FromRole="employerstock" ToRole="stock" />
+        </EntityType>
+        <EntityType Name="order">
+          <Key>
+            <PropertyRef Name="orderId" />
+          </Key>
+          <Property Name="orderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="orderDate" Type="DateTime" Nullable="false" />
+          <Property Name="empId" Type="Int32" Nullable="false" />
+          <Property Name="orderStatusId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="employee" Relationship="Self.fk_Order_Employee1" FromRole="order" ToRole="employee" />
+          <NavigationProperty Name="orderstatu" Relationship="Self.fk_Order_OrderStatus1" FromRole="order" ToRole="orderstatus" />
+          <NavigationProperty Name="orderhistories" Relationship="Self.fk_OrderHistory_Order1" FromRole="order" ToRole="orderhistory" />
+          <NavigationProperty Name="productsorderds" Relationship="Self.fk_ProductsOrderd_Order1" FromRole="order" ToRole="productsorderd" />
+        </EntityType>
+        <EntityType Name="orderdetail">
+          <Key>
+            <PropertyRef Name="orderDetailId" />
+          </Key>
+          <Property Name="orderDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="quantityRecived" Type="Int32" />
+          <Property Name="quantityOrderd" Type="Int32" />
+          <Property Name="orderRecivingDate" Type="DateTime" />
+          <Property Name="description" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="rate" Type="Double" />
+          <Property Name="discountAmount" Type="Double" />
+          <Property Name="netValue" Type="Double" />
+          <Property Name="productsOrderdId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="productsorderd" Relationship="Self.fk_OrderDetail_ProductsOrderd1" FromRole="orderdetail" ToRole="productsorderd" />
+          <NavigationProperty Name="stocks" Relationship="Self.fk_Stock_OrderDetails1" FromRole="orderdetail" ToRole="stock" />
+        </EntityType>
+        <EntityType Name="orderhistory">
+          <Key>
+            <PropertyRef Name="orderHistoryId" />
+          </Key>
+          <Property Name="orderHistoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="statusChanged" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="discription" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="DateTime" />
+          <Property Name="employeeId" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="orderId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="order" Relationship="Self.fk_OrderHistory_Order1" FromRole="orderhistory" ToRole="order" />
+        </EntityType>
+        <EntityType Name="orderstatu">
+          <Key>
+            <PropertyRef Name="orderStatusId" />
+          </Key>
+          <Property Name="orderStatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="statusName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="statusDiscription" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="orders" Relationship="Self.fk_Order_OrderStatus1" FromRole="orderstatus" ToRole="order" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="productId" />
+          </Key>
+          <Property Name="productId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="categoryId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="category" Relationship="Self.fk_Product_Category1" FromRole="product" ToRole="category" />
+          <NavigationProperty Name="productdetails" Relationship="Self.fk_productDetails_Product1" FromRole="product" ToRole="productdetails" />
+        </EntityType>
+        <EntityType Name="productdetail">
+          <Key>
+            <PropertyRef Name="productDetailId" />
+          </Key>
+          <Property Name="productDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productId" Type="Int32" Nullable="false" />
+          <Property Name="productSize" Type="Double" Nullable="false" />
+          <NavigationProperty Name="product" Relationship="Self.fk_productDetails_Product1" FromRole="productdetails" ToRole="product" />
+          <NavigationProperty Name="productsupplieds" Relationship="Self.fk_product_suplied_ProductDetails1" FromRole="productdetails" ToRole="productsupplied" />
+        </EntityType>
+        <EntityType Name="productsorderd">
+          <Key>
+            <PropertyRef Name="productsOrderdId" />
+          </Key>
+          <Property Name="productsOrderdId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="orderId" Type="Int32" Nullable="false" />
+          <Property Name="productSuppliedId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="order" Relationship="Self.fk_ProductsOrderd_Order1" FromRole="productsorderd" ToRole="order" />
+          <NavigationProperty Name="orderdetails" Relationship="Self.fk_OrderDetail_ProductsOrderd1" FromRole="productsorderd" ToRole="orderdetail" />
+          <NavigationProperty Name="productsupplied" Relationship="Self.fk_ProductsOrderd_ProductSupplied1" FromRole="productsorderd" ToRole="productsupplied" />
+        </EntityType>
+        <EntityType Name="productsupplied">
+          <Key>
+            <PropertyRef Name="productSuppliedId" />
+          </Key>
+          <Property Name="productSuppliedId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productDetailId" Type="Int32" Nullable="false" />
+          <Property Name="supplierId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="productdetail" Relationship="Self.fk_product_suplied_ProductDetails1" FromRole="productsupplied" ToRole="productdetails" />
+          <NavigationProperty Name="productsorderds" Relationship="Self.fk_ProductsOrderd_ProductSupplied1" FromRole="productsupplied" ToRole="productsorderd" />
+          <NavigationProperty Name="supplier" Relationship="Self.fk_ProductSuplied_Supplier1" FromRole="productsupplied" ToRole="supplier" />
+        </EntityType>
+        <EntityType Name="sale">
+          <Key>
+            <PropertyRef Name="salesId" />
+          </Key>
+          <Property Name="salesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Nullable="false" />
+          <Property Name="empId" Type="Int32" Nullable="false" />
+          <Property Name="netAmount" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="employee" Relationship="Self.fk_Sales_Employee1" FromRole="sales" ToRole="employee" />
+          <NavigationProperty Name="solditems" Relationship="Self.fk_SoldItems_Sales1" FromRole="sales" ToRole="solditems" />
+          <NavigationProperty Name="stocksales" Relationship="Self.fk_StockSales_Sales1" FromRole="sales" ToRole="stocksales" />
+        </EntityType>
+        <EntityType Name="solditem">
+          <Key>
+            <PropertyRef Name="soldItemId" />
+          </Key>
+          <Property Name="soldItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="amount" Type="Double" />
+          <Property Name="discount" Type="Double" />
+          <Property Name="salesId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="sale" Relationship="Self.fk_SoldItems_Sales1" FromRole="solditems" ToRole="sales" />
+        </EntityType>
+        <EntityType Name="stock">
+          <Key>
+            <PropertyRef Name="stockId" />
+          </Key>
+          <Property Name="stockId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="orderDetailId" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="pricePrItem" Type="Double" Nullable="false" />
+          <Property Name="remainingItems" Type="Int32" Nullable="false" />
+          <Property Name="batchNO" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="expiryDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="borrowlendstocks" Relationship="Self.fk_BorrowLendStock_Stock1" FromRole="stock" ToRole="borrowlendstock" />
+          <NavigationProperty Name="employerstocks" Relationship="Self.fk_EmployerStock_Stock1" FromRole="stock" ToRole="employerstock" />
+          <NavigationProperty Name="orderdetail" Relationship="Self.fk_Stock_OrderDetails1" FromRole="stock" ToRole="orderdetail" />
+          <NavigationProperty Name="stocksales" Relationship="Self.fk_StockSales_Stock1" FromRole="stock" ToRole="stocksales" />
+        </EntityType>
+        <EntityType Name="stocksale">
+          <Key>
+            <PropertyRef Name="stockSalesID" />
+          </Key>
+          <Property Name="stockSalesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="stockId" Type="Int32" Nullable="false" />
+          <Property Name="salesId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="sale" Relationship="Self.fk_StockSales_Sales1" FromRole="stocksales" ToRole="sales" />
+          <NavigationProperty Name="stock" Relationship="Self.fk_StockSales_Stock1" FromRole="stocksales" ToRole="stock" />
+        </EntityType>
+        <EntityType Name="supplier">
+          <Key>
+            <PropertyRef Name="supplierId" />
+          </Key>
+          <Property Name="supplierId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="supplierName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="supplierContactNumber" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="supplierEmail" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="manufecture" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="productsupplieds" Relationship="Self.fk_ProductSuplied_Supplier1" FromRole="supplier" ToRole="productsupplied" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="userName" />
+          </Key>
+          <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="enabled" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="authorities" Relationship="Self.fk_Authorities_users1" FromRole="users" ToRole="authorities" />
+          <NavigationProperty Name="employees" Relationship="Self.fk_Employee_Users1" FromRole="users" ToRole="employee" />
+        </EntityType>
+        <Association Name="fk_Authorities_users1">
+          <End Role="users" Type="Self.user" Multiplicity="0..1" />
+          <End Role="authorities" Type="Self.authority" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="userName" />
+            </Principal>
+            <Dependent Role="authorities">
+              <PropertyRef Name="username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_BorrowLendStock_BorrowLend1">
+          <End Role="borrowlend" Type="Self.borrowlend" Multiplicity="1" />
+          <End Role="borrowlendstock" Type="Self.borrowlendstock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="borrowlend">
+              <PropertyRef Name="borrowLendId" />
+            </Principal>
+            <Dependent Role="borrowlendstock">
+              <PropertyRef Name="borrowLendId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_BorrowLendStock_Stock1">
+          <End Role="stock" Type="Self.stock" Multiplicity="1" />
+          <End Role="borrowlendstock" Type="Self.borrowlendstock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="stock">
+              <PropertyRef Name="stockId" />
+            </Principal>
+            <Dependent Role="borrowlendstock">
+              <PropertyRef Name="stockId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Product_Category1">
+          <End Role="category" Type="Self.category" Multiplicity="1" />
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="categoryId" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="categoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Employee_Department1">
+          <End Role="department" Type="Self.department" Multiplicity="1" />
+          <End Role="employee" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="department">
+              <PropertyRef Name="departmentId" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="departmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Designation_Designation1">
+          <End Role="designation" Type="Self.designation" Multiplicity="1" />
+          <End Role="designation1" Type="Self.designation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="designation">
+              <PropertyRef Name="designationId" />
+            </Principal>
+            <Dependent Role="designation1">
+              <PropertyRef Name="parentDesignationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Employee_Designation1">
+          <End Role="designation" Type="Self.designation" Multiplicity="1" />
+          <End Role="employee" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="designation">
+              <PropertyRef Name="designationId" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="designationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Employee_Employee1">
+          <End Role="employee" Type="Self.employee" Multiplicity="0..1" />
+          <End Role="employee1" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="empId" />
+            </Principal>
+            <Dependent Role="employee1">
+              <PropertyRef Name="managerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Employee_Users1">
+          <End Role="users" Type="Self.user" Multiplicity="1" />
+          <End Role="employee" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="userName" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="userName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_EmployerStock_Employee1">
+          <End Role="employee" Type="Self.employee" Multiplicity="1" />
+          <End Role="employerstock" Type="Self.employerstock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="empId" />
+            </Principal>
+            <Dependent Role="employerstock">
+              <PropertyRef Name="empId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Order_Employee1">
+          <End Role="employee" Type="Self.employee" Multiplicity="1" />
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="empId" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="empId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Sales_Employee1">
+          <End Role="employee" Type="Self.employee" Multiplicity="1" />
+          <End Role="sales" Type="Self.sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="empId" />
+            </Principal>
+            <Dependent Role="sales">
+              <PropertyRef Name="empId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_EmployerStock_Stock1">
+          <End Role="stock" Type="Self.stock" Multiplicity="1" />
+          <End Role="employerstock" Type="Self.employerstock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="stock">
+              <PropertyRef Name="stockId" />
+            </Principal>
+            <Dependent Role="employerstock">
+              <PropertyRef Name="stockId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Order_OrderStatus1">
+          <End Role="orderstatus" Type="Self.orderstatu" Multiplicity="1" />
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="orderstatus">
+              <PropertyRef Name="orderStatusId" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="orderStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_OrderHistory_Order1">
+          <End Role="order" Type="Self.order" Multiplicity="1" />
+          <End Role="orderhistory" Type="Self.orderhistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="order">
+              <PropertyRef Name="orderId" />
+            </Principal>
+            <Dependent Role="orderhistory">
+              <PropertyRef Name="orderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ProductsOrderd_Order1">
+          <End Role="order" Type="Self.order" Multiplicity="1" />
+          <End Role="productsorderd" Type="Self.productsorderd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="order">
+              <PropertyRef Name="orderId" />
+            </Principal>
+            <Dependent Role="productsorderd">
+              <PropertyRef Name="orderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_OrderDetail_ProductsOrderd1">
+          <End Role="productsorderd" Type="Self.productsorderd" Multiplicity="1" />
+          <End Role="orderdetail" Type="Self.orderdetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productsorderd">
+              <PropertyRef Name="productsOrderdId" />
+            </Principal>
+            <Dependent Role="orderdetail">
+              <PropertyRef Name="productsOrderdId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Stock_OrderDetails1">
+          <End Role="orderdetail" Type="Self.orderdetail" Multiplicity="1" />
+          <End Role="stock" Type="Self.stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="orderdetail">
+              <PropertyRef Name="orderDetailId" />
+            </Principal>
+            <Dependent Role="stock">
+              <PropertyRef Name="orderDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_productDetails_Product1">
+          <End Role="product" Type="Self.product" Multiplicity="1" />
+          <End Role="productdetails" Type="Self.productdetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="productId" />
+            </Principal>
+            <Dependent Role="productdetails">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_product_suplied_ProductDetails1">
+          <End Role="productdetails" Type="Self.productdetail" Multiplicity="1" />
+          <End Role="productsupplied" Type="Self.productsupplied" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productdetails">
+              <PropertyRef Name="productDetailId" />
+            </Principal>
+            <Dependent Role="productsupplied">
+              <PropertyRef Name="productDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ProductsOrderd_ProductSupplied1">
+          <End Role="productsupplied" Type="Self.productsupplied" Multiplicity="1" />
+          <End Role="productsorderd" Type="Self.productsorderd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productsupplied">
+              <PropertyRef Name="productSuppliedId" />
+            </Principal>
+            <Dependent Role="productsorderd">
+              <PropertyRef Name="productSuppliedId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ProductSuplied_Supplier1">
+          <End Role="supplier" Type="Self.supplier" Multiplicity="1" />
+          <End Role="productsupplied" Type="Self.productsupplied" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="supplier">
+              <PropertyRef Name="supplierId" />
+            </Principal>
+            <Dependent Role="productsupplied">
+              <PropertyRef Name="supplierId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SoldItems_Sales1">
+          <End Role="sales" Type="Self.sale" Multiplicity="1" />
+          <End Role="solditems" Type="Self.solditem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sales">
+              <PropertyRef Name="salesId" />
+            </Principal>
+            <Dependent Role="solditems">
+              <PropertyRef Name="salesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_StockSales_Sales1">
+          <End Role="sales" Type="Self.sale" Multiplicity="1" />
+          <End Role="stocksales" Type="Self.stocksale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sales">
+              <PropertyRef Name="salesId" />
+            </Principal>
+            <Dependent Role="stocksales">
+              <PropertyRef Name="salesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_StockSales_Stock1">
+          <End Role="stock" Type="Self.stock" Multiplicity="1" />
+          <End Role="stocksales" Type="Self.stocksale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="stock">
+              <PropertyRef Name="stockId" />
+            </Principal>
+            <Dependent Role="stocksales">
+              <PropertyRef Name="stockId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="pharmacyEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="authorities" EntityType="Self.authority" />
+          <EntitySet Name="borrowlends" EntityType="Self.borrowlend" />
+          <EntitySet Name="borrowlendstocks" EntityType="Self.borrowlendstock" />
+          <EntitySet Name="categories" EntityType="Self.category" />
+          <EntitySet Name="departments" EntityType="Self.department" />
+          <EntitySet Name="designations" EntityType="Self.designation" />
+          <EntitySet Name="employees" EntityType="Self.employee" />
+          <EntitySet Name="employerstocks" EntityType="Self.employerstock" />
+          <EntitySet Name="orders" EntityType="Self.order" />
+          <EntitySet Name="orderdetails" EntityType="Self.orderdetail" />
+          <EntitySet Name="orderhistories" EntityType="Self.orderhistory" />
+          <EntitySet Name="orderstatus" EntityType="Self.orderstatu" />
+          <EntitySet Name="products" EntityType="Self.product" />
+          <EntitySet Name="productdetails" EntityType="Self.productdetail" />
+          <EntitySet Name="productsorderds" EntityType="Self.productsorderd" />
+          <EntitySet Name="productsupplieds" EntityType="Self.productsupplied" />
+          <EntitySet Name="sales" EntityType="Self.sale" />
+          <EntitySet Name="solditems" EntityType="Self.solditem" />
+          <EntitySet Name="stocks" EntityType="Self.stock" />
+          <EntitySet Name="stocksales" EntityType="Self.stocksale" />
+          <EntitySet Name="suppliers" EntityType="Self.supplier" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <AssociationSet Name="fk_Authorities_users1" Association="Self.fk_Authorities_users1">
+            <End Role="users" EntitySet="users" />
+            <End Role="authorities" EntitySet="authorities" />
+          </AssociationSet>
+          <AssociationSet Name="fk_BorrowLendStock_BorrowLend1" Association="Self.fk_BorrowLendStock_BorrowLend1">
+            <End Role="borrowlend" EntitySet="borrowlends" />
+            <End Role="borrowlendstock" EntitySet="borrowlendstocks" />
+          </AssociationSet>
+          <AssociationSet Name="fk_BorrowLendStock_Stock1" Association="Self.fk_BorrowLendStock_Stock1">
+            <End Role="stock" EntitySet="stocks" />
+            <End Role="borrowlendstock" EntitySet="borrowlendstocks" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Product_Category1" Association="Self.fk_Product_Category1">
+            <End Role="category" EntitySet="categories" />
+            <End Role="product" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Employee_Department1" Association="Self.fk_Employee_Department1">
+            <End Role="department" EntitySet="departments" />
+            <End Role="employee" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Designation_Designation1" Association="Self.fk_Designation_Designation1">
+            <End Role="designation" EntitySet="designations" />
+            <End Role="designation1" EntitySet="designations" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Employee_Designation1" Association="Self.fk_Employee_Designation1">
+            <End Role="designation" EntitySet="designations" />
+            <End Role="employee" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Employee_Employee1" Association="Self.fk_Employee_Employee1">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="employee1" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Employee_Users1" Association="Self.fk_Employee_Users1">
+            <End Role="users" EntitySet="users" />
+            <End Role="employee" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="fk_EmployerStock_Employee1" Association="Self.fk_EmployerStock_Employee1">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="employerstock" EntitySet="employerstocks" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Order_Employee1" Association="Self.fk_Order_Employee1">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="order" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Sales_Employee1" Association="Self.fk_Sales_Employee1">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="sales" EntitySet="sales" />
+          </AssociationSet>
+          <AssociationSet Name="fk_EmployerStock_Stock1" Association="Self.fk_EmployerStock_Stock1">
+            <End Role="stock" EntitySet="stocks" />
+            <End Role="employerstock" EntitySet="employerstocks" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Order_OrderStatus1" Association="Self.fk_Order_OrderStatus1">
+            <End Role="orderstatus" EntitySet="orderstatus" />
+            <End Role="order" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="fk_OrderHistory_Order1" Association="Self.fk_OrderHistory_Order1">
+            <End Role="order" EntitySet="orders" />
+            <End Role="orderhistory" EntitySet="orderhistories" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ProductsOrderd_Order1" Association="Self.fk_ProductsOrderd_Order1">
+            <End Role="order" EntitySet="orders" />
+            <End Role="productsorderd" EntitySet="productsorderds" />
+          </AssociationSet>
+          <AssociationSet Name="fk_OrderDetail_ProductsOrderd1" Association="Self.fk_OrderDetail_ProductsOrderd1">
+            <End Role="productsorderd" EntitySet="productsorderds" />
+            <End Role="orderdetail" EntitySet="orderdetails" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Stock_OrderDetails1" Association="Self.fk_Stock_OrderDetails1">
+            <End Role="orderdetail" EntitySet="orderdetails" />
+            <End Role="stock" EntitySet="stocks" />
+          </AssociationSet>
+          <AssociationSet Name="fk_productDetails_Product1" Association="Self.fk_productDetails_Product1">
+            <End Role="product" EntitySet="products" />
+            <End Role="productdetails" EntitySet="productdetails" />
+          </AssociationSet>
+          <AssociationSet Name="fk_product_suplied_ProductDetails1" Association="Self.fk_product_suplied_ProductDetails1">
+            <End Role="productdetails" EntitySet="productdetails" />
+            <End Role="productsupplied" EntitySet="productsupplieds" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ProductsOrderd_ProductSupplied1" Association="Self.fk_ProductsOrderd_ProductSupplied1">
+            <End Role="productsupplied" EntitySet="productsupplieds" />
+            <End Role="productsorderd" EntitySet="productsorderds" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ProductSuplied_Supplier1" Association="Self.fk_ProductSuplied_Supplier1">
+            <End Role="supplier" EntitySet="suppliers" />
+            <End Role="productsupplied" EntitySet="productsupplieds" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SoldItems_Sales1" Association="Self.fk_SoldItems_Sales1">
+            <End Role="sales" EntitySet="sales" />
+            <End Role="solditems" EntitySet="solditems" />
+          </AssociationSet>
+          <AssociationSet Name="fk_StockSales_Sales1" Association="Self.fk_StockSales_Sales1">
+            <End Role="sales" EntitySet="sales" />
+            <End Role="stocksales" EntitySet="stocksales" />
+          </AssociationSet>
+          <AssociationSet Name="fk_StockSales_Stock1" Association="Self.fk_StockSales_Stock1">
+            <End Role="stock" EntitySet="stocks" />
+            <End Role="stocksales" EntitySet="stocksales" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="pharmacyModelStoreContainer" CdmEntityContainer="pharmacyEntities">
+          <EntitySetMapping Name="authorities">
+            <EntityTypeMapping TypeName="pharmacyModel.authority">
+              <MappingFragment StoreEntitySet="authorities">
+                <ScalarProperty Name="authorityId" ColumnName="authorityId" />
+                <ScalarProperty Name="authority1" ColumnName="authority" />
+                <ScalarProperty Name="username" ColumnName="username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="borrowlends">
+            <EntityTypeMapping TypeName="pharmacyModel.borrowlend">
+              <MappingFragment StoreEntitySet="borrowlend">
+                <ScalarProperty Name="borrowLendId" ColumnName="borrowLendId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="orderIdAgaintBorrowed" ColumnName="orderIdAgaintBorrowed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="borrowlendstocks">
+            <EntityTypeMapping TypeName="pharmacyModel.borrowlendstock">
+              <MappingFragment StoreEntitySet="borrowlendstock">
+                <ScalarProperty Name="borrowLendStockId" ColumnName="borrowLendStockId" />
+                <ScalarProperty Name="stockId" ColumnName="stockId" />
+                <ScalarProperty Name="borrowLendId" ColumnName="borrowLendId" />
+                <ScalarProperty Name="quantityBorrowed" ColumnName="quantityBorrowed" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="categories">
+            <EntityTypeMapping TypeName="pharmacyModel.category">
+              <MappingFragment StoreEntitySet="category">
+                <ScalarProperty Name="categoryId" ColumnName="categoryId" />
+                <ScalarProperty Name="categoryName" ColumnName="categoryName" />
+                <ScalarProperty Name="categoryUnit" ColumnName="categoryUnit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="departments">
+            <EntityTypeMapping TypeName="pharmacyModel.department">
+              <MappingFragment StoreEntitySet="department">
+                <ScalarProperty Name="departmentId" ColumnName="departmentId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="designations">
+            <EntityTypeMapping TypeName="pharmacyModel.designation">
+              <MappingFragment StoreEntitySet="designation">
+                <ScalarProperty Name="designationId" ColumnName="designationId" />
+                <ScalarProperty Name="designation1" ColumnName="designation" />
+                <ScalarProperty Name="level" ColumnName="level" />
+                <ScalarProperty Name="parentDesignationId" ColumnName="parentDesignationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employees">
+            <EntityTypeMapping TypeName="pharmacyModel.employee">
+              <MappingFragment StoreEntitySet="employee">
+                <ScalarProperty Name="empId" ColumnName="empId" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="birthDate" ColumnName="birthDate" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="joiningDate" ColumnName="joiningDate" />
+                <ScalarProperty Name="designationId" ColumnName="designationId" />
+                <ScalarProperty Name="departmentId" ColumnName="departmentId" />
+                <ScalarProperty Name="managerId" ColumnName="managerId" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employerstocks">
+            <EntityTypeMapping TypeName="pharmacyModel.employerstock">
+              <MappingFragment StoreEntitySet="employerstock">
+                <ScalarProperty Name="employerStockId" ColumnName="employerStockId" />
+                <ScalarProperty Name="stockId" ColumnName="stockId" />
+                <ScalarProperty Name="empId" ColumnName="empId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="orders">
+            <EntityTypeMapping TypeName="pharmacyModel.order">
+              <MappingFragment StoreEntitySet="order">
+                <ScalarProperty Name="orderId" ColumnName="orderId" />
+                <ScalarProperty Name="orderDate" ColumnName="orderDate" />
+                <ScalarProperty Name="empId" ColumnName="empId" />
+                <ScalarProperty Name="orderStatusId" ColumnName="orderStatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="orderdetails">
+            <EntityTypeMapping TypeName="pharmacyModel.orderdetail">
+              <MappingFragment StoreEntitySet="orderdetail">
+                <ScalarProperty Name="orderDetailId" ColumnName="orderDetailId" />
+                <ScalarProperty Name="quantityRecived" ColumnName="quantityRecived" />
+                <ScalarProperty Name="quantityOrderd" ColumnName="quantityOrderd" />
+                <ScalarProperty Name="orderRecivingDate" ColumnName="orderRecivingDate" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="rate" ColumnName="rate" />
+                <ScalarProperty Name="discountAmount" ColumnName="discountAmount" />
+                <ScalarProperty Name="netValue" ColumnName="netValue" />
+                <ScalarProperty Name="productsOrderdId" ColumnName="productsOrderdId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="orderhistories">
+            <EntityTypeMapping TypeName="pharmacyModel.orderhistory">
+              <MappingFragment StoreEntitySet="orderhistory">
+                <ScalarProperty Name="orderHistoryId" ColumnName="orderHistoryId" />
+                <ScalarProperty Name="statusChanged" ColumnName="statusChanged" />
+                <ScalarProperty Name="discription" ColumnName="discription" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="employeeId" ColumnName="employeeId" />
+                <ScalarProperty Name="orderId" ColumnName="orderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="orderstatus">
+            <EntityTypeMapping TypeName="pharmacyModel.orderstatu">
+              <MappingFragment StoreEntitySet="orderstatus">
+                <ScalarProperty Name="orderStatusId" ColumnName="orderStatusId" />
+                <ScalarProperty Name="statusName" ColumnName="statusName" />
+                <ScalarProperty Name="statusDiscription" ColumnName="statusDiscription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="products">
+            <EntityTypeMapping TypeName="pharmacyModel.product">
+              <MappingFragment StoreEntitySet="product">
+                <ScalarProperty Name="productId" ColumnName="productId" />
+                <ScalarProperty Name="productName" ColumnName="productName" />
+                <ScalarProperty Name="categoryId" ColumnName="categoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="productdetails">
+            <EntityTypeMapping TypeName="pharmacyModel.productdetail">
+              <MappingFragment StoreEntitySet="productdetails">
+                <ScalarProperty Name="productDetailId" ColumnName="productDetailId" />
+                <ScalarProperty Name="productId" ColumnName="productId" />
+                <ScalarProperty Name="productSize" ColumnName="productSize" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="productsorderds">
+            <EntityTypeMapping TypeName="pharmacyModel.productsorderd">
+              <MappingFragment StoreEntitySet="productsorderd">
+                <ScalarProperty Name="productsOrderdId" ColumnName="productsOrderdId" />
+                <ScalarProperty Name="orderId" ColumnName="orderId" />
+                <ScalarProperty Name="productSuppliedId" ColumnName="productSuppliedId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="productsupplieds">
+            <EntityTypeMapping TypeName="pharmacyModel.productsupplied">
+              <MappingFragment StoreEntitySet="productsupplied">
+                <ScalarProperty Name="productSuppliedId" ColumnName="productSuppliedId" />
+                <ScalarProperty Name="productDetailId" ColumnName="productDetailId" />
+                <ScalarProperty Name="supplierId" ColumnName="supplierId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sales">
+            <EntityTypeMapping TypeName="pharmacyModel.sale">
+              <MappingFragment StoreEntitySet="sales">
+                <ScalarProperty Name="salesId" ColumnName="salesId" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="empId" ColumnName="empId" />
+                <ScalarProperty Name="netAmount" ColumnName="netAmount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="solditems">
+            <EntityTypeMapping TypeName="pharmacyModel.solditem">
+              <MappingFragment StoreEntitySet="solditems">
+                <ScalarProperty Name="soldItemId" ColumnName="soldItemId" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="discount" ColumnName="discount" />
+                <ScalarProperty Name="salesId" ColumnName="salesId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="stocks">
+            <EntityTypeMapping TypeName="pharmacyModel.stock">
+              <MappingFragment StoreEntitySet="stock">
+                <ScalarProperty Name="stockId" ColumnName="stockId" />
+                <ScalarProperty Name="orderDetailId" ColumnName="orderDetailId" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="pricePrItem" ColumnName="pricePrItem" />
+                <ScalarProperty Name="remainingItems" ColumnName="remainingItems" />
+                <ScalarProperty Name="batchNO" ColumnName="batchNO" />
+                <ScalarProperty Name="expiryDate" ColumnName="expiryDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="stocksales">
+            <EntityTypeMapping TypeName="pharmacyModel.stocksale">
+              <MappingFragment StoreEntitySet="stocksales">
+                <ScalarProperty Name="stockSalesID" ColumnName="stockSalesID" />
+                <ScalarProperty Name="stockId" ColumnName="stockId" />
+                <ScalarProperty Name="salesId" ColumnName="salesId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="suppliers">
+            <EntityTypeMapping TypeName="pharmacyModel.supplier">
+              <MappingFragment StoreEntitySet="supplier">
+                <ScalarProperty Name="supplierId" ColumnName="supplierId" />
+                <ScalarProperty Name="supplierName" ColumnName="supplierName" />
+                <ScalarProperty Name="supplierContactNumber" ColumnName="supplierContactNumber" />
+                <ScalarProperty Name="supplierEmail" ColumnName="supplierEmail" />
+                <ScalarProperty Name="manufecture" ColumnName="manufecture" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="pharmacyModel.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="enabled" ColumnName="enabled" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

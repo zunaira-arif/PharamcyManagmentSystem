@@ -10,9 +10,10 @@ namespace PharmacyManagmentSystem.Controllers
     public class PlaceAnOrderController : Controller
     {
         PharmacyDAL pdal = new PharmacyDAL();
-       
+        
         public ActionResult LoadCategory()
         {
+          
             this.Session["EmpID"] = 1;
             this.Session["orderId"] = 1;
             ViewData["Category"] = pdal.GetCategory();

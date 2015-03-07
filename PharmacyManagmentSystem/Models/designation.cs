@@ -23,7 +23,7 @@ namespace PharmacyManagmentSystem.Models
         public int designationId { get; set; }
         public string designation1 { get; set; }
         public Nullable<int> level { get; set; }
-        public int designationId1 { get; set; }
+        public int parentDesignationId { get; set; }
     
         public virtual ICollection<designation> designation11 { get; set; }
         public virtual designation designation2 { get; set; }

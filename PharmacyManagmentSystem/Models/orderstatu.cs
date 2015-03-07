@@ -12,19 +12,17 @@ namespace PharmacyManagmentSystem.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class supplier
+    public partial class orderstatu
     {
-        public supplier()
+        public orderstatu()
         {
-            this.productsupplieds = new HashSet<productsupplied>();
+            this.orders = new HashSet<order>();
         }
     
-        public int supplierId { get; set; }
-        public string supplierName { get; set; }
-        public string supplierContactNumber { get; set; }
-        public string supplierEmail { get; set; }
-        public string manufecture { get; set; }
+        public int orderStatusId { get; set; }
+        public string statusName { get; set; }
+        public string statusDiscription { get; set; }
     
-        public virtual ICollection<productsupplied> productsupplieds { get; set; }
+        public virtual ICollection<order> orders { get; set; }
     }
 }

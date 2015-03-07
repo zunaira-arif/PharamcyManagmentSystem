@@ -12,9 +12,10 @@ namespace PharmacyManagmentSystem.DAL
     public class PharmacyDAL
     {
         private pharmacyEntities db = new pharmacyEntities();
+        
         public SelectList GetCategory()
         {
-            return new SelectList(db.categories, "categoryId", "categoryName");
+                 return new SelectList(db.categories, "categoryId", "categoryName");
         }
         public SelectList GetProduct(string id)
         {
@@ -63,14 +64,14 @@ namespace PharmacyManagmentSystem.DAL
             var order = new order();
             order.empId = empId;
             order.orderDate=DateTime.Today;
-            order.orderStatus=1;
+            order.orderStatusId=1;
             ///save an or der/////////////
             db.orders.Add(order);
             db.SaveChanges();
             ////create product order ////////////////
             var productorderd = new productsorderd();
             productorderd.orderId= 1;//getorderid
-            productorderd.ProductSupplied_productSuppliedId = ProSuppliedID;
+            productorderd.productSuppliedId = ProSuppliedID;
             ///////////////save product order
             db.productsorderds.Add(productorderd);
             db.SaveChanges();
@@ -79,7 +80,6 @@ namespace PharmacyManagmentSystem.DAL
             SelectList list = new SelectList(db.orders.ToString());
             return list;
         }
-        
         public SelectList AddOrderDetails(string prodetaiID, string suplierID, string Quantity, int empId, int orderID)
         {
             int ProdDetailID = int.Parse(prodetaiID);
@@ -104,12 +104,12 @@ namespace PharmacyManagmentSystem.DAL
                 ////create product order ////////////////
                 var productorderd = new productsorderd();
                 productorderd.orderId = orderID;
-                productorderd.ProductSupplied_productSuppliedId = ProSuppliedID;
+                productorderd.productSuppliedId = ProSuppliedID;
                 ///////////////save product order
                 db.productsorderds.Add(productorderd);
                 db.SaveChanges();
                 ////create order detail ////////////////
-                var getProOrderID = db.productsorderds.Where(p => p.orderId == orderID && p.ProductSupplied_productSuppliedId == ProSuppliedID).FirstOrDefault();
+                var getProOrderID = db.productsorderds.Where(p => p.orderId == orderID && p.productSuppliedId == ProSuppliedID).FirstOrDefault();
                 int ProOrderID = getProOrderID.productsOrderdId;
                 var orderdetailItems = new orderdetail();
                 orderdetailItems.quantityOrderd = QuantityOrder;
@@ -123,10 +123,9 @@ namespace PharmacyManagmentSystem.DAL
             SelectList list = new SelectList(db.orders.ToString());
             return list;
         }
-
         public int AlreadyExsist(int prosupID, int ordID)
         {
-            var chkAlready = db.productsorderds.Where(p => p.ProductSupplied_productSuppliedId == prosupID && p.orderId == ordID).FirstOrDefault();
+            var chkAlready = db.productsorderds.Where(p => p.productSuppliedId == prosupID && p.orderId == ordID).FirstOrDefault();
 
             if (chkAlready==null)
             {
@@ -138,6 +137,5 @@ namespace PharmacyManagmentSystem.DAL
             }
                 
         }
-    
     }    
 }

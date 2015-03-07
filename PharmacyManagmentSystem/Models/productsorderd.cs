@@ -21,7 +21,7 @@ namespace PharmacyManagmentSystem.Models
     
         public int productsOrderdId { get; set; }
         public int orderId { get; set; }
-        public int ProductSupplied_productSuppliedId { get; set; }
+        public int productSuppliedId { get; set; }
     
         public virtual order order { get; set; }
         public virtual ICollection<orderdetail> orderdetails { get; set; }

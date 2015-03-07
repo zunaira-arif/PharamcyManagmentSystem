@@ -16,15 +16,18 @@ namespace PharmacyManagmentSystem.Models
     {
         public order()
         {
+            this.orderhistories = new HashSet<orderhistory>();
             this.productsorderds = new HashSet<productsorderd>();
         }
     
         public int orderId { get; set; }
         public System.DateTime orderDate { get; set; }
         public int empId { get; set; }
-        public sbyte orderStatus { get; set; }
+        public int orderStatusId { get; set; }
     
         public virtual employee employee { get; set; }
+        public virtual orderstatu orderstatu { get; set; }
+        public virtual ICollection<orderhistory> orderhistories { get; set; }
         public virtual ICollection<productsorderd> productsorderds { get; set; }
     }
 }
