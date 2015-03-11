@@ -64,8 +64,8 @@
           <Property Name="empId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="firstName" Type="varchar" MaxLength="45" />
           <Property Name="birthDate" Type="date" />
-          <Property Name="LastName" Type="varchar" MaxLength="45" />
-          <Property Name="gender" Type="varchar" MaxLength="45" />
+          <Property Name="lastName" Type="varchar" MaxLength="45" />
+          <Property Name="gender" Type="varchar" MaxLength="8" />
           <Property Name="mobile" Type="varchar" MaxLength="45" />
           <Property Name="remarks" Type="varchar" MaxLength="255" />
           <Property Name="deleted" Type="bool" />
@@ -712,8 +712,8 @@
           <Property Name="empId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="firstName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="birthDate" Type="DateTime" />
-          <Property Name="LastName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="gender" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="lastName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="gender" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="mobile" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="remarks" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="deleted" Type="Boolean" />
@@ -1398,7 +1398,7 @@
                 <ScalarProperty Name="empId" ColumnName="empId" />
                 <ScalarProperty Name="firstName" ColumnName="firstName" />
                 <ScalarProperty Name="birthDate" ColumnName="birthDate" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
                 <ScalarProperty Name="gender" ColumnName="gender" />
                 <ScalarProperty Name="mobile" ColumnName="mobile" />
                 <ScalarProperty Name="remarks" ColumnName="remarks" />

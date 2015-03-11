@@ -53,33 +53,34 @@ namespace PharmacyManagmentSystem.DAL
             SelectList list = new SelectList(db.categories.Where(c => c.categoryId == ID), "categoryId", "categoryUnit");
             return list;
         }
-        public SelectList AddOrder(string prodetaiID, string suplierID, string Quantity, int empId)
-        {
-            int ProdDetailID = int.Parse(prodetaiID);
-            int SupplierID = int.Parse(suplierID);
-            int QuantityOrder = int.Parse(Quantity);
-            var getProSuppliedID = db.productsupplieds.Where(p => p.productDetailId == ProdDetailID && p.supplierId==SupplierID).FirstOrDefault();
-            int ProSuppliedID = getProSuppliedID.productSuppliedId;
-            /////create an order////////
-            var order = new order();
-            order.empId = empId;
-            order.orderDate=DateTime.Today;
-            order.orderStatusId=1;
-            ///save an or der/////////////
-            db.orders.Add(order);
-            db.SaveChanges();
-            ////create product order ////////////////
-            var productorderd = new productsorderd();
-            productorderd.orderId= 1;//getorderid
-            productorderd.productSuppliedId = ProSuppliedID;
-            ///////////////save product order
-            db.productsorderds.Add(productorderd);
-            db.SaveChanges();
+        //public SelectList AddOrder(string prodetaiID, string suplierID, string Quantity, int empId)
+        //{
+        //    int ProdDetailID = int.Parse(prodetaiID);
+        //    int SupplierID = int.Parse(suplierID);
+        //    int QuantityOrder = int.Parse(Quantity);
+        //    var getProSuppliedID = db.productsupplieds.Where(p => p.productDetailId == ProdDetailID && p.supplierId==SupplierID).FirstOrDefault();
+        //    int ProSuppliedID = getProSuppliedID.productSuppliedId;
+        //    /////create an order////////
+        //    var order = new order();
+        //    order.empId = empId;
+        //    order.orderDate=DateTime.Today;
+        //    order.orderStatusId=1;
+        //    ///save an or der/////////////
+        //    db.orders.Add(order);
+        //    db.SaveChanges();
+        //    ////create product order ////////////////
+        //    var productorderd = new productsorderd();
+        //    productorderd.orderId= 1;//getorderid
+        //    productorderd.productSuppliedId = ProSuppliedID;
+        //    ///////////////save product order
+        //    db.productsorderds.Add(productorderd);
+        //    db.SaveChanges();
 
 
-            SelectList list = new SelectList(db.orders.ToString());
-            return list;
-        }
+        //    SelectList list = new SelectList(db.orders.ToString());
+        //    return list;
+        //}
+    
         public SelectList AddOrderDetails(string prodetaiID, string suplierID, string Quantity, int empId, int orderID)
         {
             int ProdDetailID = int.Parse(prodetaiID);
@@ -135,7 +136,60 @@ namespace PharmacyManagmentSystem.DAL
             {
                 return chkAlready.productsOrderdId;
             }
-                
+
         }
+        
+        #region Order-Part
+
+        public List<order> getOrderByEmployee(int employeeID)
+        {
+            List<order> list = new List<order>(db.orders.Where(o => o.empId == employeeID));
+            return list;
+        }
+
+        public List<OrderTableStructure> GetOrderDetails(int orderID)
+        {
+            //List<OrderTableStructure> list =new List<OrderTableStructure>() ;
+            List<int> productOrderIdz=new List<int>();
+            List<int>  productSuppliedIdz=new List<int>();
+            OrderTableStructure ordertable=new OrderTableStructure();
+            var data = db.productsorderds.Where(p => p.orderId == orderID);
+            foreach (productsorderd po in data)
+            {
+                productSuppliedIdz.Add(po.productSuppliedId);
+                productOrderIdz.Add(po.productsOrderdId);
+            }
+            List<OrderTableStructure> list = new List<OrderTableStructure>();
+            for (int idz = 1; idz < productOrderIdz.Count; idz++)
+            {
+                ordertable = new OrderTableStructure();
+                ordertable.Id=idz;
+                int POid =productOrderIdz[idz];
+                var qun = db.orderdetails.Where(p=>p.productsOrderdId ==POid).SingleOrDefault();
+                ordertable.Quantity = qun.quantityOrderd;
+                int PSid=productSuppliedIdz[idz];
+                var sup = db.productsupplieds.Where(s => s.productSuppliedId == PSid).SingleOrDefault();
+                int suplierId = sup.supplierId;
+                int productdetailId = sup.productDetailId;
+                var supname = db.suppliers.Where(s => s.supplierId == suplierId).FirstOrDefault();
+                ordertable.SupplierName = supname.supplierName;
+                var proSize = db.productdetails.Where(p => p.productDetailId == productdetailId).SingleOrDefault();
+                ordertable.Size = proSize.productSize;
+                int PNid = proSize.productId;
+                var proName = db.products.Where(p => p.productId == PNid).SingleOrDefault();
+                ordertable.ProductName1 = proName.productName;
+                int catID = proName.categoryId;
+                var cat = db.categories.Where(c => c.categoryId == catID).SingleOrDefault();
+                ordertable.CategoryName = cat.categoryName;
+                list.Add(ordertable);
+              }
+                return list;              
+        }
+       
+        #endregion
+
+
+
+
     }    
 }

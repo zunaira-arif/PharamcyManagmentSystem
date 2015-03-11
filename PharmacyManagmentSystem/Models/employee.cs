@@ -25,7 +25,7 @@ namespace PharmacyManagmentSystem.Models
         public int empId { get; set; }
         public string firstName { get; set; }
         public Nullable<System.DateTime> birthDate { get; set; }
-        public string LastName { get; set; }
+        public string lastName { get; set; }
         public string gender { get; set; }
         public string mobile { get; set; }
         public string remarks { get; set; }

@@ -23,8 +23,11 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
+@foreach (var item in Model)           //.Where(o => o.empId == int.Parse(Session["EmpID"].ToString())))
+{
+    //if(item != null)
+    //{
+     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.orderDate)
         </td>
@@ -40,6 +43,8 @@
             @Html.ActionLink("Delete", "Delete", new { id=item.orderId })
         </td>
     </tr>
+    //}
+   
 }
 
 </table>

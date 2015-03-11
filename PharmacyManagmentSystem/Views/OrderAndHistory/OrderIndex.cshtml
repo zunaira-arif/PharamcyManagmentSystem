@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "OrderIndex";
+}
+
+<h2>Orders</h2>
+
+@using (Html.BeginForm())
+{
+    <br />
+    <div style="width:350px">
+        @Html.Label("emplloyee  ID =   ")
+        @Html.Label(Session["EmpID"].ToString())
+       @Html.Label("   Date =   ")
+        @Html.Label(DateTime.Today.Date.ToString())
+        <br />
+    </div>
+    <br />
+<table class="table" border="1">
+    <tr>
+        <th>
+            @Html.Label("Order Date")
+        </th>
+        <th>
+            @Html.Label("Employee Name")
+        </th>
+        <th>
+            @Html.Label("Order Status")
+        </th>
+        <th>
+            @Html.Label("Order")
+        </th>
+    </tr>
+   @foreach(var ordr in ViewData["Orders"] as  List<PharmacyManagmentSystem.Models.order> )
+   {
+       <tr>
+        <td>
+            @Html.DisplayFor(modelItem => ordr.orderDate)
+        </td>
+        <td>
+               @Html.DisplayFor(modelItem => ordr.employee.firstName)
+        </td>
+        <td>
+               @Html.DisplayFor(modelItem => ordr.orderstatu.statusName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = ordr.orderId }) |
+            @Html.ActionLink("View", "LoadCategory",new { id = ordr.orderId }))
+       </td>
+
+    </tr>
+       
+   }
+    
+ </table>
+}
