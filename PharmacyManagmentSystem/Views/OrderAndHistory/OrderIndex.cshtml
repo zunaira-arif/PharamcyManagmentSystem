@@ -1,14 +1,14 @@
-﻿@model IEnumerable<PharmacyManagmentSystem.Models.order>
-@{
+﻿@{
     ViewBag.Title = "OrderIndex";
-}
+     }
 
 <h2>Orders</h2>
 
 @using (Html.BeginForm())
 {
     var grid = new WebGrid(Model, rowsPerPage: 5, canPage: true, canSort: true, sortFieldName: "orderDate", ajaxUpdateContainerId: "DataGridOrders");
-    <br />
+    var ordr = ViewData["newOrders"];
+     <br />
     <div style="width:350px">
         @Html.Label("emplloyee  ID =   ")
         @Html.Label(Session["EmpID"].ToString())
@@ -28,15 +28,9 @@
             </tr>
             <tr>
                 <td>@Html.Label(this.Session["userName"].ToString())</td>
-                <td>
-                    <div id="jqxdatetimeinput"></div>
-                    @*<div style="margin-top: 10px;">
-                        <input id="getDateButton" type="button" value="Get Date" />
-                        <input id="setDateButton" type="button" value="Set Date" />
-                    </div>*@
-              </td>
-    <td>@Html.Label("Draft")</td>
-    <td><button id="saveOrder">Save Order</button> </td>
+                <td><input id="dateInput" type="datetime-local" value="2015-15-12" /></td>
+                <td>@Html.Label("Draft")</td>
+                <td><button id="saveOrder">Save Order</button> </td>
                 </tr>
             </table>
         </div>
@@ -58,6 +52,7 @@
                                  grid.Column(format: @<a href="~/OrderAndHistory/LoadCategory?id=@item.orderId">View</a>)
                                  ),mode: WebGridPagerModes.Numeric)
         </div>
+
         <div id="oldTable">
             @*<table>
                     <tr>
@@ -106,19 +101,15 @@
 <script src="/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-    @*$('#saveOrder').click(function (e) {
+    $('#saveOrder').click(function (e) {
         e.preventDefault();
-        $.ajax({
-            type: 'POST', url: '@Url.Action("SaveNewOrder")', dataType: 'json',
-            data: { Date: $('#ProductSize :selected').val()},
-            success: function (ok) {
-                alert("Record saved");
-            },
-            error: function (ex) { alert("Record not saved"); }
-        });
-
-        CreateHtmlTable();
-
-    });*@
+              $.ajax({
+                type: 'POST', url: '@Url.Action("SaveNewOrder")', dataType: 'json', data: { Date: date },
+                success: function (ok) {
+                    alert("Record saved");
+                },
+                error: function (ex) { alert("Record not saved"); }
+            });
+       });
     });
 </script>

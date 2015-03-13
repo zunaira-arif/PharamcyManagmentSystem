@@ -18,47 +18,55 @@
         <br />
     </div>
     <br />
-    <div>
-        @Html.Label("select Category")
+    <div id="AddNewProductDIV">
+@if (ViewData.ContainsKey("Category"))
+{ 
+        <div>
+            @Html.Label("select Category")
 
-        @if (ViewData.ContainsKey("Category"))
-        {
-            @Html.DropDownList("Category", ViewData["Category"] as List<SelectListItem>, "Please select a Category", new { style = "width:250px", @class = "dropdown1" })
-            <label id="ErrorLblCategory"></label>
-        }
-    </div>
-    <br />
-    <div>
-        @Html.Label("select Product")
-        @Html.DropDownList("Product", new SelectList(string.Empty, "Value", "Text"), "Please select a product", new { style = "width:250px", @class = "dropdown1" })
-        <label id="ErrorLblProduct"></label>
-    </div>
-    <br />
-    <div>
-        @Html.Label("select Product size")
-        @Html.DropDownList("ProductSize", new SelectList(string.Empty, "Value", "Text"), "Please select Product Size", new { style = "width:250px", @class = "dropdown1" })
-        <label id="ErrorLblProductSize"></label>
-        <label id="Unit">Unit</label>
-    </div>
-    <br />
-    <div>
-        @Html.Label("select Supplier")
-        @Html.DropDownList("Supplier", new SelectList(string.Empty, "Value", "Text"), "Please select Suplier", new { style = "width:250px", @class = "dropdown1" })
-        <label id="ErrorLblSupplier"></label>
-    </div>
-    <br />
-    <div>
-        @Html.Label("Quantity")
-        <input id="QuantityTextbox" type="number" value="" />
-        <label id="ErrorLblQuantity"></label>
-    </div>
-    <br />
-    <div>
-        <button id="AddProductBtn" name="AddProductBtn">Save Product </button>
-        <button id="OrderBtn" name="OrderBtn" type="submit"> Save Order </button>
+            @if (ViewData.ContainsKey("Category"))
+            {
+                @Html.DropDownList("Category", ViewData["Category"] as List<SelectListItem>, "Please select a Category", new { style = "width:250px", @class = "dropdown1" })
+                <label id="ErrorLblCategory"></label>
+            }
+        </div>
         <br />
-    </div>   
-    <div class=" form-horizontal"  style="width:850px">
+        <div>
+            @Html.Label("select Product")
+            @Html.DropDownList("Product", new SelectList(string.Empty, "Value", "Text"), "Please select a product", new { style = "width:250px", @class = "dropdown1" })
+            <label id="ErrorLblProduct"></label>
+        </div>
+        <br />
+        <div>
+            @Html.Label("select Product size")
+            @Html.DropDownList("ProductSize", new SelectList(string.Empty, "Value", "Text"), "Please select Product Size", new { style = "width:250px", @class = "dropdown1" })
+            <label id="ErrorLblProductSize"></label>
+            <label id="Unit">Unit</label>
+        </div>
+        <br />
+        <div>
+            @Html.Label("select Supplier")
+            @Html.DropDownList("Supplier", new SelectList(string.Empty, "Value", "Text"), "Please select Suplier", new { style = "width:250px", @class = "dropdown1" })
+            <label id="ErrorLblSupplier"></label>
+        </div>
+        <br />
+        <div>
+            @Html.Label("Quantity")
+            <input id="QuantityTextbox" type="number" value="" />
+            <label id="ErrorLblQuantity"></label>
+        </div>
+        <br />
+        <div>
+            <button id="AddProductBtn" name="AddProductBtn">Save Product </button>
+
+            <br />
+        </div>
+}
+    </div>
+  
+      <div  id ="OrderDetails" class=" form-horizontal"  style="width:850px">
+        @Html.ActionLink("Back To Orders", "OrderIndex")
+        <br/>
         @Html.Label("Ordered Items Detail")
         <br />
         @*WebGrid grid = new WebGrid(ViewBag.Items);  *@ @*will be used when converting to grid*@
@@ -165,12 +173,7 @@
             CreateHtmlTable();
         }
         });
-   ///////////////////////////// add row in table on button click Add product\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-        $('#OrderBtn').click(function (e) {
-            e.preventDefault();
-
-        });
-
+  
     ///////////////////////////// gridContent\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
         function CreateHtmlTable() {
             //Clear result div

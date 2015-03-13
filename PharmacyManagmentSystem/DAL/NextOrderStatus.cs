@@ -25,7 +25,7 @@ namespace PharmacyManagmentSystem.DAL
                     break;
 
                 case 3:
-                    NewStatus = new SelectList(db.orderstatus.Where(s => s.orderStatusId == 4), "orderStatusId", "statusName");
+                    NewStatus = new SelectList(db.orderstatus.Where(s => s.orderStatusId == 4 || s.orderStatusId == 5), "orderStatusId", "statusName");
                     break;
                 case 4:
                     NewStatus = new SelectList(db.orderstatus.Where(s => s.orderStatusId == 4 ), "orderStatusId", "statusName");

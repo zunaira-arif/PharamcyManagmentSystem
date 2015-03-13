@@ -10,6 +10,7 @@ namespace PharmacyManagmentSystem.Controllers
     {
         NextOrderStatus newstatus = new NextOrderStatus();
         PharmacyDAL pdal = new PharmacyDAL();
+
         public ActionResult OrderIndex()
         {                  
             this.Session.Timeout = 1000;
@@ -32,6 +33,15 @@ namespace PharmacyManagmentSystem.Controllers
             {
                 return HttpNotFound();
             }
+            if (orderData[0].orderStatusId == 5)
+            {
+
+                return RedirectToAction("OrderIndex");
+            }
+            if (orderData[0].orderStatusId == 4)
+            {
+                return RedirectToAction("OrderIndex");
+            }          
             ViewData["employeeName"] = orderData[0].employee.firstName;
             ViewData["Orderdate"] = orderData[0].orderDate;
             ViewData["OldStatus"] = orderData[0].orderstatu.statusName;
@@ -49,15 +59,27 @@ namespace PharmacyManagmentSystem.Controllers
         }
        
         public ActionResult LoadCategory(int? id)
-        { 
-            this.Session["OrderID"] = id; // to  set curunt order ID
-            if (id==null)
         {
-            ViewData["Category"] = pdal.GetCategory();
-            return View();
-        }
-            ViewData["Category"] = pdal.GetCategory();
-            return View();
+            if (id == null)
+            {
+               return HttpNotFound();
+            }
+            this.Session["OrderID"] = id; // to  set curunt order ID
+            int emp=int.Parse(this.Session["EmpID"].ToString());
+            var orderData = pdal.getOrderByEmployeeAndOrderId(emp, id);
+            if (orderData.Count < 1 || orderData == null)
+            {
+                return HttpNotFound();
+            }
+            if (orderData[0].orderStatusId == 1)
+            {
+                ViewData["Category"] = pdal.GetCategory();
+                return View();
+            }
+            else {
+                return View();
+            }        
+            
         }
 
         public JsonResult GetProduct(string id)
@@ -134,5 +156,18 @@ namespace PharmacyManagmentSystem.Controllers
         {
             return "ok";
         }
+
+
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+               pdal.Dispose();
+               newstatus = null;
+            }
+            base.Dispose(disposing);
+        } 
+        
     }
 }
