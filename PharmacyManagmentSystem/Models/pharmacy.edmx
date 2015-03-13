@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="pharmacyModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="pharmacyModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="authorities">
           <Key>
             <PropertyRef Name="authorityId" />
@@ -89,7 +89,7 @@
             <PropertyRef Name="orderId" />
           </Key>
           <Property Name="orderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="orderDate" Type="date" Nullable="false" />
+          <Property Name="orderDate" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="empId" Type="int" Nullable="false" />
           <Property Name="orderStatusId" Type="int" Nullable="false" />
         </EntityType>
@@ -115,7 +115,7 @@
           <Property Name="statusChanged" Type="varchar" MaxLength="45" />
           <Property Name="discription" Type="varchar" MaxLength="100" />
           <Property Name="date" Type="datetime" Precision="0" />
-          <Property Name="employeeId" Type="varchar" MaxLength="45" />
+          <Property Name="employeeId" Type="int" />
           <Property Name="orderId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="orderstatus">
@@ -639,8 +639,7 @@
             <End Role="stocksales" EntitySet="stocksales" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="pharmacyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -779,7 +778,7 @@
           <Property Name="statusChanged" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="discription" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="date" Type="DateTime" />
-          <Property Name="employeeId" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="employeeId" Type="Int32" />
           <Property Name="orderId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="order" Relationship="Self.fk_OrderHistory_Order1" FromRole="orderhistory" ToRole="order" />
         </EntityType>

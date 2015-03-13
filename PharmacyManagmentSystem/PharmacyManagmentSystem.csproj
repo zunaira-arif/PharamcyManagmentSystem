@@ -138,8 +138,8 @@
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PlaceAnOrderController.cs" />
     <Compile Include="Controllers\ProductSuppliedController.cs" />
-    <Compile Include="Controllers\SessionExtensions.cs" />
     <Compile Include="Controllers\SupplierController.cs" />
+    <Compile Include="DAL\NextOrderStatus.cs" />
     <Compile Include="DAL\OrderTableStructure.cs" />
     <Compile Include="DAL\PharmacyDAL.cs" />
     <Compile Include="Global.asax.cs">
@@ -291,8 +291,8 @@
     <Content Include="Views\Order\Edit.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\OrderAndHistory\OrderIndex.cshtml" />
-    <Content Include="Views\OrderAndHistory\Edit.cshtml" />
     <Content Include="Views\OrderAndHistory\LoadCategory.cshtml" />
+    <Content Include="Views\OrderAndHistory\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

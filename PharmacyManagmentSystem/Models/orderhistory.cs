@@ -18,7 +18,7 @@ namespace PharmacyManagmentSystem.Models
         public string statusChanged { get; set; }
         public string discription { get; set; }
         public Nullable<System.DateTime> date { get; set; }
-        public string employeeId { get; set; }
+        public Nullable<int> employeeId { get; set; }
         public int orderId { get; set; }
     
         public virtual order order { get; set; }

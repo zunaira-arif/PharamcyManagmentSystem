@@ -8,31 +8,46 @@ namespace PharmacyManagmentSystem.Controllers
 {
     public class OrderAndHistoryController : Controller
     {
+        NextOrderStatus newstatus = new NextOrderStatus();
         PharmacyDAL pdal = new PharmacyDAL();
         public ActionResult OrderIndex()
-        {
+        {                  
             this.Session.Timeout = 1000;
             ViewData["Orders"] = getorderEmployee();
-            return View();
+            ViewData["Status"] = newstatus.GetNextOrderStatus(0);
+            return View(ViewData["Orders"]);
         }
+       
         public ActionResult Edit(int? id)
         {
-            this.Session["OrderID"] = id; // to  set curunt order ID
+             this.Session["OrderID"] = id; // to  set curunt order ID
+             this.Session["EmpID"] = 1; //will be deleted after login mantainens
+             int employeeID = int.Parse(Session["EmpID"].ToString());
             if (id == null)
             {
-                return View();
+                return HttpNotFound();
             }
-           // ViewData["Orders"] = getorderEmployee();
+            var orderData = pdal.getOrderByEmployeeAndOrderId(employeeID, id);
+            if (orderData.Count < 1 || orderData == null)
+            {
+                return HttpNotFound();
+            }
+            ViewData["employeeName"] = orderData[0].employee.firstName;
+            ViewData["Orderdate"] = orderData[0].orderDate;
+            ViewData["OldStatus"] = orderData[0].orderstatu.statusName;
+            ViewBag.orderStatus = newstatus.GetNextOrderStatus(orderData[0].orderStatusId); 
             return View();
         }
        
         public List<PharmacyManagmentSystem.Models.order> getorderEmployee()
         {
-           this.Session["EmpID"] = 2; //will be deleted after login mantainens
+            this.Session["userName"] = "Loged in user"; 
+           this.Session["EmpID"] = 1; //will be deleted after login mantainens
            int employeeID = int.Parse(Session["EmpID"].ToString());
            List<PharmacyManagmentSystem.Models.order>  list = pdal.getOrderByEmployee(employeeID);
             return list;
         }
+       
         public ActionResult LoadCategory(int? id)
         { 
             this.Session["OrderID"] = id; // to  set curunt order ID
@@ -77,8 +92,47 @@ namespace PharmacyManagmentSystem.Controllers
         {
             string orderID = this.Session["OrderID"].ToString();
             List<OrderTableStructure> itemList = pdal.GetOrderDetails(int.Parse(orderID));
-            return Json(itemList, JsonRequestBehavior.AllowGet);
+            return Json(itemList,JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetOrderStatus(int? id)
+        {
+            SelectList list = pdal.GetOrderStatus();
+            return Json(list);
+        }
+        
+        public JsonResult AddOrderHistoy(string StatusChanged, string discription)
+        {            
+            try {
+                int orderid = int.Parse(this.Session["OrderID"].ToString());
+                int? empID = int.Parse(this.Session["EmpID"].ToString());
+                pdal.AddOrderHistory(StatusChanged, discription, orderid, empID);
+                return Json("ok");
+            }
+            catch(Exception e){
+                return Json("Not Saved" + e.Data.ToString());
+            }
+           
+        
+        }
+
+        public JsonResult ChangeOrderStatus(int newstatusid)
+        {
+            try
+            {
+                int orderid = int.Parse(this.Session["OrderID"].ToString());
+                pdal.ChangeOrderStatus(orderid, newstatusid);
+                return Json("ok");
+            }
+            catch (Exception e)
+            {
+                return Json("not ok");            
+            }
+           
+        }
+        public string  SaveNewOrder(DateTime Date)
+        {
+            return "ok";
+        }
     }
 }

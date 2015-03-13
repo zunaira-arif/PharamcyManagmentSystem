@@ -3,6 +3,95 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit for order</h2>
+<h2>Edit</h2>
+@using (Html.BeginForm())
+{
+<br />
+<div style="width:850px">
+    @Html.Label("emplloyee  ID =   ")
+    @Html.Label(Session["EmpID"].ToString())
+    @Html.Label("order  ID =   ")
+    @Html.Label(Session["OrderID"].ToString())
+    @Html.Label("   Date =   ")
+    @Html.Label(DateTime.Today.Date.ToString())
+    <br />
+</div>
+<br />
+    <table id="OrderDisplayTable" border="1" width="850">
+        <tr id="DisplayHeader">
+            <td>
+                @Html.Label("Order Date")
+            </td>
+            <td>
+                @Html.Label("Employe Name")
+            </td>
+            <td>
+                @Html.Label("Current Status")
+            </td>        
+            <td>
+                @Html.Label("Set New Status")
+            </td>
+            <td>
+                @Html.Label("Discripotion")
+            </td>   
+            <td></td>  
+            <td></td>   
+        </tr>
+        <tr id="DisplayData">
+            <td>
+                @Html.Label(ViewData["Orderdate"].ToString())
+            </td>
+            <td>
+                @Html.Label(ViewData["employeeName"].ToString())
+            </td>
+            <td>
+                @Html.Label(ViewData["OldStatus"].ToString())
+            </td>
+            <td>
+                @Html.DropDownList("orderStatus")
+            </td>
+            <td>
+               <textarea id="TxtAreaDisc" rows="5" cols="50" maxlength="250"></textarea>
+            </td>
+            <td>
+                <button id="saveChangebtn" type="submit" class="btn-success">Save Changes</button>
+            </td> 
+            <td>
+                @Html.ActionLink("Back To Orders", "OrderIndex")
+            </td> 
+        </tr>
+    </table>
+    <br/>
+    <label id="errorlable" style="color:red" >hello</label>
+          
+    }
+        <script src="/Scripts/jquery-1.10.2.js" type="text/javascript"></script>
+        <script src="/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            $('#saveChangebtn').click(function (e) {
+                e.preventDefault();
+                if ($('#TxtAreaDisc').val().length < 1)
+                {
+                document.getElementById('errorlable').innerHTML  = "please Enter Discription"
+                }
+                else
+                {
+                $.ajax({
+                    type: 'POST', url: '@Url.Action("ChangeOrderStatus")', dataType: 'json', data: { newstatusid: $('#orderStatus :selected').val() },
+                    success: function (ok) {
+                        $.ajax({
+                            type: 'POST', url: '@Url.Action("AddOrderHistoy")', dataType: 'json',
+                            data: { StatusChanged: $('#orderStatus :selected').text(), discription: $("#TxtAreaDisc").val()},
+                            success: function (ok) {                              
+                            },
+                            error: function (ex) { }
+                        });
+                        document.getElementById('errorlable').innerHTML = "Status Updated"
+                    },
+                    error: function (ex) { alert("Record not saved"); }
+                });
+                }
+            });
+           
 
-@Html.Label(" Order Id is    =  " + Session["OrderID"].ToString())
+        </script>

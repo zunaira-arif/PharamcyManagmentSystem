@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace PharmacyManagmentSystem.DAL
 {
-    public class PharmacyDAL : Controller 
+    public class PharmacyDAL
     {
         private pharmacyEntities db = new pharmacyEntities();
         
@@ -156,9 +156,10 @@ namespace PharmacyManagmentSystem.DAL
             List<order> list = new List<order>(db.orders.Where(o => o.empId == employeeID && o.orderId==orderID));
             return list;
         }
-       
+
         public List<OrderTableStructure> GetOrderDetails(int orderID)
-        {  //List<OrderTableStructure> list =new List<OrderTableStructure>() ;
+        {
+            //List<OrderTableStructure> list =new List<OrderTableStructure>() ;
             List<int> productOrderIdz=new List<int>();
             List<int>  productSuppliedIdz=new List<int>();
             OrderTableStructure ordertable=new OrderTableStructure();
@@ -168,70 +169,37 @@ namespace PharmacyManagmentSystem.DAL
                 productSuppliedIdz.Add(po.productSuppliedId);
                 productOrderIdz.Add(po.productsOrderdId);
             }
-            data = null;
             List<OrderTableStructure> list = new List<OrderTableStructure>();
-            for (int idz = 0; idz < productOrderIdz.Count; idz++)
+            for (int idz = 1; idz < productOrderIdz.Count; idz++)
             {
                 ordertable = new OrderTableStructure();
-                ordertable.Id=idz+1;
+                ordertable.Id=idz;
                 int POid =productOrderIdz[idz];
                 var qun = db.orderdetails.Where(p=>p.productsOrderdId ==POid).SingleOrDefault();
                 ordertable.Quantity = qun.quantityOrderd;
-                qun = null;
                 int PSid=productSuppliedIdz[idz];
                 var sup = db.productsupplieds.Where(s => s.productSuppliedId == PSid).SingleOrDefault();
                 int suplierId = sup.supplierId;
                 int productdetailId = sup.productDetailId;
-                sup = null;
                 var supname = db.suppliers.Where(s => s.supplierId == suplierId).FirstOrDefault();
                 ordertable.SupplierName = supname.supplierName;
-                supname = null;
                 var proSize = db.productdetails.Where(p => p.productDetailId == productdetailId).SingleOrDefault();
                 ordertable.Size = proSize.productSize;
                 int PNid = proSize.productId;
-                proSize = null;
                 var proName = db.products.Where(p => p.productId == PNid).SingleOrDefault();
                 ordertable.ProductName1 = proName.productName;
                 int catID = proName.categoryId;
-                proName = null;
                 var cat = db.categories.Where(c => c.categoryId == catID).SingleOrDefault();
                 ordertable.CategoryName = cat.categoryName;
-                cat = null;
                 list.Add(ordertable);
               }
                 return list;              
         }
        
-        public void AddOrderHistory(string StatusChanged, string discription, int orderid, int? empID)
-        {
-        DateTime date = DateTime.Now;
-        orderhistory orderhistory = new orderhistory();
-        orderhistory.date = date;
-        orderhistory.statusChanged = StatusChanged;
-        orderhistory.discription = discription;
-        orderhistory.orderId = orderid;
-        orderhistory.employeeId = empID;
-        db.orderhistories.Add(orderhistory);
-        db.SaveChanges();
-
-        }
-        public void ChangeOrderStatus(int Oid, int newStatusId)
-        {
-            var ordertoUpdate = db.orders.Find(Oid);
-            ordertoUpdate.orderStatusId = newStatusId;
-            db.SaveChanges();           
-        }
-
         #endregion
-        
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        } 
-        
+
+
+
+
     }    
 }

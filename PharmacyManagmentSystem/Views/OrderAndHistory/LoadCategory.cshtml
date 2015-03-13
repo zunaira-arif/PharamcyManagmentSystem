@@ -58,12 +58,11 @@
         <button id="OrderBtn" name="OrderBtn" type="submit"> Save Order </button>
         <br />
     </div>   
-    <div style="width:850px">
+    <div class=" form-horizontal"  style="width:850px">
         @Html.Label("Ordered Items Detail")
         <br />
-        <div id="ResultArea">
-
-        </div>
+        @*WebGrid grid = new WebGrid(ViewBag.Items);  *@ @*will be used when converting to grid*@
+        <div id="ResultArea"> </div>
     </div>
 }
 <script src="/Scripts/jquery-1.10.2.js" type="text/javascript"></script>
@@ -146,7 +145,7 @@
     $('#AddProductBtn').click(function (e) {
         e.preventDefault();
         if ($("#QuantityTextbox").val() < 1 || $("#QuantityTextbox").val().length < 1) {
-            document.getElementById("ErrorLblQuantity").innerHTML = "please  enter a valid size"
+            document.getElementById("ErrorLblQuantity").innerHTML = "please  enter a valid Quantity"
         }
         else if ($('#Supplier :selected').val() < 1 || $('#Supplier :selected').val() == null) {
             document.getElementById("ErrorLblSupplier").innerHTML = "please select supplier"
@@ -158,6 +157,7 @@
                 type: 'POST', url: '@Url.Action("AddOrderDetail")', dataType: 'json',
                     data: { ProductSuppliedID: $('#ProductSize :selected').val(), SupplierID:$('#Supplier :selected').val(), quantity: $("#QuantityTextbox").val()  },
                     success: function (supplierz) {
+                        CreateHtmlTable();
                         },
                     error: function (ex) { alert("Record not saved"); }
                 });
@@ -177,7 +177,7 @@
             $("#ResultArea").html("");
 
             //Crate table html tag
-            var table = $("<table id=DynamicTable border=1></table>").appendTo("#ResultArea");
+            var table = $("<table id=DynamicTable border=1 class=table-striped ></table>").appendTo("#ResultArea");
 
             //Create table header row
             var rowHeader = $("<tr></tr>").appendTo(table);

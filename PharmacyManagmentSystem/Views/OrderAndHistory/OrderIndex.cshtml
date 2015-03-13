@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<PharmacyManagmentSystem.Models.order>
 @{
     ViewBag.Title = "OrderIndex";
 }
@@ -7,50 +7,118 @@
 
 @using (Html.BeginForm())
 {
+    var grid = new WebGrid(Model, rowsPerPage: 5, canPage: true, canSort: true, sortFieldName: "orderDate", ajaxUpdateContainerId: "DataGridOrders");
     <br />
     <div style="width:350px">
         @Html.Label("emplloyee  ID =   ")
         @Html.Label(Session["EmpID"].ToString())
-       @Html.Label("   Date =   ")
+        @Html.Label("   Date =   ")
         @Html.Label(DateTime.Today.Date.ToString())
         <br />
     </div>
     <br />
-<table class="table" border="1">
-    <tr>
-        <th>
-            @Html.Label("Order Date")
-        </th>
-        <th>
-            @Html.Label("Employee Name")
-        </th>
-        <th>
-            @Html.Label("Order Status")
-        </th>
-        <th>
-            @Html.Label("Order")
-        </th>
-    </tr>
-   @foreach(var ordr in ViewData["Orders"] as  List<PharmacyManagmentSystem.Models.order> )
-   {
-       <tr>
-        <td>
-            @Html.DisplayFor(modelItem => ordr.orderDate)
-        </td>
-        <td>
-               @Html.DisplayFor(modelItem => ordr.employee.firstName)
-        </td>
-        <td>
-               @Html.DisplayFor(modelItem => ordr.orderstatu.statusName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = ordr.orderId }) |
-            @Html.ActionLink("View", "LoadCategory",new { id = ordr.orderId }))
-       </td>
 
-    </tr>
-       
-   }
-    
- </table>
+    <div id="create new order" style="width:50%; align-content:center;background-color:lightgray">
+        <table style="width:100%;">
+            <tr>
+                <td>@Html.Label("User Name")</td>
+                <td>@Html.Label("Date")</td>
+                <td>@Html.Label("Status")</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>@Html.Label(this.Session["userName"].ToString())</td>
+                <td>
+                    <div id="jqxdatetimeinput"></div>
+                    @*<div style="margin-top: 10px;">
+                        <input id="getDateButton" type="button" value="Get Date" />
+                        <input id="setDateButton" type="button" value="Set Date" />
+                    </div>*@
+              </td>
+    <td>@Html.Label("Draft")</td>
+    <td><button id="saveOrder">Save Order</button> </td>
+                </tr>
+            </table>
+        </div>
+    <br />
+    <br />
+    <div>
+        <div id="OrderGrid"></div>
+
+        <div id="OrderGrid2" style="align-content:center;width:inherit;background-color:lightgoldenrodyellow;">
+            @grid.GetHtml(
+                tableStyle: "table",
+                headerStyle: "header",
+               columns:
+                                grid.Columns
+                                (grid.Column("employee.firstName", "Name"),
+                                 grid.Column("orderDate", "Date"),
+                                 grid.Column("orderstatu.statusName", "Status"),
+                                 grid.Column(format: @<a href="~/OrderAndHistory/Edit?id=@item.orderId">Edit</a>),
+                                 grid.Column(format: @<a href="~/OrderAndHistory/LoadCategory?id=@item.orderId">View</a>)
+                                 ),mode: WebGridPagerModes.Numeric)
+        </div>
+        <div id="oldTable">
+            @*<table>
+                    <tr>
+                        <th>
+                            @Html.Label("Order Date")
+                        </th>
+                        <th>
+                            @Html.Label("Employee Name")
+                        </th>
+                        <th>
+                            @Html.Label("Order Status")
+                        </th>
+                        <th>
+                            @Html.Label("Order")
+                        </th>
+                    </tr>
+                    @foreach (var ordr in ViewData["Orders"] as List<PharmacyManagmentSystem.Models.order>)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => ordr.orderDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => ordr.employee.firstName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => ordr.orderstatu.statusName)
+
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = ordr.orderId }) |
+                                @Html.ActionLink("View", "LoadCategory", new { id = ordr.orderId })
+                            </td>
+
+                        </tr>
+
+                    }
+
+                </table>*@
+        </div>
+
+    </div>
 }
+
+<script src="/Scripts/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+    @*$('#saveOrder').click(function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST', url: '@Url.Action("SaveNewOrder")', dataType: 'json',
+            data: { Date: $('#ProductSize :selected').val()},
+            success: function (ok) {
+                alert("Record saved");
+            },
+            error: function (ex) { alert("Record not saved"); }
+        });
+
+        CreateHtmlTable();
+
+    });*@
+    });
+</script>
