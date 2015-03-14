@@ -53,34 +53,6 @@ namespace PharmacyManagmentSystem.DAL
             SelectList list = new SelectList(db.categories.Where(c => c.categoryId == ID), "categoryId", "categoryUnit");
             return list;
         }
-        //public SelectList AddOrder(string prodetaiID, string suplierID, string Quantity, int empId)
-        //{
-        //    int ProdDetailID = int.Parse(prodetaiID);
-        //    int SupplierID = int.Parse(suplierID);
-        //    int QuantityOrder = int.Parse(Quantity);
-        //    var getProSuppliedID = db.productsupplieds.Where(p => p.productDetailId == ProdDetailID && p.supplierId==SupplierID).FirstOrDefault();
-        //    int ProSuppliedID = getProSuppliedID.productSuppliedId;
-        //    /////create an order////////
-        //    var order = new order();
-        //    order.empId = empId;
-        //    order.orderDate=DateTime.Today;
-        //    order.orderStatusId=1;
-        //    ///save an or der/////////////
-        //    db.orders.Add(order);
-        //    db.SaveChanges();
-        //    ////create product order ////////////////
-        //    var productorderd = new productsorderd();
-        //    productorderd.orderId= 1;//getorderid
-        //    productorderd.productSuppliedId = ProSuppliedID;
-        //    ///////////////save product order
-        //    db.productsorderds.Add(productorderd);
-        //    db.SaveChanges();
-
-
-        //    SelectList list = new SelectList(db.orders.ToString());
-        //    return list;
-        //}
-    
         public SelectList AddOrderDetails(string prodetaiID, string suplierID, string Quantity, int empId, int orderID)
         {
             int ProdDetailID = int.Parse(prodetaiID);
@@ -137,7 +109,7 @@ namespace PharmacyManagmentSystem.DAL
             neworder.empId = id;
             db.orders.Add(neworder);
             db.SaveChanges();
-            AddOrderHistory("Draft", "New Order", neworder.orderId, id,newdate);
+            AddOrderHistory("Draft", "New Order creation", neworder.orderId, id,newdate);
         }
         public SelectList GetOrderStatus()
         {

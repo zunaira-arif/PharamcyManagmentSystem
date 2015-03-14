@@ -117,6 +117,7 @@
                 $.ajax({
                     type: 'POST', url: '@Url.Action("SaveNewOrder")', dataType: 'json', data: { Date: $('#datepicker').val() },
                     success: function (ok) {
+                        location.reload();
                         document.getElementById("errorlable").innerHTML = "Order Saved";
                         //$("#OrderGrid2").
                     },
