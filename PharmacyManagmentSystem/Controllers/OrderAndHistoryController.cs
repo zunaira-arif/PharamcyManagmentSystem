@@ -128,7 +128,8 @@ namespace PharmacyManagmentSystem.Controllers
             try {
                 int orderid = int.Parse(this.Session["OrderID"].ToString());
                 int? empID = int.Parse(this.Session["EmpID"].ToString());
-                pdal.AddOrderHistory(StatusChanged, discription, orderid, empID);
+                DateTime date = DateTime.Now;
+                pdal.AddOrderHistory(StatusChanged, discription, orderid, empID,date);
                 return Json("ok");
             }
             catch(Exception e){
@@ -152,9 +153,16 @@ namespace PharmacyManagmentSystem.Controllers
             }
            
         }
-        public string  SaveNewOrder(DateTime Date)
-        {
-            return "ok";
+        public JsonResult SaveNewOrder(string Date)
+        {          
+         DateTime newdate=DateTime.Today;
+         if (DateTime.TryParse(Date, out newdate))
+         {
+             int id = int.Parse(this.Session["EmpID"].ToString());
+             pdal.AddNewOrder(newdate,id);
+             return Json("ok");
+         }
+         return Json("not ok");
         }
 
 

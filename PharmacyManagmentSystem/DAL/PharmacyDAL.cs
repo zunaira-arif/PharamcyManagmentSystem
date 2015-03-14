@@ -140,6 +140,16 @@ namespace PharmacyManagmentSystem.DAL
         }
         
         #region Order-Part
+        public void AddNewOrder(DateTime newdate, int id)
+        {
+            order neworder = new order();
+            neworder.orderDate = newdate;
+            neworder.orderStatusId = 1;
+            neworder.empId = id;
+            db.orders.Add(neworder);
+            db.SaveChanges();
+            AddOrderHistory("Draft", "New Order", neworder.orderId, id,newdate);
+        }
         public SelectList GetOrderStatus()
         {
             SelectList list=new SelectList(db.orderstatus, "orderStatusId", "statusName");
@@ -202,9 +212,9 @@ namespace PharmacyManagmentSystem.DAL
                 return list;              
         }
        
-        public void AddOrderHistory(string StatusChanged, string discription, int orderid, int? empID)
+        public void AddOrderHistory(string StatusChanged, string discription, int orderid, int? empID , DateTime date)
         {
-        DateTime date = DateTime.Now;
+        date = DateTime.Now;
         orderhistory orderhistory = new orderhistory();
         orderhistory.date = date;
         orderhistory.statusChanged = StatusChanged;

@@ -28,12 +28,13 @@
             </tr>
             <tr>
                 <td>@Html.Label(this.Session["userName"].ToString())</td>
-                <td><input id="dateInput" type="datetime-local" value="2015-15-12" /></td>
+                <td><input type="text" id="datepicker" class="span2 datepicker" placeholder="Date..." name="date"></td>
                 <td>@Html.Label("Draft")</td>
                 <td><button id="saveOrder">Save Order</button> </td>
                 </tr>
             </table>
-        </div>
+          </div>
+    <label id="errorlable" style="color:red"></label>
     <br />
     <br />
     <div>
@@ -99,17 +100,32 @@
 
 <script src="/Scripts/jquery-1.10.2.js" type="text/javascript"></script>
 <script src="/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="/Scripts/bootstrap-datepicker.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-    $('#saveOrder').click(function (e) {
-        e.preventDefault();
-              $.ajax({
-                type: 'POST', url: '@Url.Action("SaveNewOrder")', dataType: 'json', data: { Date: date },
-                success: function (ok) {
-                    alert("Record saved");
-                },
-                error: function (ex) { alert("Record not saved"); }
+        $(function () {
+            $('.datepicker').datepicker({
+                format: 'mm-dd-yyyy'
             });
+        });        
+        $('#saveOrder').click(function (e) {
+            e.preventDefault();
+            if ($('#datepicker').val().length < 1) {
+             document.getElementById("errorlable").innerHTML = "Please select a date";
+            }
+            else {
+                $.ajax({
+                    type: 'POST', url: '@Url.Action("SaveNewOrder")', dataType: 'json', data: { Date: $('#datepicker').val() },
+                    success: function (ok) {
+                    document.getElementById("errorlable").innerHTML = "Order Saved";
+                    },
+                    error: function (ex) {
+                      document.getElementById("errorlable").innerHTML = "Order Not saved, Try again ";
+
+                    }
+
+                });
+            }
        });
     });
 </script>
