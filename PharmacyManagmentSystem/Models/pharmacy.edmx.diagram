@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="7f330a549fbd42d6b6a8859dfbd6e316" Name="Diagram1">
+      <Diagram DiagramId="7f330a549fbd42d6b6a8859dfbd6e316" Name="Diagram1" ZoomLevel="108">
         <EntityTypeShape EntityType="pharmacyModel.authority" Width="1.5" PointX="3" PointY="9" IsExpanded="true" />
         <EntityTypeShape EntityType="pharmacyModel.borrowlend" Width="1.5" PointX="15" PointY="8" IsExpanded="true" />
         <EntityTypeShape EntityType="pharmacyModel.borrowlendstock" Width="1.5" PointX="17.25" PointY="2.75" IsExpanded="true" />
@@ -14,12 +14,11 @@
         <EntityTypeShape EntityType="pharmacyModel.employee" Width="1.5" PointX="6" PointY="7.375" IsExpanded="true" />
         <EntityTypeShape EntityType="pharmacyModel.employerstock" Width="1.5" PointX="8.25" PointY="9" IsExpanded="true" />
         <EntityTypeShape EntityType="pharmacyModel.order" Width="1.5" PointX="8.25" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="pharmacyModel.orderdetail" Width="1.5" PointX="12.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="pharmacyModel.orderdetail" Width="1.5" PointX="12.125" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="pharmacyModel.orderhistory" Width="1.5" PointX="10.5" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="pharmacyModel.orderstatu" Width="1.5" PointX="6" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="pharmacyModel.product" Width="1.5" PointX="3.75" PointY="18.5" IsExpanded="true" />
         <EntityTypeShape EntityType="pharmacyModel.productdetail" Width="1.5" PointX="6" PointY="18.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="pharmacyModel.productsorderd" Width="1.5" PointX="10.5" PointY="2.875" IsExpanded="true" />
         <EntityTypeShape EntityType="pharmacyModel.productsupplied" Width="1.5" PointX="8.25" PointY="19.875" IsExpanded="true" />
         <EntityTypeShape EntityType="pharmacyModel.sale" Width="1.5" PointX="8.25" PointY="14.75" IsExpanded="true" />
         <EntityTypeShape EntityType="pharmacyModel.solditem" Width="1.5" PointX="10.5" PointY="14.875" IsExpanded="true" />
@@ -42,16 +41,15 @@
         <AssociationConnector Association="pharmacyModel.fk_EmployerStock_Stock1" ManuallyRouted="false" />
         <AssociationConnector Association="pharmacyModel.fk_Order_OrderStatus1" ManuallyRouted="false" />
         <AssociationConnector Association="pharmacyModel.fk_OrderHistory_Order1" ManuallyRouted="false" />
-        <AssociationConnector Association="pharmacyModel.fk_ProductsOrderd_Order1" ManuallyRouted="false" />
-        <AssociationConnector Association="pharmacyModel.fk_OrderDetail_ProductsOrderd1" ManuallyRouted="false" />
         <AssociationConnector Association="pharmacyModel.fk_Stock_OrderDetails1" ManuallyRouted="false" />
         <AssociationConnector Association="pharmacyModel.fk_productDetails_Product1" ManuallyRouted="false" />
         <AssociationConnector Association="pharmacyModel.fk_product_suplied_ProductDetails1" ManuallyRouted="false" />
-        <AssociationConnector Association="pharmacyModel.fk_ProductsOrderd_ProductSupplied1" ManuallyRouted="false" />
         <AssociationConnector Association="pharmacyModel.fk_ProductSuplied_Supplier1" ManuallyRouted="false" />
         <AssociationConnector Association="pharmacyModel.fk_SoldItems_Sales1" ManuallyRouted="false" />
         <AssociationConnector Association="pharmacyModel.fk_StockSales_Sales1" ManuallyRouted="false" />
         <AssociationConnector Association="pharmacyModel.fk_StockSales_Stock1" ManuallyRouted="false" />
+        <AssociationConnector Association="pharmacyModel.fk_OrderDetail_Order1" />
+        <AssociationConnector Association="pharmacyModel.fk_OrderDetail_ProductSupplied1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

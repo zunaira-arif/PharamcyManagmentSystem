@@ -48,18 +48,19 @@ namespace PharmacyManagmentSystem.Controllers
             ViewBag.orderStatus = newstatus.GetNextOrderStatus(orderData[0].orderStatusId); 
             return View();
         }
-       
-        public List<PharmacyManagmentSystem.Models.order> getorderEmployee()
+        public ActionResult DeleteItem(int id)
         {
-            this.Session["userName"] = "Loged in user"; 
-           this.Session["EmpID"] = 1; //will be deleted after login mantainens
-           int employeeID = int.Parse(Session["EmpID"].ToString());
-           List<PharmacyManagmentSystem.Models.order>  list = pdal.getOrderByEmployee(employeeID);
-            return list;
+            pdal.DeletItemFromOrder(id);
+            int? orderID=int.Parse(this.Session["OrderID"].ToString());
+            return RedirectToAction("LoadCategory/"+orderID);
+        
         }
-       
+      
+        #region Addnewitems
         public ActionResult LoadCategory(int? id)
         {
+            List<OrderTableStructure> itemList = pdal.GetOrderDetails(id);
+            ViewData["orderItemS"] = itemList;
             if (id == null)
             {
                return HttpNotFound();
@@ -72,12 +73,12 @@ namespace PharmacyManagmentSystem.Controllers
                 return HttpNotFound();
             }
             if (orderData[0].orderStatusId == 1)
-            {
+            {                
                 ViewData["Category"] = pdal.GetCategory();
-                return View();
+                return View(ViewData["orderItemS"]);
             }
-            else {
-                return View();
+            else {               
+                return View(ViewData["orderItemS"]);
             }        
             
         }
@@ -109,7 +110,17 @@ namespace PharmacyManagmentSystem.Controllers
             string orderID = this.Session["OrderID"].ToString();
             return Json(pdal.AddOrderDetails(ProductSuppliedID, SupplierID, quantity, int.Parse(empId), int.Parse(orderID)));
             }
+        #endregion
 
+       #region Order Part
+       public List<PharmacyManagmentSystem.Models.order> getorderEmployee()
+       {
+           this.Session["userName"] = "Loged in user";
+           this.Session["EmpID"] = 1; //will be deleted after login mantainens
+           int employeeID = int.Parse(Session["EmpID"].ToString());
+           List<PharmacyManagmentSystem.Models.order> list = pdal.getOrderByEmployee(employeeID);
+           return list;
+       }
         public JsonResult GetOrders( )
         {
             string orderID = this.Session["OrderID"].ToString();
@@ -153,6 +164,7 @@ namespace PharmacyManagmentSystem.Controllers
             }
            
         }
+       
         public JsonResult SaveNewOrder(string Date)
         {          
          DateTime newdate=DateTime.Today;
@@ -164,8 +176,7 @@ namespace PharmacyManagmentSystem.Controllers
          }
          return Json("not ok");
         }
-
-
+       #endregion
 
         protected override void Dispose(bool disposing)
         {

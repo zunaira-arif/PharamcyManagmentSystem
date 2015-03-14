@@ -6,6 +6,7 @@
 
 @using (Html.BeginForm())
 {
+     WebGrid grid=new WebGrid(Model ,canPage:false);
     <br />
     <div style="width:350px">
        
@@ -18,7 +19,8 @@
         <br />
     </div>
     <br />
-    <div id="AddNewProductDIV">
+    
+<div id="AddNewProductDIV">
 @if (ViewData.ContainsKey("Category"))
 { 
         <div>
@@ -69,7 +71,23 @@
         <br/>
         @Html.Label("Ordered Items Detail")
         <br />
-        @*WebGrid grid = new WebGrid(ViewBag.Items);  *@ @*will be used when converting to grid*@
+          <div id="OrderItem" style="align-content:center;width:inherit;background-color:lightgoldenrodyellow;">
+              @grid.GetHtml(
+                tableStyle: "table",
+                headerStyle: "header",
+               columns:
+               grid.Columns
+               (grid.Column("Id", "Sr. No"),
+               grid.Column("CategoryName", "Category"),
+               grid.Column("ProductName1", "Product"),
+               grid.Column("Size", "Size"),
+               grid.Column("SupplierName", "Supplier"),
+               grid.Column("Quantity", "Quantity"),
+               grid.Column(format: @<a href="~/OrderAndHistory/DeleteItem?id=@item.P_o_ID">Delete</a>)
+              ),mode: WebGridPagerModes.Numeric)
+          </div>
+
+       
         <div id="ResultArea"> </div>
     </div>
 }
@@ -146,9 +164,6 @@
             });
             return false;
         })
-</script>
-
-<script type="text/javascript">
     ///////////////////////////// add row in table on button click Add product\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     $('#AddProductBtn').click(function (e) {
         e.preventDefault();
@@ -163,18 +178,20 @@
             document.getElementById("ErrorLblSupplier").innerHTML = " "
             $.ajax({
                 type: 'POST', url: '@Url.Action("AddOrderDetail")', dataType: 'json',
-                    data: { ProductSuppliedID: $('#ProductSize :selected').val(), SupplierID:$('#Supplier :selected').val(), quantity: $("#QuantityTextbox").val()  },
-                    success: function (supplierz) {
-                        CreateHtmlTable();
-                        },
-                    error: function (ex) { alert("Record not saved"); }
-                });
+                data: { ProductSuppliedID: $('#ProductSize :selected').val(), SupplierID: $('#Supplier :selected').val(), quantity: $("#QuantityTextbox").val() },
+                success: function (supplierz) {
+                    CreateHtmlTable();
+                },
+                error: function (ex) { alert("Record not saved"); }
+            });
 
             CreateHtmlTable();
         }
-        });
-  
-    ///////////////////////////// gridContent\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+    });
+</script>
+
+<script type="text/javascript">
+        ///////////////////////////// gridContent\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
         function CreateHtmlTable() {
             //Clear result div
             $("#ResultArea").html("");
@@ -204,7 +221,7 @@
                     $("<td></td>").text(value.Size).appendTo(row);
                     $("<td></td>").text(value.SupplierName).appendTo(row);
                     $("<td></td>").text(value.Quantity).appendTo(row);
-                    $("<td></td>").text("delete").appendTo(row);
+                    $("<td></td>").text(value.P_o_ID).appendTo(row);
                 });
             });
         }

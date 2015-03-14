@@ -39,7 +39,6 @@ namespace PharmacyManagmentSystem.Models
         public DbSet<orderstatu> orderstatus { get; set; }
         public DbSet<product> products { get; set; }
         public DbSet<productdetail> productdetails { get; set; }
-        public DbSet<productsorderd> productsorderds { get; set; }
         public DbSet<productsupplied> productsupplieds { get; set; }
         public DbSet<sale> sales { get; set; }
         public DbSet<solditem> solditems { get; set; }

@@ -106,6 +106,8 @@
           <Property Name="discountAmount" Type="double" />
           <Property Name="netValue" Type="double" />
           <Property Name="productsOrderdId" Type="int" Nullable="false" />
+          <Property Name="productSuppliedId" Type="int" Nullable="false" />
+          <Property Name="orderId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="orderhistory">
           <Key>
@@ -141,14 +143,6 @@
           <Property Name="productDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="productId" Type="int" Nullable="false" />
           <Property Name="productSize" Type="double" Nullable="false" />
-        </EntityType>
-        <EntityType Name="productsorderd">
-          <Key>
-            <PropertyRef Name="productsOrderdId" />
-          </Key>
-          <Property Name="productsOrderdId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="orderId" Type="int" Nullable="false" />
-          <Property Name="productSuppliedId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="productsupplied">
           <Key>
@@ -359,15 +353,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_OrderDetail_ProductsOrderd1">
-          <End Role="productsorderd" Type="Self.productsorderd" Multiplicity="1" />
+        <Association Name="fk_OrderDetail_Order1">
+          <End Role="order" Type="Self.order" Multiplicity="1" />
           <End Role="orderdetail" Type="Self.orderdetail" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="productsorderd">
-              <PropertyRef Name="productsOrderdId" />
+            <Principal Role="order">
+              <PropertyRef Name="orderId" />
             </Principal>
             <Dependent Role="orderdetail">
-              <PropertyRef Name="productsOrderdId" />
+              <PropertyRef Name="orderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_OrderDetail_ProductSupplied1">
+          <End Role="productsupplied" Type="Self.productsupplied" Multiplicity="1" />
+          <End Role="orderdetail" Type="Self.orderdetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productsupplied">
+              <PropertyRef Name="productSuppliedId" />
+            </Principal>
+            <Dependent Role="orderdetail">
+              <PropertyRef Name="productSuppliedId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -416,30 +422,6 @@
             </Principal>
             <Dependent Role="productdetails">
               <PropertyRef Name="productId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_ProductsOrderd_Order1">
-          <End Role="order" Type="Self.order" Multiplicity="1" />
-          <End Role="productsorderd" Type="Self.productsorderd" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="order">
-              <PropertyRef Name="orderId" />
-            </Principal>
-            <Dependent Role="productsorderd">
-              <PropertyRef Name="orderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_ProductsOrderd_ProductSupplied1">
-          <End Role="productsupplied" Type="Self.productsupplied" Multiplicity="1" />
-          <End Role="productsorderd" Type="Self.productsorderd" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="productsupplied">
-              <PropertyRef Name="productSuppliedId" />
-            </Principal>
-            <Dependent Role="productsorderd">
-              <PropertyRef Name="productSuppliedId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -530,7 +512,6 @@
           <EntitySet Name="orderstatus" EntityType="Self.orderstatus" Schema="pharmacy" store:Type="Tables" />
           <EntitySet Name="product" EntityType="Self.product" Schema="pharmacy" store:Type="Tables" />
           <EntitySet Name="productdetails" EntityType="Self.productdetails" Schema="pharmacy" store:Type="Tables" />
-          <EntitySet Name="productsorderd" EntityType="Self.productsorderd" Schema="pharmacy" store:Type="Tables" />
           <EntitySet Name="productsupplied" EntityType="Self.productsupplied" Schema="pharmacy" store:Type="Tables" />
           <EntitySet Name="sales" EntityType="Self.sales" Schema="pharmacy" store:Type="Tables" />
           <EntitySet Name="solditems" EntityType="Self.solditems" Schema="pharmacy" store:Type="Tables" />
@@ -586,8 +567,12 @@
             <End Role="orderstatus" EntitySet="orderstatus" />
             <End Role="order" EntitySet="order" />
           </AssociationSet>
-          <AssociationSet Name="fk_OrderDetail_ProductsOrderd1" Association="Self.fk_OrderDetail_ProductsOrderd1">
-            <End Role="productsorderd" EntitySet="productsorderd" />
+          <AssociationSet Name="fk_OrderDetail_Order1" Association="Self.fk_OrderDetail_Order1">
+            <End Role="order" EntitySet="order" />
+            <End Role="orderdetail" EntitySet="orderdetail" />
+          </AssociationSet>
+          <AssociationSet Name="fk_OrderDetail_ProductSupplied1" Association="Self.fk_OrderDetail_ProductSupplied1">
+            <End Role="productsupplied" EntitySet="productsupplied" />
             <End Role="orderdetail" EntitySet="orderdetail" />
           </AssociationSet>
           <AssociationSet Name="fk_OrderHistory_Order1" Association="Self.fk_OrderHistory_Order1">
@@ -605,14 +590,6 @@
           <AssociationSet Name="fk_productDetails_Product1" Association="Self.fk_productDetails_Product1">
             <End Role="product" EntitySet="product" />
             <End Role="productdetails" EntitySet="productdetails" />
-          </AssociationSet>
-          <AssociationSet Name="fk_ProductsOrderd_Order1" Association="Self.fk_ProductsOrderd_Order1">
-            <End Role="order" EntitySet="order" />
-            <End Role="productsorderd" EntitySet="productsorderd" />
-          </AssociationSet>
-          <AssociationSet Name="fk_ProductsOrderd_ProductSupplied1" Association="Self.fk_ProductsOrderd_ProductSupplied1">
-            <End Role="productsupplied" EntitySet="productsupplied" />
-            <End Role="productsorderd" EntitySet="productsorderd" />
           </AssociationSet>
           <AssociationSet Name="fk_ProductSuplied_Supplier1" Association="Self.fk_ProductSuplied_Supplier1">
             <End Role="supplier" EntitySet="supplier" />
@@ -752,7 +729,7 @@
           <NavigationProperty Name="employee" Relationship="Self.fk_Order_Employee1" FromRole="order" ToRole="employee" />
           <NavigationProperty Name="orderstatu" Relationship="Self.fk_Order_OrderStatus1" FromRole="order" ToRole="orderstatus" />
           <NavigationProperty Name="orderhistories" Relationship="Self.fk_OrderHistory_Order1" FromRole="order" ToRole="orderhistory" />
-          <NavigationProperty Name="productsorderds" Relationship="Self.fk_ProductsOrderd_Order1" FromRole="order" ToRole="productsorderd" />
+          <NavigationProperty Name="orderdetails" Relationship="pharmacyModel.fk_OrderDetail_Order1" FromRole="order" ToRole="orderdetail" />
         </EntityType>
         <EntityType Name="orderdetail">
           <Key>
@@ -766,9 +743,11 @@
           <Property Name="rate" Type="Double" />
           <Property Name="discountAmount" Type="Double" />
           <Property Name="netValue" Type="Double" />
-          <Property Name="productsOrderdId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="productsorderd" Relationship="Self.fk_OrderDetail_ProductsOrderd1" FromRole="orderdetail" ToRole="productsorderd" />
           <NavigationProperty Name="stocks" Relationship="Self.fk_Stock_OrderDetails1" FromRole="orderdetail" ToRole="stock" />
+          <Property Name="productSuppliedId" Type="Int32" Nullable="false" />
+          <Property Name="orderId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="order" Relationship="pharmacyModel.fk_OrderDetail_Order1" FromRole="orderdetail" ToRole="order" />
+          <NavigationProperty Name="productsupplied" Relationship="pharmacyModel.fk_OrderDetail_ProductSupplied1" FromRole="orderdetail" ToRole="productsupplied" />
         </EntityType>
         <EntityType Name="orderhistory">
           <Key>
@@ -811,17 +790,6 @@
           <NavigationProperty Name="product" Relationship="Self.fk_productDetails_Product1" FromRole="productdetails" ToRole="product" />
           <NavigationProperty Name="productsupplieds" Relationship="Self.fk_product_suplied_ProductDetails1" FromRole="productdetails" ToRole="productsupplied" />
         </EntityType>
-        <EntityType Name="productsorderd">
-          <Key>
-            <PropertyRef Name="productsOrderdId" />
-          </Key>
-          <Property Name="productsOrderdId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="orderId" Type="Int32" Nullable="false" />
-          <Property Name="productSuppliedId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="order" Relationship="Self.fk_ProductsOrderd_Order1" FromRole="productsorderd" ToRole="order" />
-          <NavigationProperty Name="orderdetails" Relationship="Self.fk_OrderDetail_ProductsOrderd1" FromRole="productsorderd" ToRole="orderdetail" />
-          <NavigationProperty Name="productsupplied" Relationship="Self.fk_ProductsOrderd_ProductSupplied1" FromRole="productsorderd" ToRole="productsupplied" />
-        </EntityType>
         <EntityType Name="productsupplied">
           <Key>
             <PropertyRef Name="productSuppliedId" />
@@ -830,8 +798,8 @@
           <Property Name="productDetailId" Type="Int32" Nullable="false" />
           <Property Name="supplierId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="productdetail" Relationship="Self.fk_product_suplied_ProductDetails1" FromRole="productsupplied" ToRole="productdetails" />
-          <NavigationProperty Name="productsorderds" Relationship="Self.fk_ProductsOrderd_ProductSupplied1" FromRole="productsupplied" ToRole="productsorderd" />
           <NavigationProperty Name="supplier" Relationship="Self.fk_ProductSuplied_Supplier1" FromRole="productsupplied" ToRole="supplier" />
+          <NavigationProperty Name="orderdetails" Relationship="pharmacyModel.fk_OrderDetail_ProductSupplied1" FromRole="productsupplied" ToRole="orderdetail" />
         </EntityType>
         <EntityType Name="sale">
           <Key>
@@ -1083,30 +1051,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_ProductsOrderd_Order1">
-          <End Role="order" Type="Self.order" Multiplicity="1" />
-          <End Role="productsorderd" Type="Self.productsorderd" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="order">
-              <PropertyRef Name="orderId" />
-            </Principal>
-            <Dependent Role="productsorderd">
-              <PropertyRef Name="orderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_OrderDetail_ProductsOrderd1">
-          <End Role="productsorderd" Type="Self.productsorderd" Multiplicity="1" />
-          <End Role="orderdetail" Type="Self.orderdetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="productsorderd">
-              <PropertyRef Name="productsOrderdId" />
-            </Principal>
-            <Dependent Role="orderdetail">
-              <PropertyRef Name="productsOrderdId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_Stock_OrderDetails1">
           <End Role="orderdetail" Type="Self.orderdetail" Multiplicity="1" />
           <End Role="stock" Type="Self.stock" Multiplicity="*" />
@@ -1140,18 +1084,6 @@
             </Principal>
             <Dependent Role="productsupplied">
               <PropertyRef Name="productDetailId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_ProductsOrderd_ProductSupplied1">
-          <End Role="productsupplied" Type="Self.productsupplied" Multiplicity="1" />
-          <End Role="productsorderd" Type="Self.productsorderd" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="productsupplied">
-              <PropertyRef Name="productSuppliedId" />
-            </Principal>
-            <Dependent Role="productsorderd">
-              <PropertyRef Name="productSuppliedId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1218,7 +1150,6 @@
           <EntitySet Name="orderstatus" EntityType="Self.orderstatu" />
           <EntitySet Name="products" EntityType="Self.product" />
           <EntitySet Name="productdetails" EntityType="Self.productdetail" />
-          <EntitySet Name="productsorderds" EntityType="Self.productsorderd" />
           <EntitySet Name="productsupplieds" EntityType="Self.productsupplied" />
           <EntitySet Name="sales" EntityType="Self.sale" />
           <EntitySet Name="solditems" EntityType="Self.solditem" />
@@ -1286,14 +1217,6 @@
             <End Role="order" EntitySet="orders" />
             <End Role="orderhistory" EntitySet="orderhistories" />
           </AssociationSet>
-          <AssociationSet Name="fk_ProductsOrderd_Order1" Association="Self.fk_ProductsOrderd_Order1">
-            <End Role="order" EntitySet="orders" />
-            <End Role="productsorderd" EntitySet="productsorderds" />
-          </AssociationSet>
-          <AssociationSet Name="fk_OrderDetail_ProductsOrderd1" Association="Self.fk_OrderDetail_ProductsOrderd1">
-            <End Role="productsorderd" EntitySet="productsorderds" />
-            <End Role="orderdetail" EntitySet="orderdetails" />
-          </AssociationSet>
           <AssociationSet Name="fk_Stock_OrderDetails1" Association="Self.fk_Stock_OrderDetails1">
             <End Role="orderdetail" EntitySet="orderdetails" />
             <End Role="stock" EntitySet="stocks" />
@@ -1305,10 +1228,6 @@
           <AssociationSet Name="fk_product_suplied_ProductDetails1" Association="Self.fk_product_suplied_ProductDetails1">
             <End Role="productdetails" EntitySet="productdetails" />
             <End Role="productsupplied" EntitySet="productsupplieds" />
-          </AssociationSet>
-          <AssociationSet Name="fk_ProductsOrderd_ProductSupplied1" Association="Self.fk_ProductsOrderd_ProductSupplied1">
-            <End Role="productsupplied" EntitySet="productsupplieds" />
-            <End Role="productsorderd" EntitySet="productsorderds" />
           </AssociationSet>
           <AssociationSet Name="fk_ProductSuplied_Supplier1" Association="Self.fk_ProductSuplied_Supplier1">
             <End Role="supplier" EntitySet="suppliers" />
@@ -1326,7 +1245,39 @@
             <End Role="stock" EntitySet="stocks" />
             <End Role="stocksales" EntitySet="stocksales" />
           </AssociationSet>
+          <AssociationSet Name="fk_OrderDetail_Order1" Association="pharmacyModel.fk_OrderDetail_Order1">
+            <End Role="order" EntitySet="orders" />
+            <End Role="orderdetail" EntitySet="orderdetails" />
+          </AssociationSet>
+          <AssociationSet Name="fk_OrderDetail_ProductSupplied1" Association="pharmacyModel.fk_OrderDetail_ProductSupplied1">
+            <End Role="productsupplied" EntitySet="productsupplieds" />
+            <End Role="orderdetail" EntitySet="orderdetails" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="fk_OrderDetail_Order1">
+          <End Type="pharmacyModel.order" Role="order" Multiplicity="1" />
+          <End Type="pharmacyModel.orderdetail" Role="orderdetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="order">
+              <PropertyRef Name="orderId" />
+            </Principal>
+            <Dependent Role="orderdetail">
+              <PropertyRef Name="orderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_OrderDetail_ProductSupplied1">
+          <End Type="pharmacyModel.productsupplied" Role="productsupplied" Multiplicity="1" />
+          <End Type="pharmacyModel.orderdetail" Role="orderdetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productsupplied">
+              <PropertyRef Name="productSuppliedId" />
+            </Principal>
+            <Dependent Role="orderdetail">
+              <PropertyRef Name="productSuppliedId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1433,6 +1384,9 @@
           <EntitySetMapping Name="orderdetails">
             <EntityTypeMapping TypeName="pharmacyModel.orderdetail">
               <MappingFragment StoreEntitySet="orderdetail">
+                <ScalarProperty Name="productSuppliedId" ColumnName="productsOrderdId" />
+                <ScalarProperty Name="orderId" ColumnName="orderId" />
+                <ScalarProperty Name="productSuppliedId" ColumnName="productSuppliedId" />
                 <ScalarProperty Name="orderDetailId" ColumnName="orderDetailId" />
                 <ScalarProperty Name="quantityRecived" ColumnName="quantityRecived" />
                 <ScalarProperty Name="quantityOrderd" ColumnName="quantityOrderd" />
@@ -1441,7 +1395,6 @@
                 <ScalarProperty Name="rate" ColumnName="rate" />
                 <ScalarProperty Name="discountAmount" ColumnName="discountAmount" />
                 <ScalarProperty Name="netValue" ColumnName="netValue" />
-                <ScalarProperty Name="productsOrderdId" ColumnName="productsOrderdId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1481,15 +1434,6 @@
                 <ScalarProperty Name="productDetailId" ColumnName="productDetailId" />
                 <ScalarProperty Name="productId" ColumnName="productId" />
                 <ScalarProperty Name="productSize" ColumnName="productSize" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="productsorderds">
-            <EntityTypeMapping TypeName="pharmacyModel.productsorderd">
-              <MappingFragment StoreEntitySet="productsorderd">
-                <ScalarProperty Name="productsOrderdId" ColumnName="productsOrderdId" />
-                <ScalarProperty Name="orderId" ColumnName="orderId" />
-                <ScalarProperty Name="productSuppliedId" ColumnName="productSuppliedId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

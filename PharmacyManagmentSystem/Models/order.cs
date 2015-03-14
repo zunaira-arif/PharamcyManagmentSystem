@@ -17,7 +17,7 @@ namespace PharmacyManagmentSystem.Models
         public order()
         {
             this.orderhistories = new HashSet<orderhistory>();
-            this.productsorderds = new HashSet<productsorderd>();
+            this.orderdetails = new HashSet<orderdetail>();
         }
     
         public int orderId { get; set; }
@@ -28,6 +28,6 @@ namespace PharmacyManagmentSystem.Models
         public virtual employee employee { get; set; }
         public virtual orderstatu orderstatu { get; set; }
         public virtual ICollection<orderhistory> orderhistories { get; set; }
-        public virtual ICollection<productsorderd> productsorderds { get; set; }
+        public virtual ICollection<orderdetail> orderdetails { get; set; }
     }
 }

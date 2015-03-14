@@ -38,7 +38,7 @@
     <br />
     <br />
     <div>
-        <div id="OrderGrid"></div>
+        @*<div id="OrderGrid"></div>*@
 
         <div id="OrderGrid2" style="align-content:center;width:inherit;background-color:lightgoldenrodyellow;">
             @grid.GetHtml(
@@ -117,7 +117,8 @@
                 $.ajax({
                     type: 'POST', url: '@Url.Action("SaveNewOrder")', dataType: 'json', data: { Date: $('#datepicker').val() },
                     success: function (ok) {
-                    document.getElementById("errorlable").innerHTML = "Order Saved";
+                        document.getElementById("errorlable").innerHTML = "Order Saved";
+                        //$("#OrderGrid2").
                     },
                     error: function (ex) {
                       document.getElementById("errorlable").innerHTML = "Order Not saved, Try again ";

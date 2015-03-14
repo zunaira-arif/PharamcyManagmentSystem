@@ -202,9 +202,6 @@
     <Compile Include="Models\productdetail.cs">
       <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\productsorderd.cs">
-      <DependentUpon>pharmacy.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\productsupplied.cs">
       <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>

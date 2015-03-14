@@ -27,9 +27,11 @@ namespace PharmacyManagmentSystem.Models
         public Nullable<double> rate { get; set; }
         public Nullable<double> discountAmount { get; set; }
         public Nullable<double> netValue { get; set; }
-        public int productsOrderdId { get; set; }
+        public int productSuppliedId { get; set; }
+        public int orderId { get; set; }
     
-        public virtual productsorderd productsorderd { get; set; }
         public virtual ICollection<stock> stocks { get; set; }
+        public virtual order order { get; set; }
+        public virtual productsupplied productsupplied { get; set; }
     }
 }

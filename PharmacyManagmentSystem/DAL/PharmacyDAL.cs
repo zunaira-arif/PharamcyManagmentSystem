@@ -91,31 +91,20 @@ namespace PharmacyManagmentSystem.DAL
             int al = AlreadyExsist(ProSuppliedID, orderID);
             if(al != 0)
             {
-                var getOldRow = db.orderdetails.Where(o => o.productsOrderdId == al).FirstOrDefault(); ;
+                var getOldRow = db.orderdetails.Where(o => o.productSuppliedId == ProSuppliedID&& o.orderId==orderID).FirstOrDefault(); ;
                 int? oldQuantity = getOldRow.quantityOrderd;
                 int? newQuantity = oldQuantity + QuantityOrder;
-                
-                var orderdetailItems = db.orderdetails.Find(getOldRow.orderDetailId);
-                orderdetailItems.quantityOrderd = newQuantity;
-                ///////////////save order detail
+                getOldRow.quantityOrderd = newQuantity;
+                 ///////////////save order detail
                 db.SaveChanges();
             }
             else
             {
-                ////create product order ////////////////
-                var productorderd = new productsorderd();
-                productorderd.orderId = orderID;
-                productorderd.productSuppliedId = ProSuppliedID;
-                ///////////////save product order
-                db.productsorderds.Add(productorderd);
-                db.SaveChanges();
                 ////create order detail ////////////////
-                var getProOrderID = db.productsorderds.Where(p => p.orderId == orderID && p.productSuppliedId == ProSuppliedID).FirstOrDefault();
-                int ProOrderID = getProOrderID.productsOrderdId;
                 var orderdetailItems = new orderdetail();
                 orderdetailItems.quantityOrderd = QuantityOrder;
-                orderdetailItems.productsOrderdId = ProOrderID;
-                // orderdetail;
+                orderdetailItems.orderId = orderID;
+                orderdetailItems.productSuppliedId = ProSuppliedID;
                 ///////////////save order detail
                 db.orderdetails.Add(orderdetailItems);
                 db.SaveChanges();
@@ -126,7 +115,7 @@ namespace PharmacyManagmentSystem.DAL
         }
         public int AlreadyExsist(int prosupID, int ordID)
         {
-            var chkAlready = db.productsorderds.Where(p => p.productSuppliedId == prosupID && p.orderId == ordID).FirstOrDefault();
+            var chkAlready = db.orderdetails.Where(p => p.orderId == ordID && p.productSuppliedId == prosupID).FirstOrDefault();
 
             if (chkAlready==null)
             {
@@ -134,7 +123,7 @@ namespace PharmacyManagmentSystem.DAL
             }
             else
             {
-                return chkAlready.productsOrderdId;
+                return chkAlready.orderDetailId;
             }
 
         }
@@ -158,7 +147,7 @@ namespace PharmacyManagmentSystem.DAL
         }
         public List<order> getOrderByEmployee(int employeeID)
         {
-            List<order> list = new List<order>(db.orders.Where(o => o.empId == employeeID));
+            List<order> list = new List<order>(db.orders.Where(o => o.empId == employeeID).OrderByDescending(o=> o.orderDate));
             return list;
         }
         public List<order> getOrderByEmployeeAndOrderId(int employeeID,int? orderID)
@@ -167,26 +156,28 @@ namespace PharmacyManagmentSystem.DAL
             return list;
         }
        
-        public List<OrderTableStructure> GetOrderDetails(int orderID)
+        public List<OrderTableStructure> GetOrderDetails(int? orderID)
         {  //List<OrderTableStructure> list =new List<OrderTableStructure>() ;
-            List<int> productOrderIdz=new List<int>();
+            //List<int> productOrderIdz=new List<int>();
             List<int>  productSuppliedIdz=new List<int>();
             OrderTableStructure ordertable=new OrderTableStructure();
-            var data = db.productsorderds.Where(p => p.orderId == orderID);
-            foreach (productsorderd po in data)
+            var data = db.orderdetails.Where(p => p.orderId == orderID);
+            foreach (orderdetail po in data)
             {
                 productSuppliedIdz.Add(po.productSuppliedId);
-                productOrderIdz.Add(po.productsOrderdId);
+                //productOrderIdz.Add(po.productsOrderdId);
             }
             data = null;
             List<OrderTableStructure> list = new List<OrderTableStructure>();
-            for (int idz = 0; idz < productOrderIdz.Count; idz++)
+            for (int idz = 0; idz < productSuppliedIdz.Count; idz++)
             {
                 ordertable = new OrderTableStructure();
                 ordertable.Id=idz+1;
-                int POid =productOrderIdz[idz];
-                var qun = db.orderdetails.Where(p=>p.productsOrderdId ==POid).SingleOrDefault();
+                int O_ID=(int)orderID;
+                int proSupID=productSuppliedIdz[idz];
+                var qun = db.orderdetails.Where(p => p.productSuppliedId ==proSupID  && p.orderId == O_ID).SingleOrDefault();
                 ordertable.Quantity = qun.quantityOrderd;
+                ordertable.P_o_ID = qun.orderDetailId;
                 qun = null;
                 int PSid=productSuppliedIdz[idz];
                 var sup = db.productsupplieds.Where(s => s.productSuppliedId == PSid).SingleOrDefault();
@@ -230,6 +221,13 @@ namespace PharmacyManagmentSystem.DAL
             var ordertoUpdate = db.orders.Find(Oid);
             ordertoUpdate.orderStatusId = newStatusId;
             db.SaveChanges();           
+        }
+        public void DeletItemFromOrder(int id)
+        {
+           orderdetail OD = db.orderdetails.Find(id);
+           db.orderdetails.Remove(OD);
+           db.SaveChanges();
+           int i = 0;        
         }
 
         #endregion
