@@ -1,47 +1,57 @@
 ﻿@{
     ViewBag.Title = "OrderIndex";
      }
+<div class="clearfix" style="clear:both; flex-wrap:nowrap">
+<div class="navbar-header navbar clearfix" style="display:block" >
+    <br />
+    <ul class="nav nav-tabs nav-stacked" style="width:170px">
+        <li style="list-style-type:none"><a href="~/Shared/_Layout.cshtml">Home</a></li>
+        <li style="list-style-type:none"><a href="~/OrderAndHistory/OrderIndex.cshtml">Order Index</a></li>
+        <li style="list-style-type:none"><a href=" ~/Category/Index.cshtml">Category</a></li>
+    </ul>
+</div>
+<center>
+    <div class="modal-content col-lg-offset-2 navbar" >
+        <h2>Orders</h2>
 
-<h2>Orders</h2>
-
-@using (Html.BeginForm())
-{
-    var grid = new WebGrid(Model, rowsPerPage: 5, canPage: true, canSort: true, sortFieldName: "orderDate", ajaxUpdateContainerId: "DataGridOrders");
+        @using (Html.BeginForm())
+        {
+            var grid = new WebGrid(Model, rowsPerPage: 5, canPage: true, canSort: true, sortFieldName: "orderDate", ajaxUpdateContainerId: "DataGridOrders");
     var ordr = ViewData["newOrders"];
      <br />
-    <div style="width:350px">
-        @Html.Label("emplloyee  ID =   ")
-        @Html.Label(Session["EmpID"].ToString())
-        @Html.Label("   Date =   ")
-        @Html.Label(DateTime.Today.Date.ToString())
-        <br />
-    </div>
-    <br />
+            <div >
+                @Html.Label("emplloyee  ID =   ")
+                @Html.Label(Session["EmpID"].ToString())
+                @Html.Label("   Date =   ")
+                @Html.Label(DateTime.Today.Date.ToString())
+                <br />
+            </div>
+            <br />
 
-    <div id="create new order" style="width:50%; align-content:center;background-color:lightgray">
-        <table style="width:100%;">
-            <tr>
-                <td>@Html.Label("User Name")</td>
-                <td>@Html.Label("Date")</td>
-                <td>@Html.Label("Status")</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>@Html.Label(this.Session["userName"].ToString())</td>
+            <div id="create new order" style="width:50%; align-content:center;background-color:lightgray">
+                <table style="width:100%;">
+                    <tr>
+                        <td>@Html.Label("User Name")</td>
+                        <td>@Html.Label("Date")</td>
+                        <td>@Html.Label("Status")</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>@Html.Label(this.Session["userName"].ToString())</td>
                 <td><input type="text" id="datepicker" class="span2 datepicker" placeholder="Date..." name="date"></td>
                 <td>@Html.Label("Draft")</td>
                 <td><button id="saveOrder">Save Order</button> </td>
-                </tr>
-            </table>
+                    </tr>
+                </table>
           </div>
     <label id="errorlable" style="color:red"></label>
-    <br />
-    <br />
-    <div>
+            <br />
+            <br />
+            <div>
         @*<div id="OrderGrid"></div>*@
 
-        <div id="OrderGrid2" style="align-content:center;width:inherit;background-color:lightgoldenrodyellow;">
-            @grid.GetHtml(
+                <div id="OrderGrid2" style="align-content:center;width:inherit;background-color:lightgoldenrodyellow;">
+                    @grid.GetHtml(
                 tableStyle: "table",
                 headerStyle: "header",
                columns:
@@ -51,58 +61,64 @@
                                  grid.Column("orderstatu.statusName", "Status"),
                                  grid.Column(format: @<a href="~/OrderAndHistory/Edit?id=@item.orderId">Edit</a>),
                                  grid.Column(format: @<a href="~/OrderAndHistory/LoadCategory?id=@item.orderId">View</a>)
-                                 ),mode: WebGridPagerModes.Numeric)
-        </div>
+                   ), mode: WebGridPagerModes.Numeric)
+                </div>
 
-        <div id="oldTable">
-            @*<table>
-                    <tr>
-                        <th>
-                            @Html.Label("Order Date")
-                        </th>
-                        <th>
-                            @Html.Label("Employee Name")
-                        </th>
-                        <th>
-                            @Html.Label("Order Status")
-                        </th>
-                        <th>
-                            @Html.Label("Order")
-                        </th>
-                    </tr>
-                    @foreach (var ordr in ViewData["Orders"] as List<PharmacyManagmentSystem.Models.order>)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => ordr.orderDate)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => ordr.employee.firstName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => ordr.orderstatu.statusName)
+                <div id="oldTable">
+                    @*<table>
+                            <tr>
+                                <th>
+                                    @Html.Label("Order Date")
+                                </th>
+                                <th>
+                                    @Html.Label("Employee Name")
+                                </th>
+                                <th>
+                                    @Html.Label("Order Status")
+                                </th>
+                                <th>
+                                    @Html.Label("Order")
+                                </th>
+                            </tr>
+                            @foreach (var ordr in ViewData["Orders"] as List<PharmacyManagmentSystem.Models.order>)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => ordr.orderDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => ordr.employee.firstName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => ordr.orderstatu.statusName)
 
-                            </td>
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = ordr.orderId }) |
-                                @Html.ActionLink("View", "LoadCategory", new { id = ordr.orderId })
-                            </td>
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = ordr.orderId }) |
+                                        @Html.ActionLink("View", "LoadCategory", new { id = ordr.orderId })
+                                    </td>
 
-                        </tr>
+                                </tr>
 
-                    }
+                            }
 
-                </table>*@
-        </div>
+                        </table>*@
+                </div>
 
+            </div>
+
+        }
     </div>
-}
 
-<script src="/Scripts/jquery-1.10.2.js" type="text/javascript"></script>
-<script src="/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+    </center>
+    </div>
+    
+
+    <script src="/Scripts/jquery-1.10.2.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script src="/Scripts/bootstrap-datepicker.js" type="text/javascript"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
+    <script type="text/javascript">
+        $(document).ready(function () {
         $(function () {
             $('.datepicker').datepicker({
                 format: 'mm-dd-yyyy'
@@ -129,5 +145,5 @@
                 });
             }
        });
-    });
-</script>
+        });
+    </script>

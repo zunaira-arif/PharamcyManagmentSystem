@@ -22,7 +22,7 @@ namespace PharmacyManagmentSystem
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap-spacelab.min.css",
                       "~/Content/site.css"));
         }
     }
