@@ -72,6 +72,7 @@ namespace PharmacyManagmentSystem.Controllers
             {
                 return HttpNotFound();
             }
+            ViewData["C_O_S"] = pdal.GetCruntOrderStatus(id);
             if (orderData[0].orderStatusId == 1)
             {                
                 ViewData["Category"] = pdal.GetCategory();
@@ -79,8 +80,7 @@ namespace PharmacyManagmentSystem.Controllers
             }
             else {               
                 return View(ViewData["orderItemS"]);
-            }        
-            
+            }                    
         }
 
         public JsonResult GetProduct(string id)
@@ -132,6 +132,11 @@ namespace PharmacyManagmentSystem.Controllers
         {
             SelectList list = pdal.GetOrderStatus();
             return Json(list);
+        }
+        public string GetCurntOrderStatus(int? id)
+        {
+            string status = pdal.GetCruntOrderStatus(id);
+            return status;
         }
         
         public JsonResult AddOrderHistoy(string StatusChanged, string discription)

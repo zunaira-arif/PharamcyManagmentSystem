@@ -2,17 +2,32 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using PharmacyManagmentSystem.Models;
 using System.Web.Mvc;
+using System.Web.Helpers;
 
 namespace PharmacyManagmentSystem.DAL
 {
     public class PharmacyDAL : Controller 
     {
         private pharmacyEntities db = new pharmacyEntities();
-        
+        public PharmacyDAL()
+        {
+          
+        }
+
+        public void justlikethat()
+        {
+            var  password ="abc123";          
+            var hashed = Crypto.Hash(password, "MD5");            
+           var verify = Crypto.VerifyHashedPassword("{hash_password_here}", password);
+        }      
+      
+
+        #region orders and place Order
         public SelectList GetCategory()
         {
                  return new SelectList(db.categories, "categoryId", "categoryName");
@@ -99,7 +114,8 @@ namespace PharmacyManagmentSystem.DAL
             }
 
         }
-        
+        #endregion 
+
         #region Order-Part
         public void AddNewOrder(DateTime newdate, int id)
         {
@@ -116,6 +132,12 @@ namespace PharmacyManagmentSystem.DAL
             SelectList list=new SelectList(db.orderstatus, "orderStatusId", "statusName");
 
             return list;
+        }
+         public string GetCruntOrderStatus(int? id) 
+        {
+            var C_Status = db.orders.Where(o => o.orderId == id).FirstOrDefault();
+            string s = C_Status.orderstatu.statusName.ToString();
+            return s;
         }
         public List<order> getOrderByEmployee(int employeeID)
         {
@@ -203,7 +225,36 @@ namespace PharmacyManagmentSystem.DAL
         }
 
         #endregion
+       
+        #region Department
+        public List<department> GetDepartments()
+        {
+            return db.departments.ToList();
+        }
+
+        public department FindDepartment(int? id)
+        {
+            return db.departments.Find(id);
+        }
+
+        public void AddNewDeprtment(department dep)
+        {
+            db.departments.Add(dep);
+            db.SaveChanges();
+        }
+
+        public void EditDepartment(department dep)
+        {
+            db.Entry(dep).State = EntityState.Modified;
+            db.SaveChanges();
+        }
+
+        #endregion 
+
+        #region Designation
         
+        #endregion
+              
         protected override void Dispose(bool disposing)
         {
             if (disposing)

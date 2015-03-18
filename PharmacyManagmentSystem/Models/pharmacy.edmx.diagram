@@ -10,7 +10,7 @@
         <EntityTypeShape EntityType="pharmacyModel.borrowlendstock" Width="1.5" PointX="17.25" PointY="2.75" IsExpanded="true" />
         <EntityTypeShape EntityType="pharmacyModel.category" Width="1.5" PointX="1.5" PointY="18.625" IsExpanded="true" />
         <EntityTypeShape EntityType="pharmacyModel.department" Width="1.5" PointX="3.75" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="pharmacyModel.designation" Width="1.5" PointX="3.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="pharmacyModel.designation" Width="1.5" PointX="3.25" PointY="12.125" IsExpanded="true" />
         <EntityTypeShape EntityType="pharmacyModel.employee" Width="1.5" PointX="6" PointY="7.375" IsExpanded="true" />
         <EntityTypeShape EntityType="pharmacyModel.employerstock" Width="1.5" PointX="8.25" PointY="9" IsExpanded="true" />
         <EntityTypeShape EntityType="pharmacyModel.order" Width="1.5" PointX="8.25" PointY="5.625" IsExpanded="true" />
@@ -50,6 +50,18 @@
         <AssociationConnector Association="pharmacyModel.fk_StockSales_Stock1" ManuallyRouted="false" />
         <AssociationConnector Association="pharmacyModel.fk_OrderDetail_Order1" />
         <AssociationConnector Association="pharmacyModel.fk_OrderDetail_ProductSupplied1" />
+        <EntityTypeShape EntityType="pharmacyModel.aspnetuser" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="pharmacyModel.my_aspnet_applications" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="pharmacyModel.my_aspnet_membership" Width="1.5" PointX="0.75" PointY="11.75" />
+        <EntityTypeShape EntityType="pharmacyModel.my_aspnet_profiles" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="pharmacyModel.my_aspnet_roles" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="pharmacyModel.my_aspnet_sessioncleanup" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="pharmacyModel.my_aspnet_sessions" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="pharmacyModel.my_aspnet_users" Width="1.5" PointX="5.75" PointY="13.75" />
+        <EntityTypeShape EntityType="pharmacyModel.my_aspnet_usersinroles" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="pharmacyModel.productsorderd" Width="1.5" PointX="10.875" PointY="12" />
+        <AssociationConnector Association="pharmacyModel.fk_ProductsOrderd_Order1" />
+        <AssociationConnector Association="pharmacyModel.fk_ProductsOrderd_ProductSupplied1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

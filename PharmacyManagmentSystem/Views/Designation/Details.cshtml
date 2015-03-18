@@ -1,0 +1,42 @@
+﻿@model PharmacyManagmentSystem.Models.designation
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>designation</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.designation1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.designation1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.level)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.level)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.designation2.designation1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.designation2.designation1)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.designationId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

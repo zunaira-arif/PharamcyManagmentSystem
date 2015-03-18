@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="pharmacyModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="aspnetusers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="UserName" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="PasswordHash" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Id" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="SecurityStamp" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Discriminator" Type="varchar" MaxLength="128" />
+        </EntityType>
         <EntityType Name="authorities">
           <Key>
             <PropertyRef Name="authorityId" />
@@ -84,6 +94,103 @@
           <Property Name="stockId" Type="int" Nullable="false" />
           <Property Name="empId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="my_aspnet_applications">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="256" />
+          <Property Name="description" Type="varchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="my_aspnet_membership">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="128" />
+          <Property Name="Comment" Type="varchar" MaxLength="255" />
+          <Property Name="Password" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="PasswordKey" Type="char" MaxLength="32" />
+          <Property Name="PasswordFormat" Type="tinyint" />
+          <Property Name="PasswordQuestion" Type="varchar" MaxLength="255" />
+          <Property Name="PasswordAnswer" Type="varchar" MaxLength="255" />
+          <Property Name="IsApproved" Type="bool" />
+          <Property Name="LastActivityDate" Type="datetime" Precision="0" />
+          <Property Name="LastLoginDate" Type="datetime" Precision="0" />
+          <Property Name="LastPasswordChangedDate" Type="datetime" Precision="0" />
+          <Property Name="CreationDate" Type="datetime" Precision="0" />
+          <Property Name="IsLockedOut" Type="bool" />
+          <Property Name="LastLockedOutDate" Type="datetime" Precision="0" />
+          <Property Name="FailedPasswordAttemptCount" Type="uint" />
+          <Property Name="FailedPasswordAttemptWindowStart" Type="datetime" Precision="0" />
+          <Property Name="FailedPasswordAnswerAttemptCount" Type="uint" />
+          <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="datetime" Precision="0" />
+        </EntityType>
+        <EntityType Name="my_aspnet_profiles">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="valueindex" Type="longtext" />
+          <Property Name="stringdata" Type="longtext" />
+          <Property Name="binarydata" Type="longblob" />
+          <Property Name="lastUpdatedDate" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="my_aspnet_roles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="applicationId" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'def.pharmacy.my_aspnet_schemaversion' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="my_aspnet_schemaversion">
+          <Property Name="version" Type="int" />
+        </EntityType>-->
+        <EntityType Name="my_aspnet_sessioncleanup">
+          <Key>
+            <PropertyRef Name="ApplicationId" />
+          </Key>
+          <Property Name="LastRun" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="IntervalMinutes" Type="int" Nullable="false" />
+          <Property Name="ApplicationId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="my_aspnet_sessions">
+          <Key>
+            <PropertyRef Name="SessionId" />
+            <PropertyRef Name="ApplicationId" />
+          </Key>
+          <Property Name="SessionId" Type="varchar" MaxLength="191" Nullable="false" />
+          <Property Name="ApplicationId" Type="int" Nullable="false" />
+          <Property Name="Created" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Expires" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="LockDate" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="LockId" Type="int" Nullable="false" />
+          <Property Name="Timeout" Type="int" Nullable="false" />
+          <Property Name="Locked" Type="bool" Nullable="false" />
+          <Property Name="SessionItems" Type="longblob" />
+          <Property Name="Flags" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="my_aspnet_users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="applicationId" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="isAnonymous" Type="bool" Nullable="false" />
+          <Property Name="lastActivityDate" Type="datetime" Precision="0" />
+        </EntityType>
+        <EntityType Name="my_aspnet_usersinroles">
+          <Key>
+            <PropertyRef Name="userId" />
+            <PropertyRef Name="roleId" />
+          </Key>
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="roleId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="order">
           <Key>
             <PropertyRef Name="orderId" />
@@ -143,6 +250,14 @@
           <Property Name="productDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="productId" Type="int" Nullable="false" />
           <Property Name="productSize" Type="double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="productsorderd">
+          <Key>
+            <PropertyRef Name="productsOrderdId" />
+          </Key>
+          <Property Name="productsOrderdId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="orderId" Type="int" Nullable="false" />
+          <Property Name="productSuppliedId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="productsupplied">
           <Key>
@@ -425,6 +540,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_ProductsOrderd_Order1">
+          <End Role="order" Type="Self.order" Multiplicity="1" />
+          <End Role="productsorderd" Type="Self.productsorderd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="order">
+              <PropertyRef Name="orderId" />
+            </Principal>
+            <Dependent Role="productsorderd">
+              <PropertyRef Name="orderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ProductsOrderd_ProductSupplied1">
+          <End Role="productsupplied" Type="Self.productsupplied" Multiplicity="1" />
+          <End Role="productsorderd" Type="Self.productsorderd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productsupplied">
+              <PropertyRef Name="productSuppliedId" />
+            </Principal>
+            <Dependent Role="productsorderd">
+              <PropertyRef Name="productSuppliedId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_ProductSuplied_Supplier1">
           <End Role="supplier" Type="Self.supplier" Multiplicity="1" />
           <End Role="productsupplied" Type="Self.productsupplied" Multiplicity="*" />
@@ -498,6 +637,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="pharmacyModelStoreContainer">
+          <EntitySet Name="aspnetusers" EntityType="Self.aspnetusers" Schema="pharmacy" store:Type="Tables" />
           <EntitySet Name="authorities" EntityType="Self.authorities" Schema="pharmacy" store:Type="Tables" />
           <EntitySet Name="borrowlend" EntityType="Self.borrowlend" Schema="pharmacy" store:Type="Tables" />
           <EntitySet Name="borrowlendstock" EntityType="Self.borrowlendstock" Schema="pharmacy" store:Type="Tables" />
@@ -506,12 +646,21 @@
           <EntitySet Name="designation" EntityType="Self.designation" Schema="pharmacy" store:Type="Tables" />
           <EntitySet Name="employee" EntityType="Self.employee" Schema="pharmacy" store:Type="Tables" />
           <EntitySet Name="employerstock" EntityType="Self.employerstock" Schema="pharmacy" store:Type="Tables" />
+          <EntitySet Name="my_aspnet_applications" EntityType="Self.my_aspnet_applications" Schema="pharmacy" store:Type="Tables" />
+          <EntitySet Name="my_aspnet_membership" EntityType="Self.my_aspnet_membership" Schema="pharmacy" store:Type="Tables" />
+          <EntitySet Name="my_aspnet_profiles" EntityType="Self.my_aspnet_profiles" Schema="pharmacy" store:Type="Tables" />
+          <EntitySet Name="my_aspnet_roles" EntityType="Self.my_aspnet_roles" Schema="pharmacy" store:Type="Tables" />
+          <EntitySet Name="my_aspnet_sessioncleanup" EntityType="Self.my_aspnet_sessioncleanup" Schema="pharmacy" store:Type="Tables" />
+          <EntitySet Name="my_aspnet_sessions" EntityType="Self.my_aspnet_sessions" Schema="pharmacy" store:Type="Tables" />
+          <EntitySet Name="my_aspnet_users" EntityType="Self.my_aspnet_users" Schema="pharmacy" store:Type="Tables" />
+          <EntitySet Name="my_aspnet_usersinroles" EntityType="Self.my_aspnet_usersinroles" Schema="pharmacy" store:Type="Tables" />
           <EntitySet Name="order" EntityType="Self.order" Schema="pharmacy" store:Type="Tables" />
           <EntitySet Name="orderdetail" EntityType="Self.orderdetail" Schema="pharmacy" store:Type="Tables" />
           <EntitySet Name="orderhistory" EntityType="Self.orderhistory" Schema="pharmacy" store:Type="Tables" />
           <EntitySet Name="orderstatus" EntityType="Self.orderstatus" Schema="pharmacy" store:Type="Tables" />
           <EntitySet Name="product" EntityType="Self.product" Schema="pharmacy" store:Type="Tables" />
           <EntitySet Name="productdetails" EntityType="Self.productdetails" Schema="pharmacy" store:Type="Tables" />
+          <EntitySet Name="productsorderd" EntityType="Self.productsorderd" Schema="pharmacy" store:Type="Tables" />
           <EntitySet Name="productsupplied" EntityType="Self.productsupplied" Schema="pharmacy" store:Type="Tables" />
           <EntitySet Name="sales" EntityType="Self.sales" Schema="pharmacy" store:Type="Tables" />
           <EntitySet Name="solditems" EntityType="Self.solditems" Schema="pharmacy" store:Type="Tables" />
@@ -590,6 +739,14 @@
           <AssociationSet Name="fk_productDetails_Product1" Association="Self.fk_productDetails_Product1">
             <End Role="product" EntitySet="product" />
             <End Role="productdetails" EntitySet="productdetails" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ProductsOrderd_Order1" Association="Self.fk_ProductsOrderd_Order1">
+            <End Role="order" EntitySet="order" />
+            <End Role="productsorderd" EntitySet="productsorderd" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ProductsOrderd_ProductSupplied1" Association="Self.fk_ProductsOrderd_ProductSupplied1">
+            <End Role="productsupplied" EntitySet="productsupplied" />
+            <End Role="productsorderd" EntitySet="productsorderd" />
           </AssociationSet>
           <AssociationSet Name="fk_ProductSuplied_Supplier1" Association="Self.fk_ProductSuplied_Supplier1">
             <End Role="supplier" EntitySet="supplier" />
@@ -730,6 +887,7 @@
           <NavigationProperty Name="orderstatu" Relationship="Self.fk_Order_OrderStatus1" FromRole="order" ToRole="orderstatus" />
           <NavigationProperty Name="orderhistories" Relationship="Self.fk_OrderHistory_Order1" FromRole="order" ToRole="orderhistory" />
           <NavigationProperty Name="orderdetails" Relationship="pharmacyModel.fk_OrderDetail_Order1" FromRole="order" ToRole="orderdetail" />
+          <NavigationProperty Name="productsorderds" Relationship="pharmacyModel.fk_ProductsOrderd_Order1" FromRole="order" ToRole="productsorderd" />
         </EntityType>
         <EntityType Name="orderdetail">
           <Key>
@@ -800,6 +958,7 @@
           <NavigationProperty Name="productdetail" Relationship="Self.fk_product_suplied_ProductDetails1" FromRole="productsupplied" ToRole="productdetails" />
           <NavigationProperty Name="supplier" Relationship="Self.fk_ProductSuplied_Supplier1" FromRole="productsupplied" ToRole="supplier" />
           <NavigationProperty Name="orderdetails" Relationship="pharmacyModel.fk_OrderDetail_ProductSupplied1" FromRole="productsupplied" ToRole="orderdetail" />
+          <NavigationProperty Name="productsorderds" Relationship="pharmacyModel.fk_ProductsOrderd_ProductSupplied1" FromRole="productsupplied" ToRole="productsorderd" />
         </EntityType>
         <EntityType Name="sale">
           <Key>
@@ -1253,6 +1412,24 @@
             <End Role="productsupplied" EntitySet="productsupplieds" />
             <End Role="orderdetail" EntitySet="orderdetails" />
           </AssociationSet>
+          <EntitySet Name="aspnetusers" EntityType="pharmacyModel.aspnetuser" />
+          <EntitySet Name="my_aspnet_applications" EntityType="pharmacyModel.my_aspnet_applications" />
+          <EntitySet Name="my_aspnet_membership" EntityType="pharmacyModel.my_aspnet_membership" />
+          <EntitySet Name="my_aspnet_profiles" EntityType="pharmacyModel.my_aspnet_profiles" />
+          <EntitySet Name="my_aspnet_roles" EntityType="pharmacyModel.my_aspnet_roles" />
+          <EntitySet Name="my_aspnet_sessioncleanup" EntityType="pharmacyModel.my_aspnet_sessioncleanup" />
+          <EntitySet Name="my_aspnet_sessions" EntityType="pharmacyModel.my_aspnet_sessions" />
+          <EntitySet Name="my_aspnet_users" EntityType="pharmacyModel.my_aspnet_users" />
+          <EntitySet Name="my_aspnet_usersinroles" EntityType="pharmacyModel.my_aspnet_usersinroles" />
+          <EntitySet Name="productsorderds" EntityType="pharmacyModel.productsorderd" />
+          <AssociationSet Name="fk_ProductsOrderd_Order1" Association="pharmacyModel.fk_ProductsOrderd_Order1">
+            <End Role="order" EntitySet="orders" />
+            <End Role="productsorderd" EntitySet="productsorderds" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ProductsOrderd_ProductSupplied1" Association="pharmacyModel.fk_ProductsOrderd_ProductSupplied1">
+            <End Role="productsupplied" EntitySet="productsupplieds" />
+            <End Role="productsorderd" EntitySet="productsorderds" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="fk_OrderDetail_Order1">
           <End Type="pharmacyModel.order" Role="order" Multiplicity="1" />
@@ -1274,6 +1451,142 @@
               <PropertyRef Name="productSuppliedId" />
             </Principal>
             <Dependent Role="orderdetail">
+              <PropertyRef Name="productSuppliedId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="aspnetuser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="PasswordHash" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="SecurityStamp" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Discriminator" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="my_aspnet_applications">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="my_aspnet_membership">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Comment" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="PasswordKey" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="PasswordFormat" Type="SByte" />
+          <Property Name="PasswordQuestion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PasswordAnswer" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="IsApproved" Type="Boolean" />
+          <Property Name="LastActivityDate" Type="DateTime" />
+          <Property Name="LastLoginDate" Type="DateTime" />
+          <Property Name="LastPasswordChangedDate" Type="DateTime" />
+          <Property Name="CreationDate" Type="DateTime" />
+          <Property Name="IsLockedOut" Type="Boolean" />
+          <Property Name="LastLockedOutDate" Type="DateTime" />
+          <Property Name="FailedPasswordAttemptCount" Type="Int64" />
+          <Property Name="FailedPasswordAttemptWindowStart" Type="DateTime" />
+          <Property Name="FailedPasswordAnswerAttemptCount" Type="Int64" />
+          <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="my_aspnet_profiles">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="valueindex" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="stringdata" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="binarydata" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="lastUpdatedDate" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="my_aspnet_roles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="applicationId" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="my_aspnet_sessioncleanup">
+          <Key>
+            <PropertyRef Name="ApplicationId" />
+          </Key>
+          <Property Name="LastRun" Type="DateTime" Nullable="false" />
+          <Property Name="IntervalMinutes" Type="Int32" Nullable="false" />
+          <Property Name="ApplicationId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="my_aspnet_sessions">
+          <Key>
+            <PropertyRef Name="SessionId" />
+            <PropertyRef Name="ApplicationId" />
+          </Key>
+          <Property Name="SessionId" Type="String" Nullable="false" MaxLength="191" FixedLength="false" Unicode="false" />
+          <Property Name="ApplicationId" Type="Int32" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" />
+          <Property Name="Expires" Type="DateTime" Nullable="false" />
+          <Property Name="LockDate" Type="DateTime" Nullable="false" />
+          <Property Name="LockId" Type="Int32" Nullable="false" />
+          <Property Name="Timeout" Type="Int32" Nullable="false" />
+          <Property Name="Locked" Type="Boolean" Nullable="false" />
+          <Property Name="SessionItems" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Flags" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="my_aspnet_users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="applicationId" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="isAnonymous" Type="Boolean" Nullable="false" />
+          <Property Name="lastActivityDate" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="my_aspnet_usersinroles">
+          <Key>
+            <PropertyRef Name="userId" />
+            <PropertyRef Name="roleId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="roleId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="productsorderd">
+          <Key>
+            <PropertyRef Name="productsOrderdId" />
+          </Key>
+          <Property Name="productsOrderdId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="orderId" Type="Int32" Nullable="false" />
+          <Property Name="productSuppliedId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="order" Relationship="pharmacyModel.fk_ProductsOrderd_Order1" FromRole="productsorderd" ToRole="order" />
+          <NavigationProperty Name="productsupplied" Relationship="pharmacyModel.fk_ProductsOrderd_ProductSupplied1" FromRole="productsorderd" ToRole="productsupplied" />
+        </EntityType>
+        <Association Name="fk_ProductsOrderd_Order1">
+          <End Type="pharmacyModel.order" Role="order" Multiplicity="1" />
+          <End Type="pharmacyModel.productsorderd" Role="productsorderd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="order">
+              <PropertyRef Name="orderId" />
+            </Principal>
+            <Dependent Role="productsorderd">
+              <PropertyRef Name="orderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ProductsOrderd_ProductSupplied1">
+          <End Type="pharmacyModel.productsupplied" Role="productsupplied" Multiplicity="1" />
+          <End Type="pharmacyModel.productsorderd" Role="productsorderd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productsupplied">
+              <PropertyRef Name="productSuppliedId" />
+            </Principal>
+            <Dependent Role="productsorderd">
               <PropertyRef Name="productSuppliedId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1506,6 +1819,124 @@
                 <ScalarProperty Name="userName" ColumnName="userName" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="enabled" ColumnName="enabled" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnetusers">
+            <EntityTypeMapping TypeName="pharmacyModel.aspnetuser">
+              <MappingFragment StoreEntitySet="aspnetusers">
+                <ScalarProperty Name="Discriminator" ColumnName="Discriminator" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="my_aspnet_applications">
+            <EntityTypeMapping TypeName="pharmacyModel.my_aspnet_applications">
+              <MappingFragment StoreEntitySet="my_aspnet_applications">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="my_aspnet_membership">
+            <EntityTypeMapping TypeName="pharmacyModel.my_aspnet_membership">
+              <MappingFragment StoreEntitySet="my_aspnet_membership">
+                <ScalarProperty Name="FailedPasswordAnswerAttemptWindowStart" ColumnName="FailedPasswordAnswerAttemptWindowStart" />
+                <ScalarProperty Name="FailedPasswordAnswerAttemptCount" ColumnName="FailedPasswordAnswerAttemptCount" />
+                <ScalarProperty Name="FailedPasswordAttemptWindowStart" ColumnName="FailedPasswordAttemptWindowStart" />
+                <ScalarProperty Name="FailedPasswordAttemptCount" ColumnName="FailedPasswordAttemptCount" />
+                <ScalarProperty Name="LastLockedOutDate" ColumnName="LastLockedOutDate" />
+                <ScalarProperty Name="IsLockedOut" ColumnName="IsLockedOut" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="LastPasswordChangedDate" ColumnName="LastPasswordChangedDate" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="PasswordAnswer" ColumnName="PasswordAnswer" />
+                <ScalarProperty Name="PasswordQuestion" ColumnName="PasswordQuestion" />
+                <ScalarProperty Name="PasswordFormat" ColumnName="PasswordFormat" />
+                <ScalarProperty Name="PasswordKey" ColumnName="PasswordKey" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="my_aspnet_profiles">
+            <EntityTypeMapping TypeName="pharmacyModel.my_aspnet_profiles">
+              <MappingFragment StoreEntitySet="my_aspnet_profiles">
+                <ScalarProperty Name="lastUpdatedDate" ColumnName="lastUpdatedDate" />
+                <ScalarProperty Name="binarydata" ColumnName="binarydata" />
+                <ScalarProperty Name="stringdata" ColumnName="stringdata" />
+                <ScalarProperty Name="valueindex" ColumnName="valueindex" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="my_aspnet_roles">
+            <EntityTypeMapping TypeName="pharmacyModel.my_aspnet_roles">
+              <MappingFragment StoreEntitySet="my_aspnet_roles">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="applicationId" ColumnName="applicationId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="my_aspnet_sessioncleanup">
+            <EntityTypeMapping TypeName="pharmacyModel.my_aspnet_sessioncleanup">
+              <MappingFragment StoreEntitySet="my_aspnet_sessioncleanup">
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="IntervalMinutes" ColumnName="IntervalMinutes" />
+                <ScalarProperty Name="LastRun" ColumnName="LastRun" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="my_aspnet_sessions">
+            <EntityTypeMapping TypeName="pharmacyModel.my_aspnet_sessions">
+              <MappingFragment StoreEntitySet="my_aspnet_sessions">
+                <ScalarProperty Name="Flags" ColumnName="Flags" />
+                <ScalarProperty Name="SessionItems" ColumnName="SessionItems" />
+                <ScalarProperty Name="Locked" ColumnName="Locked" />
+                <ScalarProperty Name="Timeout" ColumnName="Timeout" />
+                <ScalarProperty Name="LockId" ColumnName="LockId" />
+                <ScalarProperty Name="LockDate" ColumnName="LockDate" />
+                <ScalarProperty Name="Expires" ColumnName="Expires" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="my_aspnet_users">
+            <EntityTypeMapping TypeName="pharmacyModel.my_aspnet_users">
+              <MappingFragment StoreEntitySet="my_aspnet_users">
+                <ScalarProperty Name="lastActivityDate" ColumnName="lastActivityDate" />
+                <ScalarProperty Name="isAnonymous" ColumnName="isAnonymous" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="applicationId" ColumnName="applicationId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="my_aspnet_usersinroles">
+            <EntityTypeMapping TypeName="pharmacyModel.my_aspnet_usersinroles">
+              <MappingFragment StoreEntitySet="my_aspnet_usersinroles">
+                <ScalarProperty Name="roleId" ColumnName="roleId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="productsorderds">
+            <EntityTypeMapping TypeName="pharmacyModel.productsorderd">
+              <MappingFragment StoreEntitySet="productsorderd">
+                <ScalarProperty Name="productSuppliedId" ColumnName="productSuppliedId" />
+                <ScalarProperty Name="orderId" ColumnName="orderId" />
+                <ScalarProperty Name="productsOrderdId" ColumnName="productsOrderdId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -10,107 +10,112 @@ using PharmacyManagmentSystem.Models;
 
 namespace PharmacyManagmentSystem.Controllers
 {
-    public class SupplierController : Controller
+    public class DesignationController : Controller
     {
         private pharmacyEntities db = new pharmacyEntities();
 
-        // GET: /Supplier/
+        // GET: /Designation/
         public ActionResult Index()
         {
-            return View(db.suppliers.ToList());
+            var designations = db.designations.Include(d => d.designation2);
+            return View(designations.ToList());
         }
 
-        // GET: /Supplier/Details/5
+        // GET: /Designation/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            supplier supplier = db.suppliers.Find(id);
-            if (supplier == null)
+            designation designation = db.designations.Find(id);
+            if (designation == null)
             {
                 return HttpNotFound();
             }
-            return View(supplier);
+            return View(designation);
         }
 
-        // GET: /Supplier/Create
+        // GET: /Designation/Create
         public ActionResult Create()
         {
+            ViewBag.parentDesignationId = new SelectList(db.designations, "designationId", "designation1");
             return View();
         }
 
-        // POST: /Supplier/Create
+        // POST: /Designation/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="supplierId,supplierName,supplierContactNumber,supplierEmail")] supplier supplier)
+        public ActionResult Create([Bind(Include="designationId,designation1,level,parentDesignationId")] designation designation)
         {
             if (ModelState.IsValid)
             {
-                db.suppliers.Add(supplier);
+                db.designations.Add(designation);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(supplier);
+            ViewBag.parentDesignationId = new SelectList(db.designations, "designationId", "designation1", designation.parentDesignationId);
+            return View(designation);
         }
 
-        // GET: /Supplier/Edit/5
+        // GET: /Designation/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            supplier supplier = db.suppliers.Find(id);
-            if (supplier == null)
+            designation designation = db.designations.Find(id);
+            if (designation == null)
             {
                 return HttpNotFound();
             }
-            return View(supplier);
+            ViewBag.parentDesignationId = new SelectList(db.designations, "designationId", "designation1", designation.parentDesignationId);
+            return View(designation);
         }
 
-        // POST: /Supplier/Edit/5
+        // POST: /Designation/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="supplierId,supplierName,supplierContactNumber,supplierEmail")] supplier supplier)
+        public ActionResult Edit([Bind(Include="designationId,designation1,level,parentDesignationId")] designation designation)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(supplier).State = EntityState.Modified;
+                db.Entry(designation).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(supplier);
+            ViewBag.parentDesignationId = new SelectList(db.designations, "designationId", "designation1", designation.parentDesignationId);
+            return View(designation);
         }
 
-        // GET: /Supplier/Delete/5
+        // GET: /Designation/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            supplier supplier = db.suppliers.Find(id);
-            if (supplier == null)
+            designation designation = db.designations.Find(id);
+            if (designation == null)
             {
                 return HttpNotFound();
             }
-            return View(supplier);
+            return View(designation);
         }
 
-        // POST: /Supplier/Delete/5
+        // POST: /Designation/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            supplier supplier = db.suppliers.Find(id);
-            db.suppliers.Remove(supplier);
+            designation designation = db.designations.Find(id);
+            db.designations.Remove(designation);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

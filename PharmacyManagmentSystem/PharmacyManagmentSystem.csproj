@@ -130,20 +130,20 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
-    <Compile Include="Controllers\CreatAnOrderController.cs" />
+    <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\DesignationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OrderAndHistoryController.cs" />
-    <Compile Include="Controllers\OrderController.cs" />
-    <Compile Include="Controllers\PlaceAnOrderController.cs" />
-    <Compile Include="Controllers\ProductSuppliedController.cs" />
-    <Compile Include="Controllers\SupplierController.cs" />
     <Compile Include="DAL\NextOrderStatus.cs" />
     <Compile Include="DAL\OrderTableStructure.cs" />
     <Compile Include="DAL\PharmacyDAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnetuser.cs">
+      <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\authority.cs">
       <DependentUpon>pharmacy.tt</DependentUpon>
@@ -167,6 +167,30 @@
       <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\employerstock.cs">
+      <DependentUpon>pharmacy.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\my_aspnet_applications.cs">
+      <DependentUpon>pharmacy.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\my_aspnet_membership.cs">
+      <DependentUpon>pharmacy.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\my_aspnet_profiles.cs">
+      <DependentUpon>pharmacy.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\my_aspnet_roles.cs">
+      <DependentUpon>pharmacy.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\my_aspnet_sessioncleanup.cs">
+      <DependentUpon>pharmacy.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\my_aspnet_sessions.cs">
+      <DependentUpon>pharmacy.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\my_aspnet_users.cs">
+      <DependentUpon>pharmacy.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\my_aspnet_usersinroles.cs">
       <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\order.cs">
@@ -200,6 +224,9 @@
       <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\productdetail.cs">
+      <DependentUpon>pharmacy.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\productsorderd.cs">
       <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\productsupplied.cs">
@@ -339,21 +366,23 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\PlaceAnOrder\LoadCategory.cshtml" />
     <Content Include="Views\Category\Create.cshtml" />
     <Content Include="Views\Category\Delete.cshtml" />
     <Content Include="Views\Category\Details.cshtml" />
     <Content Include="Views\Category\Edit.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
-    <Content Include="Views\Login\Login.cshtml" />
-    <Content Include="Views\Order\Create.cshtml" />
-    <Content Include="Views\Order\Delete.cshtml" />
-    <Content Include="Views\Order\Details.cshtml" />
-    <Content Include="Views\Order\Edit.cshtml" />
-    <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\OrderAndHistory\OrderIndex.cshtml" />
     <Content Include="Views\OrderAndHistory\LoadCategory.cshtml" />
     <Content Include="Views\OrderAndHistory\Edit.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Department\Create.cshtml" />
+    <Content Include="Views\Department\Details.cshtml" />
+    <Content Include="Views\Department\Edit.cshtml" />
+    <Content Include="Views\Department\Index.cshtml" />
+    <Content Include="Views\Designation\Create.cshtml" />
+    <Content Include="Views\Designation\Details.cshtml" />
+    <Content Include="Views\Designation\Edit.cshtml" />
+    <Content Include="Views\Designation\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
