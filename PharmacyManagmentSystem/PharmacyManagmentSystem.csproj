@@ -142,9 +142,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\aspnetuser.cs">
-      <DependentUpon>pharmacy.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\authority.cs">
       <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>
@@ -167,30 +164,6 @@
       <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\employerstock.cs">
-      <DependentUpon>pharmacy.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\my_aspnet_applications.cs">
-      <DependentUpon>pharmacy.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\my_aspnet_membership.cs">
-      <DependentUpon>pharmacy.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\my_aspnet_profiles.cs">
-      <DependentUpon>pharmacy.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\my_aspnet_roles.cs">
-      <DependentUpon>pharmacy.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\my_aspnet_sessioncleanup.cs">
-      <DependentUpon>pharmacy.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\my_aspnet_sessions.cs">
-      <DependentUpon>pharmacy.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\my_aspnet_users.cs">
-      <DependentUpon>pharmacy.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\my_aspnet_usersinroles.cs">
       <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\order.cs">
@@ -224,9 +197,6 @@
       <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\productdetail.cs">
-      <DependentUpon>pharmacy.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\productsorderd.cs">
       <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\productsupplied.cs">
@@ -384,6 +354,8 @@
     <Content Include="Views\Designation\Details.cshtml" />
     <Content Include="Views\Designation\Edit.cshtml" />
     <Content Include="Views\Designation\Index.cshtml" />
+    <Content Include="Views\Account\SignIn.cshtml" />
+    <Content Include="Views\OrderAndHistory\ReciveOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

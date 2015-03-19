@@ -17,7 +17,6 @@ namespace PharmacyManagmentSystem.Models
         public productsupplied()
         {
             this.orderdetails = new HashSet<orderdetail>();
-            this.productsorderds = new HashSet<productsorderd>();
         }
     
         public int productSuppliedId { get; set; }
@@ -27,6 +26,5 @@ namespace PharmacyManagmentSystem.Models
         public virtual productdetail productdetail { get; set; }
         public virtual supplier supplier { get; set; }
         public virtual ICollection<orderdetail> orderdetails { get; set; }
-        public virtual ICollection<productsorderd> productsorderds { get; set; }
     }
 }

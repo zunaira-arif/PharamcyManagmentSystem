@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "ReciveOrder";
+}
+
+<h2>Recive Order Form</h2>
+
+@using (Html.BeginForm())
+{
+    var grid = new WebGrid(Model, rowsPerPage: 5, canPage: true, canSort: true);
+    //var ordr = ViewData["newOrders"];
+    <br />
+   <br />
+   <label id="errorlable" style="color:red"></label>
+    <br />
+    <br />
+   
+    <div>
+        <div id="OrderGrid2" style="align-content:center;width:inherit;background-color:lightgoldenrodyellow;">
+            @grid.GetHtml(
+                tableStyle: "table",
+                headerStyle: "header",
+               columns: grid.Columns
+               (grid.Column("Id", "Sr. No"),
+               grid.Column("CategoryName", "Category"),
+               grid.Column("ProductName1", "Product"),
+               grid.Column("Size", "Size"),
+               grid.Column("SupplierName", "Supplier"),
+               grid.Column("Quantity", "Quantity Ordered"),
+               grid.Column(header:"Quentity Recived",format: @<input id="quentityRecive" type="number" style="width:100%" /> ),
+               grid.Column(header: "Quantity Accepted", format: @<input id="quantityAccepted" type="number" style="width:100%" /> ),
+               grid.Column(header: "Reciveing Date", format: @<input id="recivingDate" type="date" style="width:100%" /> ),
+               grid.Column(header: "Expire Date", format: @<input id="expireyDate" type="date" style="width:100%" /> ),
+               grid.Column(header: "Batch No", format: @<input id="batchNo" type="text"  style="width:100%" /> ),
+               grid.Column(header:"Save Item",format: @<a href="~/OrderAndHistory/SaveItem?id=@item.P_o_ID">Save</a>)
+               ), mode: WebGridPagerModes.Numeric)
+        </div>
+    </div>
+
+}

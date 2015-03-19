@@ -56,55 +56,15 @@
                 headerStyle: "header",
                columns:
                                 grid.Columns
-                                (grid.Column("employee.firstName", "Name"),
+                             (grid.Column("orderId", "Order ID"),
+                                grid.Column("employee.firstName", "Name"),
                                  grid.Column("orderDate", "Date"),
                                  grid.Column("orderstatu.statusName", "Status"),
                                  grid.Column(format: @<a href="~/OrderAndHistory/Edit?id=@item.orderId">Edit</a>),
-                                 grid.Column(format: @<a href="~/OrderAndHistory/LoadCategory?id=@item.orderId">View</a>)
+                                 grid.Column(format: @<a href="~/OrderAndHistory/LoadCategory?id=@item.orderId">View</a>),
+                                 grid.Column(format: @<a href="~/OrderAndHistory/ReciveOrder?id=@item.orderId">Recive Order</a>)
                    ), mode: WebGridPagerModes.Numeric)
                 </div>
-
-                <div id="oldTable">
-                    @*<table>
-                            <tr>
-                                <th>
-                                    @Html.Label("Order Date")
-                                </th>
-                                <th>
-                                    @Html.Label("Employee Name")
-                                </th>
-                                <th>
-                                    @Html.Label("Order Status")
-                                </th>
-                                <th>
-                                    @Html.Label("Order")
-                                </th>
-                            </tr>
-                            @foreach (var ordr in ViewData["Orders"] as List<PharmacyManagmentSystem.Models.order>)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => ordr.orderDate)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => ordr.employee.firstName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => ordr.orderstatu.statusName)
-
-                                    </td>
-                                    <td>
-                                        @Html.ActionLink("Edit", "Edit", new { id = ordr.orderId }) |
-                                        @Html.ActionLink("View", "LoadCategory", new { id = ordr.orderId })
-                                    </td>
-
-                                </tr>
-
-                            }
-
-                        </table>*@
-                </div>
-
             </div>
 
         }

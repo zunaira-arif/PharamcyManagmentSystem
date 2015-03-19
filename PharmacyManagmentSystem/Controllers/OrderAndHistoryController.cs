@@ -12,8 +12,7 @@ namespace PharmacyManagmentSystem.Controllers
         PharmacyDAL pdal = new PharmacyDAL();
 
         public ActionResult OrderIndex()
-        {                  
-            this.Session.Timeout = 1000;
+        {                
             ViewData["Orders"] = getorderEmployee();
             ViewData["Status"] = newstatus.GetNextOrderStatus(0);
             return View(ViewData["Orders"]);
@@ -54,6 +53,24 @@ namespace PharmacyManagmentSystem.Controllers
             int? orderID=int.Parse(this.Session["OrderID"].ToString());
             return RedirectToAction("LoadCategory/"+orderID);
         
+        }
+        public ActionResult SaveItem(int id)
+        {
+            pdal.SaveItem(id);
+            int? orderID = int.Parse(this.Session["OrderID"].ToString());
+            return RedirectToAction("LoadCategory/" + orderID);
+        
+        }
+        public ActionResult ReciveOrder(int? id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+            this.Session["OrderID"] = id;
+            List<OrderTableStructure> itemList = pdal.GetOrderDetails(id);
+            ViewData["orderItemS"] = itemList;
+            return View(ViewData["orderItemS"]);
         }
       
         #region Addnewitems

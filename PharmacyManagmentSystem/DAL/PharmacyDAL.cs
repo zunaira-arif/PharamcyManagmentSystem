@@ -224,6 +224,11 @@ namespace PharmacyManagmentSystem.DAL
            int i = 0;        
         }
 
+        public void SaveItem(int id)
+        { 
+        
+        }
+
         #endregion
        
         #region Department
@@ -254,7 +259,29 @@ namespace PharmacyManagmentSystem.DAL
         #region Designation
         
         #endregion
-              
+
+        #region Login
+        public string Login(string username, string Password)
+        {
+            string s = "invalid";
+            var hashedpassword = Crypto.Hash(Password, "MD5");
+            user User = db.users.Where(u=>u.userName ==username && u.password ==hashedpassword ).FirstOrDefault();
+            if (User != null && User.enabled == true)
+            {
+               
+                s = "valid user";
+            
+            }
+            
+             return s;
+        }
+       public void SignOut()
+        {
+        
+        }
+
+        #endregion
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
